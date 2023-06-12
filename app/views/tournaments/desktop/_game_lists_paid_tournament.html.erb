@@ -1,0 +1,78 @@
+<div class="mt-3 container tournaments-status">
+  <div class="tournaments-status__select">
+    <a class="pull-left paid_tablinks text-uppercase desktop_paid_mine" status="desktop_paid_mine" onclick="selectedPaidTouraments(event, 'desktop_paid_mine')"><%= I18n.t('homepage.header.titles.my_tournaments')%></a>
+    <a class="paid_tablinks text-uppercase desktop_paid_ongoing" status="desktop_paid_ongoing" onclick="selectedPaidTouraments(event, 'desktop_paid_ongoing')"><%= I18n.t('tournaments.titles.ongoing_tournaments')%></a>
+    <a class="paid_tablinks active text-uppercase desktop_paid_upcoming" status="desktop_paid_upcoming" onclick="selectedPaidTouraments(event, 'desktop_paid_upcoming')"><%= I18n.t('tournaments.titles.upcoming_tournaments')%></a>
+    <a class="pull-right paid_tablinks text-uppercase desktop_paid_completed" status="desktop_paid_completed" onclick="selectedPaidTouraments(event, 'desktop_paid_completed')"><%= I18n.t('tournaments.titles.completed_tournaments')%></a>
+  </div>
+</div>
+
+<div class="tab-background container-fluid" id="desktop-paid">
+  <div id="desktop_paid_mine" class="paid_tabcontent container">
+    <% if @free_tournaments.present? && filtered_mine(@paid_tournaments).present? %>
+      <% filtered_mine(@paid_tournaments).each do |tournament| %>
+        <%= render partial: 'tournaments/desktop/single_paid_tournament', locals: {tournament: tournament, status: 'mine'} %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div id="desktop_paid_ongoing" class="paid_tabcontent container">
+    <% if @paid_tournaments.present? %>
+      <% @paid_tournaments.each do |tournament| %>
+        <% if ongoing_tournament(tournament) %>
+          <%= render partial: 'tournaments/desktop/single_paid_tournament', locals: {tournament: tournament, status: 'ongoing'} %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div id="desktop_paid_upcoming" class="paid_tabcontent container" style="display: block">
+    <% if @paid_tournaments.present? %>
+      <% @paid_tournaments.each do |tournament| %>
+        <% if upcoming_tournament(tournament) %>
+          <%= render partial: 'tournaments/desktop/single_paid_tournament', locals: {tournament: tournament, status: 'upcoming'} %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div id="desktop_paid_completed" class="paid_tabcontent container">
+    <% if @paid_tournaments.present? %>
+      <% @paid_tournaments.reverse.each do |tournament| %>
+        <% if completed_tournament(tournament) %>
+          <%= render partial: 'tournaments/desktop/single_paid_tournament', locals: {tournament: tournament, status: 'completed'} %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+  
+  <!-- <div class="mt-4 pb-4 text-center"> -->
+  <div class="pb-2 text-center">
+    <a href="#" class="round-border text-uppercase d-none"><%= I18n.t('tournaments.titles.more_tournaments')%></a>
+  </div>
+</div>
+
+<script>
+  function selectedPaidTouraments(evt, status) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("paid_tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("paid_tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    $("#" + status).show();
+    if (status.includes("desktop_")) {
+      status = status.replace('desktop_', '') 
+      $('#' + status).show()
+      $('a.' + status).addClass(' active')
+    } else {
+      status = 'desktop_' + status 
+      $('#' + status).show()
+      $('a.' + status).addClass(' active')
+    }
+    evt.currentTarget.className += " active";
+  }
+</script>

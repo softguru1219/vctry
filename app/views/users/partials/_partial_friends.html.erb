@@ -1,0 +1,44 @@
+<!-- <div class="home-mobile-resolution"> -->
+<div class="container mt-3 friend-lists">
+  <% if current_user.friend_requests.present? %>
+    <%= render partial: "users/partials/friend_requests", locals: {friends: current_user.friend_requests} %>
+  <% end %>
+  <div class="friends_title">
+    <span class><%= I18n.t('friends.titles.friend_list') %></span>
+  </div>
+  <div class="mt-3">
+    <% if friends.present? %>
+      <% friends.order("created_at ASC").each do |friend| %>
+        <div class="friend_lists">
+          <%= image_tag(current_friend(friend).avatar.url, :alt => "logo", :class=>"frend-icon") %>
+          <div class="d-inline-block ml-3 full-width">
+            <span><%= current_friend(friend).full_name %></span>
+            <% if current_friend(friend).subscriptions.present? %>
+              <%= image_tag("home/premium_mark.png", :alt => "premium_btn") %>
+            <% end %>
+            <div class="flex-center text-uppercase mt-1">
+              <div class="friend_lists__view_profile">
+                <a href="<%= user_path(current_friend(friend)) %>" class="friend-round-border text-uppercase">
+                  <%= I18n.t('homepage.titles.view') %> <%= I18n.t('homepage.titles.profile') %>
+                </a>
+              </div>
+              <div class="friend_lists__remove_profile">
+                <a href="<%= remove_friend_users_path(current_friend(friend)) %>" class="friend-round-border text-uppercase">
+                  <%= I18n.t('homepage.titles.remove') %>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="mt-5 text-center">
+        <%= image_tag "home/empty_friends.png", srcset: { "home/empty_friends@2x.png": "2x" } %>
+        <div class="mt-3 empty-text"><%= I18n.t('friends.titles.will_receive_request') %></div>
+        <div class="mt-4"><b><%= I18n.t('friends.titles.no_invite_friend').html_safe %></b></div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div id="search_result"></div>

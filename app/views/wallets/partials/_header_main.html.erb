@@ -1,0 +1,92 @@
+<div class="wallet">
+  <div class="mt-3">
+    <div class="container">
+      <div class="wallet__title"><%= I18n.t('wallets.titles.my_wallet') %></div>
+      <div class="mt-3 wallet__background flex-center">
+        <%= image_tag("home/wallet_bg@2x.png", :class=>"full-width") %>
+        <div class="wallet__balance empty-val">
+          <b><span class="large-balance"><%= current_balance.to_s.split(".")[0] %></span>.<%= current_balance.to_s.split(".")[1] %></b>€
+        </div>
+        <div class="balance-title"><%= I18n.t('homepage.titles.current_balance') %></div>
+        <div class="current-balance d-none"><%= current_balance %></div>
+      </div>
+      <div class="mt-3 row">
+        <div class="col-6">
+          <div class="wallet__payment active" id="deposit">
+            <a href="javascript:void(0)">
+              <%= image_tag("home/big_arrow_up@2x.png", :width=>"5%") %><span class="pl-3"><%= I18n.t('homepage.titles.deposit').capitalize %></span>
+            </a>
+          </div>
+          <div class="active-transaction text-center">
+            <div class="transaction">
+              <div class="transaction__counter">
+                <div class="transaction__title"><%= I18n.t('homepage.titles.deposit').capitalize %></div>
+                <input hidden="text" value="1" class="transaction-value" />
+                <div class="number mt-3 mb-2">
+                  <span class="minus">-</span>
+                  <input type="text" value="5"/>
+                  <span class="plus">+</span>
+                </div>
+              </div>
+              <div class="py-2 deposit-pay cursor-pointer"><%= I18n.t('homepage.titles.pay') %> <span class="total-value">5</span>€</div>
+            </div>
+          </div>
+          <div class="mt-2" id="deposit-btn"></div>
+        </div>
+        <div class="col-6">
+          <% if current_transactions.present? %>
+            <div class="wallet__payment withdraw active" id="withdraw">
+              <a href="javascript:void(0)">
+                <%= image_tag("home/big_arrow_down@2x.png", :width=>"5%") %>
+                <span class="pl-3"><%= I18n.t('homepage.titles.withdraw').capitalize %></span>
+              </a>
+            </div>
+            <div class="active-transaction text-center">
+              <div class="transaction">
+                <div class="transaction__counter">
+                  <div class="transaction__title"><%= I18n.t('homepage.titles.withdraw').capitalize %></div>
+                  <input hidden="text" value="1" class="transaction-value" />
+                  <div class="number mt-3 mb-2">
+                    <span class="minus">-</span>
+                    <input type="text" value="5"/>
+                    <span class="plus">+</span>
+                  </div>
+                </div>
+                <div class="py-2 withdraw-pay cursor-pointer"><%= I18n.t('homepage.titles.pay') %> <span class="total-value">5</span>€</div>
+                <input hidden="text" value="<%= current_user.payment %>" class="transaction-email"/>
+              </div>
+            </div>
+          <% else %>
+            <div class="wallet__payment wallet inactive">
+              <a href="javascript:void(0)">
+                <%= image_tag("home/inactive-arrow-down@2x.png", :width=>"5%") %>
+                <span class="pl-3"><%= I18n.t('homepage.titles.withdraw').capitalize %></span>
+              </a>
+            </div>
+          <% end %>
+        </div>
+        <div class="container withdraw-alert mt-3">
+          <div class="alert alert-danger alert-dismissible fade show">
+            <span><%= I18n.t('wallets.titles.before_withdraw') %> <a href="<%= edit_users_path %>" data-turbolinks="false"><%= I18n.t('wallets.titles.edit_profile')%></a></span>
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container wallet__history my-3 pb-3">
+      <div class="mt-3 wallet__history__title"><b><%= I18n.t('homepage.titles.history').capitalize %></b></div>
+      <div class="mt-3 text-center">
+        <% if current_transactions.present? %>
+          <% current_transactions.limit(2).order("created_at DESC").each do |ct| %>
+            <%= render partial: 'wallets/partials/header_wallet_active_history', locals: {ct: ct} %>
+          <% end %>
+        <% else %>
+          <%= render partial: 'wallets/partials/header_wallet_inactive_history' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<span class="d-none failed-wallet"><%= I18n.t('alert.titles.failed_wallet') %></span>
+<span class="d-none failed-deposit"><%= I18n.t('alert.titles.failed_deposit') %></span>

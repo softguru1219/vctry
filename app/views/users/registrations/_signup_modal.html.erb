@@ -1,0 +1,17 @@
+<div class="signup-overlay" id="signup_modal">
+  <div class="container mt-4 flex-center">
+    <div class="login-overlay--closebtn">
+      <%= link_to image_tag("home/signing_menu_close.png", :alt => "Menu_close"), root_path, :class => 'd-inline-block align-bottom mobile-menu-icon' %>
+    </div>
+  </div>
+  <div class="flex-center">
+    <div class="logo">
+      <%= image_tag("home/dark_logo.png", :alt => "logo") %>
+    </div>
+  </div>
+
+  <div class="signup_form container contain-padding">
+    <%= image_tag("home/signup_title.png", :alt => "signup_title") %>
+    <%= render partial: 'signup_form', resource: resource %>
+  </div>
+</div>

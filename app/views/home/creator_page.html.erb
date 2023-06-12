@@ -1,0 +1,29 @@
+<div class="home-mobile-resolution">
+  <div class="home-background flex-center content-creator">
+    <%= image_tag("home/creator_bg.png", :alt => "home_background", :class=>"full-width") %>
+    <div class="content-creator__game-bg">
+      <%= image_tag("home/Illustration.png", :alt => "premium_btn", :class=>"full-width", srcset: { "home/Illustration@2x.png": "2x" }) %>
+    </div>
+  </div>
+</div>
+<div class="desktop-resolution">
+  <div class="flex-center content-creator">
+    <%= image_tag("home/desktop/creator_bg.png", :alt => "home_background", :class=>"full-width") %>
+    <div class="content-creator__game-bg">
+      <%= image_tag("home/Illustration.png", srcset: { "home/Illustration@2x.png": "2x" }, :alt => "premium_btn", :class=>"full-width") %>
+    </div>
+  </div>
+</div>
+
+<% if flash[:notice].present? && flash[:notice] == I18n.t('flash.titles.thanks_requesting') %>
+  <%= render partial: "home/partials/success_content_creator"%>
+<% else %>
+  <%= render partial: "home/partials/main_content_creator"%>
+<% end %>
+<div class="home-mobile-resolution">
+  <%= render partial: 'home/partials/quotation' %>
+</div>
+
+<div class="desktop-resolution">
+  <%= render partial: 'home/desktop/quotation' %>
+</div>

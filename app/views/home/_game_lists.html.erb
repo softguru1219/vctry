@@ -1,0 +1,49 @@
+<div class="game-lists full-width">
+  <div class="blue font-20 text-center">
+    <b><%= I18n.t('tournaments.titles.popular_game')%></b>
+  </div>
+    <div class="row mt-1">
+      <div class="col-6 mt-2 left-game">
+        <a href="<%= tournaments_path(:fifa21) %>">
+          <div class="game-lists-img" style="background-image: url(<%= asset_path 'tournament/fifa21.jpg' %>)">
+          </div>
+        </a>
+      </div>
+      <div class="col-6 mt-2 right-game">
+        <a href="javascript:void(0)" class="inactive-cursor">
+          <div class="game-lists-img game-lists-inactive" style="background-image: url(<%= asset_path 'tournament/fall_guys.jpg' %>)">
+            <div class="comming-img-container"><%= I18n.t('tournaments.titles.coming_soon')%></div>
+          </div>
+        </a>
+      </div>
+      <div class="col-6 mt-2 left-game">
+        <a href="javascript:void(0)" class="inactive-cursor">
+          <div class="game-lists-img game-lists-inactive" style="background-image: url(<%= asset_path 'tournament/fortnite.jpg' %>)">
+            <div class="comming-img-container"><%= I18n.t('tournaments.titles.coming_soon')%></div>
+          </div>
+        </a>
+      </div>
+      <div class="col-6 mt-2 right-game">
+        <!-- <a href="javascript:void(0)"><#%= image_tag("tournament/game-4@2x.png", :alt => "game_3", :game=>"f1", :mode=>"mobile", :onClick=>"selectGame(event, 'game-4', 'f1', 'mobile')", :class=>"full-width game-tablinks", :style=>"border-radius: 10px;") %></a> -->
+        <a href="javascript:void(0)" class="inactive-cursor">
+          <div class="game-lists-img game-lists-inactive" style="background-image: url(<%= asset_path 'tournament/valorant.jpg' %>)">
+            <div class="comming-img-container"><%= I18n.t('tournaments.titles.coming_soon')%></div>
+          </div>
+        </a>
+      </div>
+      <div class="col-6 mt-2 left-game">
+        <a href="javascript:void(0)" class="inactive-cursor">
+          <div class="game-lists-img game-lists-inactive" style="background-image: url(<%= asset_path 'tournament/hearthstone.png' %>)">
+            <div class="comming-img-container"><%= I18n.t('tournaments.titles.coming_soon')%></div>
+          </div>  
+        </a>
+      </div>
+      <div class="col-6 mt-2 right-game">
+        <a href="javascript:void(0)" class="inactive-cursor">
+          <div class="game-lists-img game-lists-inactive" style="background-image: url(<%= asset_path 'tournament/rocket-league.jpg' %>)">
+            <div class="comming-img-container"><%= I18n.t('tournaments.titles.coming_soon')%></div>
+          </div>  
+        </a>
+      </div>
+    </div>
+</div>

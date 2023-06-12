@@ -1,0 +1,58 @@
+<div class="wallet">
+  <div class="container mt-3">
+    <div class="wallet__title">My Wallet</div>
+    <div class="mt-3 wallet__background flex-center">
+      <div class="desktop-resolution">
+        <%= image_tag("home/wallet_bg@2x.png", :class=>"full-width") %>
+      </div>
+      <div class="home-mobile-resolution">
+        <%= image_tag("home/wallet_bg@2x.png", :class=>"full-width") %>
+      </div>
+      <div class="wallet__balance empty-val">
+        <b><span class="large-balance"><%= current_balance.to_s.split(".")[0] %></span>.<%= current_balance.to_s.split(".")[1] %></b>€
+      </div>
+      <div class="balance-title">Current balance</div>
+      <div class="current-balance d-none"><%= current_balance %></div>
+    </div>
+
+    <div class="mt-3 row">
+      <div class="col-6">
+        <div class="wallet__payment active" id="deposit">
+          <a href="javascript:void(0)">
+            <%= image_tag("home/big_arrow_up@2x.png", :width=>"5%") %><span class="pl-3">Deposit</span>
+          </a>
+        </div>
+        <div id="deposit-btn"></div>
+      </div>
+      <div class="col-6">
+        <% if current_transactions.present? %>
+          <div class="wallet__payment withdraw active" id="withdraw">
+            <a href="javascript:void(0)">
+              <%= image_tag("home/big_arrow_down@2x.png", :width=>"5%") %>
+              <span class="pl-3">Withdraw</span>
+            </a>
+          </div>
+        <% else %>
+          <div class="wallet__payment wallet inactive">
+            <a href="javascript:void(0)">
+              <%= image_tag("home/inactive-arrow-down@2x.png", :width=>"5%") %>
+              <span class="pl-3">Withdraw</span>
+            </a>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="container-fluid wallet__history mt-3 pb-3">
+      <div class="mt-3 wallet__history__title"><b>History</b></div>
+      <div class="mt-3 text-center">
+        <% if current_transactions.present? %>
+          <% current_transactions.order("created_at ASC").each do |ct| %>
+            <%= render partial: 'users/partials/wallet_active_history', locals: {ct: ct} %>
+          <% end %>
+        <% else %>
+          <%= render partial: 'users/partials/wallet_inactive_history' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

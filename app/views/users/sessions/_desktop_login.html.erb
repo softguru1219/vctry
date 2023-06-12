@@ -1,0 +1,74 @@
+<div class="auth-panel__login pt-2 pb-3">
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {:class=>'needs-validation', novalidate: true}) do |f| %>
+    <% if flash['alert'] %>
+      <div class="container">
+        <div class="alert-message">
+          <div class="alert alert-danger alert-dismissible fade show">
+            <strong><%= I18n.t('errors.titles.warning')%></strong>
+            <% if requires_confirm(session, flash) == true %>
+              <span><%= flash['alert'] %> <%= link_to(I18n.t('alert.titles.resend_confirm_email'), user_confirmation_path(user: {:email => session[:email]}), :method => :post) %></span>
+            <% else %>
+              <span><%= flash['alert'] %></span>
+            <% end %>
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if flash['notice'] %>
+      <div class="container">
+        <div class="alert-success">
+          <div class="alert alert-success alert-dismissible fade show">
+            <span><%= flash['notice'] %></span>
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group wrap-input100">
+            <%= f.label :email, I18n.t('user.labels.email') %>
+            <%= f.email_field :email, autocomplete: "email", :class=>"input100 form-control", :placeholder=>I18n.t('user.placefolders.email'), :required=>true %>
+            <div class="invalid-feedback yellow">
+              <%= I18n.t('user.hints.email') %>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group wrap-input100">
+            <%= f.label :password, I18n.t('user.labels.password') %>
+            <%= f.password_field :password, autocomplete: "current-password", :class=>"input100 form-control", :placeholder=>I18n.t('user.placefolders.password'), :required=>true %>
+            <div class="invalid-feedback yellow">
+              <%= I18n.t('user.hints.password') %>
+            </div>
+            <% if devise_mapping.recoverable? %>
+              <div class="mt-1 text-uppercase">
+                <%= link_to I18n.t('user.titles.forgot_password.desktop'), new_password_path(resource_name), class: "forgot-password-title" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <input type="hidden" id="desktop" name="desktop" value="true">
+      <button type="submit" class="btn btn-default submit-button desktop-login" style="font-size: 0.7rem"><%= I18n.t('button.login') %></button>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  $('.desktop-login').click(function() {
+    var forms = document.getElementsByClassName('needs-validation');
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      });
+    });
+  });
+</script>

@@ -1,0 +1,91 @@
+<div class="container">
+  <div class="game-detail yello-background next-match">
+    <div class="game-detail__background" style="background-image: url(<%= asset_path @tournament.tournament_cover.url %>)">
+      <!-- <div class="background-full-image game-detail__background"> -->
+      <!-- <div class="background-full-image"> -->
+      <!-- <#%= image_tag("home/desktop/tournament_bg.png", :class=>"full-width") %>-->
+      <%= render partial: 'tournaments/desktop/next_game_detail_main_screen'%>
+      <div class="block-tnmt">
+        <div class="block-tnmt__row">
+          <div class="block-tnmt__item bottom-round--left" style="flex-direction: column" id="desktoppast_timer_<%= @tournament.id %>">
+            <div><%= I18n.t('tournaments.titles.registrations').capitalize %>: 
+              <span class="pl-1"><strong><%= I18n.t('homepage.titles.closed') %></strong></span>
+            </div>
+            <% if @tournament[:registration_closing_datetime] > Time.now.utc %>
+              <div><%= I18n.t('tournaments.titles.started').capitalize %> 
+                <span class="pl-1 clock"><strong></strong></span> <%= I18n.t('homepage.titles.ago') %>
+              </div>
+            <% end %>
+          </div>
+          <div class="block-tnmt__item bottom-round--right" style="flex-direction: column">
+            <div><%= I18n.t('homepage.titles.slots').capitalize %>: <span class="pl-1"><strong><%= slots_num(@tournament) %> / <%= @tournament[:size] %></strong></span></div>
+            <% if waiting_list(@tournament).present? %>
+              <div><%= I18n.t('homepage.titles.waiting_list') %>: <span class="pl-1"><strong><%= waiting_list(@tournament) %> </strong></div>
+            <% end %>
+          </div>
+        </div>
+        <% if @running_next_match.present? %>
+          <a href="<%= tournament_round_path(@tournament, @running_next_match) %>" class="full-width join-block">
+            <div class="join-tournament-btn">
+              <div><%= I18n.t('tournaments.titles.go_current_game') %></div>
+            </div>
+          </a>
+        <% elsif Match.delay_time(@next_match.scheduled_datetime, @participant) + 10.minutes > Time.now.utc %>
+          <a href="<%= tournament_round_path(@tournament, @next_match) %>" class="full-width join-block">
+            <div class="join-tournament-btn">
+              <div><%= I18n.t('tournaments.titles.go_next_game') %></div>
+              <% if status_check_in(@next_match) == false %>
+                <div id="desktop_match_check_timer_<%= @tournament.id %>">
+                  <div class="pt-2 text-initial" style="font-size: 0.7rem"><%= I18n.t('tournaments.titles.have_checkin_time').html_safe %> <%= another_player(@next_match) %></div>
+                </div>
+              <% end %>
+            </div>
+          </a>
+        <% else %>
+          <div class="join-tournament-btn">
+            <div id="desktop_match_check_timer_<%= @tournament.id %>">
+              <div class="pt-2 text-initial" style="font-size: 0.7rem"><%= I18n.t('tournaments.titles.missed_checkin')%> <%= another_player(@next_match) %> <%= I18n.t('tournaments.titles.default_lost')%></div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <%= render partial: 'tournaments/desktop/game_detail_content' %>
+</div>
+
+<script>
+  $(document).ready(function (){
+    match_check = "<%= @next_match.present? && status_check_in(@next_match) %>"
+    valid_match_check_time = "<%= @next_match.present? && (Match.delay_time(@next_match.scheduled_datetime, @participant) + 10.minutes > Time.now.utc) %>"
+    check_status = "<%= status_check_in(@match) == true %>"
+    match_status = "<%= @next_match.present? && @next_match.status %>"
+    check_running_next_match = "<%= @running_next_match.present? %>"
+
+    if (check_running_next_match == "false" && match_check == 'false') {
+      $('.next-match').addClass('next-match-panel')
+    }
+
+    setTimeout(function(){
+      past_time = $('.schedule-start').text();
+      new countDown({ clock : '#desktoppast_timer_<%= @tournament.id %>', startTime: past_time, elapse: true }).startTimer();
+      end_time = $('.match-schedule-time').text()
+      if (end_time.length > 0 && valid_match_check_time == 'true' && check_status == "false") {
+        new countDown({ clock : '#desktop_match_check_timer_<%= @tournament.id %>', startTime: end_time }).startTimer();
+      }
+      if (check_running_next_match == "true") {
+        end_time = $(".running_match-schedule-time").text()
+        new countDown({ clock : '#nextgame_desktoptimer_<%= @tournament.id %>', startTime: end_time }).startTimer(); 
+      }
+      else if (end_time.length > 0 && match_status == "pending" && valid_match_check_time == "true") {
+        new countDown({ clock : '#nextgame_desktoptimer_<%= @tournament.id %>', startTime: end_time }).startTimer(); 
+      }
+    }, 1000);
+  });
+</script>
+
+<script>
+  $(document).ready(function (){
+    $('.desktop-resolution .game_titles').css({"bottom": "8.2rem"});
+  })
+</script>

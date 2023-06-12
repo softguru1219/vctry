@@ -1,0 +1,527 @@
+---
+de:
+  active_admin:
+    dashboard: Dashboard
+    dashboard_welcome:
+      call_to_action: Call to action
+      welcome: Willkommen
+  date:
+    abbrDayNames: Abbrdaynames
+    abbrMonthNames: Abbrmonthnames
+    dayNames: Daynames
+    monthNames: Monthnames
+  home:
+    big_header: VCTRY
+
+  homepage:
+    titles:
+      mobile:
+        signedIn: Make a living<br> with Esports
+        signedOut: Make a living<br> with Esports
+        picks: FEATURED
+        tournaments: Alle Turniere
+      desktop: 
+        title: Make a living<br> with Esports
+        picks: FEATURED
+        tournaments: Zeige alle Turniere
+      main_text: Nimm an monatlich über 120<br> Preisgeldturnieren teil.
+      view_all: Anzeigen
+      checkout_tournaments: Sieh dir alle Turniere an
+      or: oder
+      tell_us_more: Sag uns mehr
+      cancel: Abbrechen
+      day: Tag
+      days: Tage
+      for: für
+      pay: bezahlen
+      per: pro
+      month: Monat
+      week: Woche
+      save: Spare
+      ago: her
+      slots: Slots
+      waiting_list: Warteliste
+      online: online
+      only: auschließlich
+      open: offen
+      closed: geschlossen
+      next: weiter
+      premium: Premium
+      current_balance: Aktuelles Guthaben
+      fee: Gebühr
+      missing_balance: Zu wenig Guthaben
+      deposit: einzahlen
+      prize_money: preisgeld
+      will_balance: Dein Guthaben wird
+      buy_in_title: buy-in
+      cash_buyin: buy in
+      cash_prize: Geldpreis
+      prize_pool: Preispool
+      standing_prize_pool: Preispools
+      prize: Preisgeld
+      the: der
+      before: vor
+      round: Runde
+      match: Match
+      game: Spiel
+      has: hat
+      ready: Bereit
+      winner: Gewinner
+      draw: UNENTSCHIEDEN
+      view: Profil
+      profile: anzeigen
+      hi: Herzlich 
+      there: willkommen
+      thank_join_vctry: Willkommen bei VCTRY.GG
+      by: by
+      germany: Deutschland
+      click: klick
+      here: hier
+      events: Events
+      all: alle
+      no_events: Keine Events
+      take_next_event: Mein nächster Event
+      show_all_events: Zeige mir alle Events
+      remove: entfernen
+      confirm: bestätigen
+      delete: löschen
+      clear: leeren
+      withdraw: auszahlen
+      history: Verlauf
+      tournament: Turnier
+      raffle: Gewinnspiel
+      of: des
+      years: Jahre
+      old: alt
+      past: vergangene
+      best: beste
+      results: Platzierungen
+      won: gewann
+      nickname: Benutzername
+      calendar: calendar
+      wallet: wallet
+      overlay_premium: <span class="overlay-premium-color">P</span>remium
+      settings: settings
+      page: Seite
+      subscribe: subscribe
+      full: kompletter
+      my: mein
+      complete: komplette
+      to: zu
+      win: Sieg
+      content_creator_code: content_create_code
+      full_history: kompletter Verlauf
+      view_friend_list: Freundesliste anzeigen
+
+    header:
+      titles:
+        search: Suche einen Benutzer...
+        my_profile: Mein Profil
+        my_tournaments: Meine Turniere
+        modify_profile: Profil anpassen
+        logout: Ausloggen
+
+    footer:
+      copyright:
+        site: VCTRY Esports UG
+        website: Website by
+        website_name: nekson
+      titles:
+        sitemap: Sitemap
+        home: Home
+        login: Log In
+        signup: Registrieren
+        about_name: About VCTRY
+        about: About
+        team: Das Team
+        jobs: Jobs
+        contact: Kontakt
+        faq: FAQ
+        help: Hilfe & Support
+        content_creator:
+          desktop: Du bist Content Creator?
+          mobile: Content Creators
+        media_kit: Unser Media-Kit
+        tournaments: Alle Turniere 
+        license: Die Turniere auf dieser Seite stehen nicht mit Electronic Arts Inc. oder seinen Lizenzgebern in Verbindung und werden nicht von diesen unterstützt.
+        terms_condition: AGB
+
+    content_creator:
+      title: Du bist ein Content Creator
+      content: Werde noch heute Partner und organisiere mit uns Turniere für deine Community!
+      main_content: Und du möchtest gemeinsam mit uns Turniere und Events veranstalten? Dann trage ganz einfach deine Daten ein und bewirb dich bei uns. Wir melden uns in Kürze zurück!
+      success_content:
+        title: Vielen Dank!
+        content: Wir haben deine Bewerbung erhalten und freuen uns darauf, sie durchzusehen. <br>Unser Partnerships Team wird in Kürze auf dich zukommen!
+      user:
+        labels:
+          discord: Discord oder Telefonnummer
+        placefolders: 
+          discord: Muster#1234 oder (040) 1111-1111
+        hints:
+          discord: Trage deine Discord ID oder deine Telefonnummer ein
+
+    premium:
+      title: 
+        desktop: Du willst uneingeschränkten Zugang zu Preisgeldturnieren?
+        mobile: Du willst Turniere spielen und</br>Preisgelder gewinnen?
+  
+  user:
+    labels:
+      username: Benutzername
+      email: E-Mail
+      password: Passwort
+      confirm_password: Password bestätigen
+      firstname: Vorname
+      lastname: Nachname
+      birthday: Geburtsdatum
+      address: Komplette Adresse
+      country: Land
+      discord: Trag deine DISCORD ID ein
+      psn: Trag deine PSN ID ein
+      xbox: Trag deine XBOX LIVE ID ein
+      steam: Trag deine STEAM ID ein
+      epic: Trag deine Epic Game ID ein
+      battle: Trag deine BATTLE TAG ein
+      language: Sprache
+      stream: Wo streamst du?
+      youtube: YouTube
+      twitch: Twitch
+      facebook: Facebook
+      mixer: Mixer
+      send_message: Schick uns eine Nachricht
+      new_password: Neues Passwort
+      confirm_new_password: Neues Passwort bestätigen
+
+    placefolders:
+      username: Trag deinen Benutzernamen ein
+      email: Trag deine E-Mail Adresse ein
+      password: Trag dein Passwort ein
+      confirm_password: Passwort wiederholen
+      firstname: Trag deinen Vornamen ein
+      lastname: Trag deinen Nachnamen ein
+      address: Trag deine volle Adresse ein
+      paypal: PAYPAL KONTO EINTRAGEN
+      discord: Trag deine DISCORD ID ein
+      language: Wähle deine Sprache(n)
+      youtube: Trag deinen YouTube-Namen ein
+      twitch: Trag deinen Twitch-Namen ein
+      facebook: Trag deinen Facebook-Namen ein
+      mixer: Trag deinen Mixer-Namen ein
+      country: Wähle dein Land
+    
+    hints:
+      username: Trag einen gültigen Benutzernamen ein
+      email: Trag eine gültige E-Mail Adresse ein
+      password: Mindestens einen Groß- und Kleinbuchstaben und 6 oder mehr Zeichen lang.
+      confirm_password: Passwörter stimmen nicht überein
+      firstname: Trag einen gültigen Vornamen ein
+      lastname: Trag einen gültigen Nachnamen ein
+      birthday: Trag ein gültiges Geburtsdatum ein
+      address: Trag eine gültige Adresse ein
+      country: Trag ein gültiges Land ein
+      discord: Trag eine gültige Discord ID ein
+      language: Trag eine gültige Sprache ein
+    
+    titles:
+      forgot_password:
+        mobile: Passwort vergessen?
+        desktop: Passwort vergessen?
+      no_have_account: Du hast noch kein Benutzerkonto?
+      have_account: Du hast bereits ein Benutzerkonto?
+      terms_agree: Du hast folgende Dinge gelesen und verstanden
+      terms_condition: AGB
+      privacy: Datenschutzerklärung
+      legal_notice: Impressum
+
+    edit:
+      titles:
+        complete_profile: Profil vervollständigen
+        step: Schritt
+        personal: PERSÖNLICH
+        payment: BEZAHLUNG
+        games: DEINE SPIELE
+        ids: DEINE GAME IDS
+        paypal_link: Verknüpfe dein PayPal-Konto</b> um Preisgelder<br/> auszahlen zu können
+        no_have_paypal: NOCH KEIN PAYPAL? <b>HIER ANMELDEN</b>
+        select_game: Welche Games spielst du?
+        select_id: Game IDs eintragen
+        change_password: Passwort ändern
+        forgot_password: Passwort vergessen
+        resent_confirmation: Bestätigungsanweisungen erneut versenden
+        photo_upload: Titelbild ändern
+        recommend_size: Empfohlene Größe
+        member_since: Registriert seit
+        edit_my_profile: Profil anpassen
+        unfriend: Freund entfernen
+        tournaments: Turniere
+        resend_confirmation: Resend confirmation
+  
+  premium:
+    titles:
+      renew_here: Hier erneuern
+      is_premium: Du bist <b><span class="yellow">P</span>remium</b>
+      payment_schedule: Nächste Zahlung fällig am
+      why_premium: Warum <b><span class="yellow">P</span>remium</b>?
+      money_access: <b><span class="yellow">Unbegrenzter Zugang</span> zu Preisgeldturnieren</b>
+      daily_raffle: <b><span class="yellow">Erhalte 5 x mehr</span> tägliche <br>Raffle Tickets</b> im Vergleich zu <br>Free-Usern
+      online_events: Zugang zu <b>Events sowohl <span class="yellow">online als auch offline</span></b>
+      content_creator: Unterstütze deinen <b>bevorzugten <span class="yellow">Content Creator</span></b>
+      premium_total: Erhalte <b>Zugang zu exklusivem <span class="yellow">P</span>remium Content</b>, Events und Raffles
+      creator_code: Content Creator <b>Code</b>
+      favorite_content: Unterstütze deinen bevorzugten Content Creator
+      placeholders:
+        enter_code: Code eintragen
+        enter_promo_code: Promo Code eintragen
+      creator_name: Danke, dass du %{current_creator} unterstützt!
+      premium_plan: Wähle dein <b><span class="yellow">P</span>remium</b> Produkt
+      onetime_purchase: <b>Einmalzahlung</b><br>(3 Optionen)
+      most_popular: Beliebtes Produkt
+      monthly_renewal: Monatlich wiederkehrend
+      cancel_renewal_title: Jederzeit kündbar
+      voucher_purchase: 
+        desktop: <b>Code kaufen</b><br>Verschenke Premium an einen Freund, an ein Teammate oder einen Zuschauer
+        mobile: <b>Code kaufen</b><br>Verschenke Premium an einen Freund, ein<br> Teammate, oder einen Zuschauer
+      promotion_coupon: <b>Promo-Code</b><br>Hast du einen Promo-Code zur Hand?
+      tax_sentence: Inklusive 16 % Mehrwertsteuer
+      vgo: Du hast keinen Paypal-Account und keine Kreditkarte? Dann kaufe dir Wochen- und Monatspässe bei unserem Partner VGO-Shop und nutze dort verschiedene Zahlungsmethoden wie z.B. Paysafecard, Sofortüberweisung, Maestro und viele andere.
+      vgo_banner_title: Click above to visit VGO
+      
+  tournaments:
+    titles:
+      browse_tournaments: Turniere anzeigen
+      choose_game: Wähle ein Spiel
+      popular_game: Popular Games
+      coming_soon: kommt bald...
+      free_tournaments: Freie Turniere
+      paid_tournaments: Buy-In Turniere
+      mine: Meine
+      ongoing: Laufende
+      upcoming: Kommende
+      completed: Beendete
+      ongoing_tournaments: Laufende Turniere
+      upcoming_tournaments: Kommende Turniere
+      completed_tournaments: Beendete Turniere
+      more_tournaments: Zeig mir mehr Turniere
+      event_start_in: Event beginnt in
+      event_started: Event startete
+      registrations: Anmeldungen
+      join_tournament: Turnier beitreten
+      check_profile: Klicke hier, um dein Profil anzupassen
+      join_tournament_title: Dem <b><span class="yellow">T</span>urnier</b> beitreten
+      start_in: startet in
+      started: gestartet
+      overview: Übersicht
+      participants: Teilnehmer
+      brackets: Turnierbaum
+      description: Beschreibung
+      structure: Turnier
+      contact: Kontakt
+      prize: Preisgeldverteilung
+      rules: Regelwerk
+      video: Video
+      share_tournament: Teile des Turnier
+      players: Spieler
+      more_players: Zeige mehr Spieler
+      login: Login
+      game_id: GAME ID
+      complete_info: Vervollständige deine Informationen
+      buyin_pay: Buy-in Betrag zahlen
+      premium_register: Du musst ein Premium-Mitglied sein, um an diesem Turnier teilnehmen zu können
+      buyin_price: Turnier Buy-in Preis
+      leave_tournament: Turnier verlassen
+      checkin_before: Einchecken innerhalb
+      checkin_closed: Check-in geschlossen
+      checkin_available: Check-in available in
+      checked_in: Du bist eingecheckt!
+      tournament_start_in: Das Turnier startet in
+      tournament_started: Der Turnierstart ist
+      match_progress: Die anderen Matches laufen. Du wirst benachrichtigt, wenn du an der Reihe bist.
+      no_match: Du bist leider ausgeschieden und hast keine weiteren Matches. Viel Glück beim nächsten Turnier!
+      go_current_game: Zum aktuellen Match
+      go_next_game: Zum nächsten Match
+      have_checkin_time: Du hast <span class="blue clock"></span> um einzuchecken gegen
+      missed_checkin: Du hast deinen Check-in verpasst gegen
+      default_lost: und automatisch verloren
+      have_to_checkin: Du musst einchecken
+      will_start_match: Das Match startet in
+      confirm_score: Wir bestätigen das Ergebnis mit 
+      minute_to_confirm: Minuten um zu bestätigen
+      have_to_confirm_score: Du musst das Ergebnis bestätigen
+      game_over: Das Match ist beendet
+      match_lasted: Das Match dauerte
+      game_completed: Das Match ist beendet
+      open_chat: Chat öffnen
+      call_admin: Admin anfordern
+      score_submit_available: Ergebniseintragung aktiv in
+      contact_discord: Wir öffnen nun deine Discord-Privatnachrichten. Bitte kontaktiere
+      enter_final_score: Trage das Endergebnis ein
+      confirm_final_score: Bestätige das Endergebnis
+      entered_final_score: Du hast das Endergebnis eingetragen!
+      confirming_final_score: Wir bestätigen mit
+      no_agree_final_score: Das Endergebnis stimmt nicht?
+      click_admin: Klick einfach auf den "Admin anfordern"-Button. Ein Admin wird dir im Chat helfen.
+      click_final_score: Hier klicken um das Endergebnis einzusehen
+      confirm_the_final_score: Bestätigst du das Endergebnis?
+      no_confirm_before: Wenn du nicht innerhalb von
+      auto_approve: annimmst, wird das Endergebnis automatisch angenommen.
+      complete_next_match: Dein Match ist beendet. Klick hier, um zu deinem nächsten Match zu gelangen.
+      complete_miss_match: Dein Match ist beendet. Klick hier, um zur Turnierübersicht zurück zu gehen.
+      view_all_the_winners: Gewinner anzeigen
+      final_standings: Warte auf die finalen Platzierungen
+      tournament_is_ongoing: Turnier ist laufende
+      protection: Trag eine gültige password
+      join_confirm_buyin: Do you want to spend
+      from_tournament: from your wallet to join (tournament)?
+      deposit_confirm: Do you want to deposit
+      to_wallet: to your wallet?
+      
+  friends:
+    titles:
+      search_friend: Suche nach Freunden
+      waiting_confirmation: Warte auf Bestätigung
+      add_friend: Freund hinzufügen
+      friend_list: Freundesliste anzeigen
+      will_receive_request: Auf dieser Seite findest du deine Freundesliste und eingehende Freundschaftsanfragen.
+      no_invite_friend: Noch keine Freunde hinzugefügt.<br>Lade deine Freunde ein, VCTRY beizutreten!
+      requests_friend: Freundschaftsanfragen
+
+  notifications:
+    titles:
+      notification_title: Benachrichtigungen
+      inform_notification: Auf dieser Seite benachrichtigen wir dich<br> über Aktionen von dir und deinen Freunden auf<br> VCTRY.GG
+      no_notification: Du hast noch<br> keine Benachrichtigungen
+      all_notifications: Benachrichtigungen anzeigen
+  
+  wallets:
+    titles:
+      my_wallet: Mein Wallet
+      before_withdraw: Du musst dich vor einer Abhebung bei PayPal einloggen.
+      edit_profile: Hier klicken, um dein Profil anzupassen.
+      premium_purchase: Kauf von Premium
+      buy_in_title: Buy-in
+      first_deposit: Lade dein Konto auf<br> um auf der Seite zu bezahlen.
+      no_history: Du hast noch keine Transaktionen getätigt.
+      
+  raffles:
+    titles:
+      daily_raffle: Tägliches Raffle
+      no_raffle: Zurzeit ist kein Raffle verfügbar
+      winners_of: Gewinner der
+      past_raffle: Vergangenen Raffle
+      ends_in: Endet in
+      need_to_least: Du benötigst mindestens
+      enter_ticket: Tickets, um am Raffle teilnehmen zu können.
+      brand_name: Name der Brand
+      social_media: Unsere Social Medias
+      sponsor_banner: Sponsoren-Banner hier
+      my_raffle_ticket: Meine Raffle Tickets
+      redeemed_ticket: Du hast deine Tickets für heute<br>bereits abgerufen!
+      get_my_ticket: Tickets abholen
+      yesterday_raffle: Gewinner vom gestrigen Raffle
+      all_past_raffles: Zeige alle vergangenen Raffles
+      congrat_subscribe_raffle: Glückwunsch!<br>Du nimmst am Raffle teil
+      luck_winner: Den oder die glücklichen Gewinner ziehen wir in
+      subscribe_raffle: Mach mit
+      selecting_ticket: und wähle die Anzahl der Tickets, die du ausgeben möchtest
+      generate_winner: Generate winners
+      no_participants: No participants exists in this raffle
+      prizes: Preise
+      view_raffle_page: Raffle-Seite anzeigen
+  
+  event:
+    titles:
+      vctry_pack_race: vctry pack race
+      event_powered_by: event powered by
+      
+  notification:
+    titles:
+      message: Dein nächstes Match ist bereit. Klicke hier, um zum Check-in zu gelangen.
+      
+  button:
+    login: JETZT EINLOGGEN
+    signup: JETZT REGISTRIEREN
+    continue: Weiter
+    step: GEHE ZU SCHRITT
+    save_complete: SPEICHERN & MEINE REGISTRIERUNG FERTIGSTELLEN
+    apply_here: Hier bewerben
+    send_partnership: Partner-Anfrage abschicken
+    premium: JETZT <span class="yellow">P</span>REMIUM WERDEN
+    premium_active_code: Code aktivieren
+    use_wallet: Guthaben nutzen
+    final_registration: 
+      mobile: Registrierung fertigstellen
+      desktop: Registrierung fertigstellen
+    checkin_btn: Check-in
+    change_my_password: Passwort ändern
+    reset_password: Anweisungen zum Zurücksetzen meines Passworts senden
+    resend_confirmation: Anweisungen erneut senden
+    save_my_picture: Foto speichern
+
+  errors:
+    titles:
+      warning: Warnung!
+      discord: Diese Discord ID wird bereits von einem anderen User benutzt.
+      psn: Diese PSN ID wird bereits von einem anderen User benutzt.
+      xbox: Diese XBOX LIVE ID wird bereits von einem anderen User benutzt.
+      steam: Diese Steam ID wird bereits von einem anderen User benutzt.
+      battle: Dieser Battle Tag wird bereits von einem anderen User benutzt.
+      discord_id: DISCORD ID
+      psn_id: PSN ID
+      xbox_id: XBOX Live ID
+      steam_id: STEAM ID
+      epic_id: Epic Game ID
+      cover_dimension: Please select a file equal or bigger than 1440px x 360px
+      cover_size: Tile too Big, please select a file less than 5MB
+      tournament_protection: Enter a valid password
+
+  alert:
+    titles:
+      success_premium: Dein Kauf war erfolgreich
+      failed_premium: Dein Kauf ist fehlgeschlagen
+      success_voucher_email: Deine Codes wurden dir per E-Mail zugeschickt.
+      cancel_renewal: Schade, dass du gehst. Deine wiederkehrende Mitgliedschaft wird zum Ende des aktuellen Zeitraumes beendet.
+      confirm_amount: Möchtest du wirklich
+      from_balance: deines Guthabens ausgeben?
+      non_orderId: Diese Bestellnummer ist nicht vorhanden.
+      opponent_submitting_score: Dein Gegner trägt gerade das Endergebnis ein.
+      email_alert: Die E-Mail Adresse ist bereits vergeben.
+      username_alert: Der Benutzername ist bereits vergeben.
+      terms_alert: Ich akzeptiere die AGB & Datenschutzerklärung.
+      confirm_email_alert: Du musst deine E-Mail Adresse bestätigen, bevor du fortfahren kann.
+      resend_confirm_email: Klick hier, falls wir die Bestätigungsmail erneut versenden sollen.
+      failed_deposit: Your deposit is failed, Retry after some time.
+      failed_wallet: Your withdraw is failed, Retry after some time.
+
+  flash:
+    titles:
+      coupon: Du hast %{redeem_interval} Premium aktiviert!
+      premium_alert: Bitte gib einen gültigen Promo-Code ein.
+      discord_stream_alert: Du musst deine %{discord_alert} und %{stream_alert} eintragen, bevor du diesem Turnier beitreten kannst.
+      discord_alert: Du musst deine %{discord_alert} eintragen, bevor du diesem Turnier beitreten kannst.
+      stream_alert: Du musst deine %{stream_alert} eintragen, bevor du diesem Turnier beitreten kannst.
+      leave_tournament: Du hast das Turnier verlassen.
+      remove_match: Dein Match wurde vom Adminteam aufgelöst. Du wurdest zur Turnierübersicht zurück geleitet.
+      thanks_requesting: Danke für die Anfrage!
+      thanks: Vielen Dank
+      admin_youtube_alert: The Youtube link needs to be a valid embed URL which contains "embed" in the address
+      single_play: You can only play %{tournament_name} without participating to any other active tournaments
+
+  mail:
+    titles:
+      thank_join_vctry: Vielen Dank, dass du VCTRY.GG beigetreten bist
+      confirm_email: Du bist nur noch einen Schritt von einer ganz neuen Esports-Erfahrung entfernt. Um deine Registrierung fertig zu stellen, bestätige bitte deine E-Mail Adresse.
+      confirm_email_address: E-Mail Adresse bestätigen
+      button_not_working: Der Button geht nicht
+      past_browser: Kopiere diesen Link in die Adresszeile deines Internetbrowsers
+      sent_email: Diese E-Mail wurde verschickt an
+      vctry_esports: VCTRY Esports UG (haftungsbeschränkt)
+      street: Hannoversche Straße 41
+      street_number: 29221 Celle
+      reset_pasword_request: Eine Passwort-Wiederherstellungen wurde gestartet.
+      click_reset_password: Klick auf den Button unter diesem Text und beginne mit der Wiederherstellung.
+      voucher_subject: Deine Premium Codes von VCTRY
+      partner_subject: Your VCTRY partners
+      thanks_purchase: Vielen Dank für deinen Einkauf!
+      find_premium_code: Nachfolgend findest du deine(n) Premium Code(s).
+      enter_code: wenn du deine(n) Code(s) direkt eingeben möchtest.

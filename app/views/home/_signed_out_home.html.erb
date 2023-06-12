@@ -1,0 +1,58 @@
+<div class="home-background flex-center">
+  <%= image_tag("home/home_background_new.png", :alt => "home_background", :class=>"full-width home-bg") %>
+  <div class="home-background__title text-center px-3" style="top: 20px;">
+    <%= I18n.t('homepage.titles.mobile.signedOut').html_safe %>
+    <div class="px-5 mt-4 home-main-text">
+      <%= I18n.t('homepage.titles.main_text').html_safe %>
+    </div>
+  </div>
+  <div class="auth-panel">
+    <div class="auth-panel__row ">
+      <a href="<%= new_user_session_path%>">
+      <span class='auth-panel__bg'><%= I18n.t('button.login') %></span>
+      </a>
+
+      <div class="mt-3 flex-center">
+        <div class="dot_line mr-3"></div>
+        <div class="or_round flex-center">
+          <span class="text-uppercase"><%= I18n.t('homepage.titles.or') %></span>
+        </div>
+        <span class="dot_line ml-3 white"></span>
+      </div>
+    </div>
+
+    <div class="px-5 mt-3">
+      <div class="signup-box">
+        <%= image_tag("home/signup_title.png", :alt => "signup_title", :width=>80) %>
+        <%= render partial: 'users/registrations/signup_form' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style type="text/css">
+  .tour-background {
+    padding-top: 60%;
+  }
+  .auth-panel {
+    z-index: 999;
+    top: 32%;
+  }
+</style>
+
+<script>
+  $(document).ready(function() {
+    var $alert = $('.alert span').text()
+    if ($alert.length > 0) {
+      $('.home-mobile-resolution .tour-background').css({
+        'padding-top': '72%'
+      });
+    }
+
+    $('.alert .close').click(function() {
+      $('.home-mobile-resolution .tour-background').css({
+        'padding-top': '60%'
+      });
+    })
+  })
+</script>

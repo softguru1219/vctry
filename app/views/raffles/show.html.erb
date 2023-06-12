@@ -1,0 +1,64 @@
+<div class="raffles">
+  <div class="day-raffles pb-3">
+    <div class="container">
+      <div class="py-5">
+        <div class="back-btn">
+          <a href="<%= past_raffles_path %>" class="back-btn__color"><i class="fa fa-arrow-left"></i></a>
+        </div>
+        <div class="mt-3 raffles__title">
+          <span class><%= I18n.t('raffles.titles.winners_of') %> <%= local_time(@raffle[:raffle_end_date], format: "%B #{@raffle[:raffle_end_date].day.ordinalize}, %Y") %> <%= I18n.t('homepage.titles.raffle').capitalize %></span>
+        </div>
+        <% if @raffle_winners.present? %>
+          <% @raffle_winners.each do |raffle| %>
+            <div class="mt-3">
+              <div class="container past-raffles__block shadow-sm">
+                <div class="row">
+                  <div class="col-2 past-raffles__order py-2 px-1">
+                    <% if raffle['position'].present? %>
+                      <% if raffle['position'] == 1 %>
+                        <span class="yellow big-font"><%= raffle['position'] %></span><b><%= raffle['position'].ordinalize.split(raffle['position'].to_s).last %></b>
+                      <% elsif raffle['position'] == 2 %>
+                        <span class="strong-grey big-font"><%= raffle['position'] %></span><b><%= raffle['position'].ordinalize.split(raffle['position'].to_s).last %></b>
+                      <% elsif raffle['position'] == 3 %>
+                        <span class="brown big-font"><%= raffle['position'] %></span><b><%= raffle['position'].ordinalize.split(raffle['position'].to_s).last %></b>
+                      <% else %>
+                        <span class="grey big-font"><%= raffle['position'] %></span><b><%= raffle['position'].ordinalize.split(raffle['position'].to_s).last %></b>
+                      <% end %>
+                    <% end %>
+                  </div>
+                  <div class="col-10 flex-align-center py-2">
+                    <!-- <#%= image_tag("home/photo_ellipse.png", :width=>'20%') %> -->
+                    <a href="<%= user_path(raffle.user_id) %>" class="full-width flex-align-center">
+                      <div class="raffle-winners" style="background-image: url(<%= image_url User.find(raffle.user_id).avatar.url %>);"></div>
+                      <div class="d-inline-block ml-3">
+                        <span class="winner-big-size"><b><%= User.find(raffle.user_id).username %></b></span>
+                        <% if raffle.prize_brand.present? || raffle.prize_name.present? %>
+                          <div class="raffles-block-content">
+                            <%= image_tag("home/small_raffles.png") %>
+                            <% if raffle.prize_brand.present? && raffle.prize_name.present? %>
+                              <span class="pl-1"><%= raffle.prize_brand %> & <%= raffle.prize_name %></span>
+                            <% elsif raffle.prize_brand.present? %>
+                              <span class="pl-1"><%= raffle.prize_brand %></span>
+                            <% elsif raffle.prize_name.present? %>
+                              <span class="pl-1"><%= raffle.prize_name %></span>
+                            <% end%>
+                          </div>
+                        <% end %>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  footer {
+    display: none
+  }
+</style>

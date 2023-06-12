@@ -1,0 +1,112 @@
+<footer id="footer">
+  <div class="footer-desktop-resolution">
+    <div class="start-footer footer-background">
+      <div class="container contain-padding">
+        <div class="row footer__first-section flex-center pt-5">
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-3">
+                <%= link_to image_tag("home/logo.png", :alt => "logo", :class=>"logo-img", srcset: { "home/logo@2x.png": "2x" }), root_path %>
+                <div class="mt-3">
+                  <select class="selectpicker language" onchange="javascript:languageSelect(this)">
+                    <option value="en">English</option>
+                    <!-- <option value="fr">Français</option> -->
+                    <option value="de">Deutsch</option>
+                  </select>
+                </div>
+                <div class="mt-3">
+                  <a href="https://www.facebook.com/VCTRYGG/">
+                    <div class="social-round mr-1 flex-center">
+                      <i class="fa fa-facebook"></i>
+                    </div>
+                  </a>
+                  <div class="social-round mr-1 flex-center">
+                    <i class="fa fa-twitter"></i>
+                </div>
+                  <a href="https://www.instagram.com/vctrygg/">
+                    <div class="social-round mr-1 flex-center">
+                      <i class="fa fa-instagram"></i>
+                    </div>
+                  </a>
+                </div>
+                <div class="my-3 end-footer__font">
+                  <i class="fa fa-copyright"></i> <%= Time.now.year %> <b><%= I18n.t('homepage.footer.copyright.site') %></b> <%= I18n.t('homepage.footer.copyright.website') %> <b><a style="color: inherit;" href="https://www.nekson.co" target="_blank"><%= I18n.t('homepage.footer.copyright.website_name') %></a></b>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="about-section">
+                  <div class="section-titles">
+                    <span><%= I18n.t('homepage.footer.titles.sitemap') %></span>
+                  </div>
+                  <div class="section-progress" style="width: 45%">
+                    <div class="progress mt-2">
+                      <div class="progress-bar" role="progressbar" style="width: 40%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                  <div class="mt-3">
+                    <a href="<%= root_path %>" class="section__details__titles"><%= I18n.t('homepage.footer.titles.home') %></a>
+                    <% if current_user.present? %>
+                      <a href="<%= tournaments_path %>" class="section__details__titles text-decoration-line"><%= I18n.t('homepage.footer.titles.tournaments') %></a>
+                    <% else current_user.nil? %>
+                      <a href="<%= root_path %>" class="section__details__titles"><%= I18n.t('homepage.footer.titles.login') %></a>
+                      <a href="<%= root_path %>" class="section__details__titles"><%= I18n.t('homepage.footer.titles.signup') %></a>
+                    <% end %>
+                    <a href="javascript:void(0)" style="display: none;"><span class="section__details__titles">Example of a SubTitle</span></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="about-section">
+                  <div class="section-titles">
+                    <span><%= I18n.t('homepage.footer.titles.about_name') %></span>
+                  </div>
+                  <div class="section-progress" style="width: 80%">
+                    <div class="progress mt-2">
+                      <div class="progress-bar" role="progressbar" style="width: 40%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                  <div class="mt-3">
+                    <a href="<%= about_path %>" class="section__details__titles"><%= I18n.t('homepage.footer.titles.about') %></a>
+                    <a href="<%= jobs_path %>" class="section__details__titles"><%= I18n.t('homepage.footer.titles.jobs') %></a>
+                    <a href="https://www.iubenda.com/privacy-policy/35012048" target="_blank" class="iubenda-nostyle no-brand iubenda-embed"><span class="section__details__titles" style="display: none">Privacy Policy</span></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="contact-section">
+                  <div class="section-titles">
+                    <span><%= I18n.t('homepage.footer.titles.contact') %></span>
+                  </div>
+                  <div class="section-progress" style="width: 80%">
+                    <div class="progress mt-2">
+                      <div class="progress-bar" role="progressbar" style="width: 40%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                  <div class="section__details mt-3">
+                    <a href="<%= faq_path %>" class="section__details__titles" target="_blank"><%= I18n.t('homepage.footer.titles.faq') %></a>
+                    <a href="https://discord.gg/VCTRY" class="section__details__titles" target="_blank"><%= I18n.t('homepage.footer.titles.help') %></a>
+                    <a href="<%= content_creator_path %>" class="section__details__titles" target="_blank"><%= I18n.t('homepage.footer.titles.content_creator.desktop') %></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 footer-logo-background">
+            <div class="flex-center">
+              <!-- <#%= image_tag("home/desktop/big_logo@2x.png", :alt => "logo", :class=>"full-width") %> -->
+            </div>
+            <!-- <div>
+              <#%= image_tag("home/desktop/footer_stripes@2x.png", :alt => "logo", :class=>"full-width") %>
+            </div> -->
+          </div>
+        </div>
+      </div>
+      <div class="mt-2 py-2 flex-align-center license-text">
+        <div class="container text-center">
+          <div class="mb-1"><%= I18n.t('homepage.footer.titles.license') %></div>
+          <a href="<%= legal_notice_path %>" class="mt-2 license-text pr-1" target="_blank"><%= I18n.t('user.titles.legal_notice') %></a> | <a href="<%= privacy_path %>" class="mt-2 license-text px-1" target="_blank"><%= I18n.t('user.titles.privacy') %></a> | <a href="<%= terms_path %>" class="mt-2 license-text pl-1" target="_blank"><%= I18n.t('homepage.footer.titles.terms_condition') %></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

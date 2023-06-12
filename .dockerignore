@@ -1,0 +1,5 @@
+docker-compose.yml
+dotenv-secret.yml
+app.env
+/data
+/node_modules

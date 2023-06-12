@@ -1,0 +1,80 @@
+<div class="container completed-tournament">
+  <div class="game-detail game-detail__registered">
+    <div class="game-detail__background" style="background-image: url(<%= asset_path @tournament.tournament_cover.url %>)">
+      <div class="game-detail__content"></div>
+      <div class="back-btn">
+        <a href="/tournaments"><i class="fa fa-arrow-left"></i></a>
+      </div>
+      <div class="game-date">
+        <% if @tournament.registration_closing_datetime.present? %>
+          <div class="tournemant-date__mark">
+            <span class="yellow"><b><%= local_time(@tournament[:registration_closing_datetime], format: "%e") %></b></span><br>
+            <span class="month text-uppercase"><%= local_time(@tournament[:registration_closing_datetime], format: "%b") %></span>
+          </div>
+        <% end %>
+      </div>
+      <div class="game_titles contain-padding">
+        <span class="game-mark text-uppercase"><b><%= game_style(@tournament) %></b></span>
+        <div class="game_titles__details mt-2">
+          <span><%= @tournament.full_name %></span>
+          <% if @tournament.premium == true %>
+            <a href="<%= get_premium_path %>">
+              <%= image_tag("home/premium_mark.png", :alt => "premium_btn") %>
+            </a>
+          <% end %>
+        </div>
+        <div class="game_titles__date mt-1 flex-align-center">
+          <% if @tournament.country.present? %>
+            <div class="flag flag-<%= @tournament.country.downcase %>"></div>
+          <% else %>
+            <i class="fa fa-flag"></i>
+          <% end %>
+          <% if @tournament.online %>
+            <span class="pl-1"><%= I18n.t('homepage.titles.online').capitalize %> (<%= country(@tournament) %>)</span>
+          <% else %>
+            <span class="pl-1"><%= country(@tournament) %></span>
+          <% end %>
+        </div>
+        <div class="game_titles__date mt-1">
+          <span class="yellow"><%= @tournament.discord %></span>
+        </div>
+      </div>
+      <div class="block-tnmt">
+        <div class="block-tnmt__row">
+          <div class="block-tnmt__item bottom-round--left">
+            <%= I18n.t('tournaments.titles.registrations').capitalize %>: <span class="pl-1"><strong><%= registration_status(@tournament) %></strong></span>
+          </div>
+          <div class="block-tnmt__item bottom-round--right">
+            <%= I18n.t('homepage.titles.slots').capitalize %>: <span class="pl-1"><strong><%= slots_num(@tournament) %> / <%= @tournament[:size] %></strong></span>
+          </div>
+        </div>
+        <div class="join-tournament-btn">
+          <% if @standings.present? %>
+            <%= image_tag('tournament/vctry_mark@2x.png', :alt => "Ellipse", :width=>100) %>
+            <div class="mt-1"><%= I18n.t('homepage.titles.winner')%>: <%= Standing.winner(@standings) %></div>
+            <div class="mt-3">
+              <a href="<%= tournament_standing_path(@tournament)%>" class='round-border text-uppercase'>
+                <%= I18n.t('tournaments.titles.view_all_the_winners')%>
+              </a>
+            </div>
+          <% else %>
+            <div class="mt-4"><%= I18n.t('tournaments.titles.final_standings')%></div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function (){
+    exist_standing = "<%= @standings.present? %>"
+    if (exist_standing == 'true') {
+      $('.desktop-resolution .game-detail__registered').css({"height": "27rem"});
+      $('.desktop-resolution .game_titles').css({"bottom": "11.7rem"});
+    } else {
+      $('.desktop-resolution .game-detail__registered').css({"height": "24.5rem"});
+      $('.desktop-resolution .game_titles').css({"bottom": "8.7rem"});
+    }
+  })
+</script>

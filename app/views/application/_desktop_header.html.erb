@@ -1,0 +1,159 @@
+<div class="desktop-resolution">
+  <div class="header-background">
+    <div class="row container header-container">
+      <div class="col-md-2 col-sm-3 logo-background">
+        <%= link_to image_tag("home/logo.png", :alt => "logo", :class=>"logo-img", srcset: { "home/logo@2x.png": "2x" }), root_path %>
+      </div>
+      <div class="col-md-3 col-sm-3 search-background flex-center">
+        <%= form_tag(friend_search_users_path(current_user), method: :get, :class=>"search-box", remote: true) do %>
+          <%= text_field_tag :search, nil, :class=>"form-control input-search-panel", :placeholder=>I18n.t('homepage.header.titles.search') %>
+          <%= image_submit_tag("home/search-btn.png", :alt => "logo", :class=>"search-icon" ) %>
+        <% end %>
+      </div>
+
+      <div class="col-md-6 col-sm-5 menu-buttons">
+        <div class="menu-icons">
+          <% if controller.controller_name == 'tournaments' ||  controller.controller_name == 'groups' %>
+            <!-- <div class="menu-button-active"> -->
+            <a href="<%= tournaments_path %>"><%= image_tag("home/active_tournament_Icon.png", srcset: { "home/tournament_Icon@2x.png": "2x" }, :alt => "Tournament", :class=>"d-inline-block align-bottom") %>
+            </a>
+            <!-- </div> -->
+          <% else %>
+            <a href="<%= tournaments_path %>"><%= image_tag("home/tournament_Icon.png", srcset: { "home/tournament_Icon@2x.png": "2x" }, :alt => "Tournament", :class=>"d-inline-block align-bottom") %>
+            </a>
+          <% end %>
+          <% if controller.controller_name== 'calendars' %>
+            <a href="<%= calendars_path %>" class="btn btn-secondary">
+              <%= image_tag("home/active_calendar_Icon.png", srcset: { "home/active_calendar_Icon@2x.png": "2x" }, :alt => "Calendars", :class=>"d-inline-block align-bottom") %>
+            </a>
+          <% else %>
+            <div class="dropdown">
+              <a href="javascript:void(0)" class="btn btn-secondary desktop-tablinks calendar" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="selectedMenu(event, 'calendar')">
+                <%= image_tag("home/calendar_Icon.png", srcset: { "home/calendar_Icon@2x.png": "2x" }, :alt => "Calendar", :class=>"d-inline-block align-bottom") %>
+              </a>
+              <a href="javascript:void(0)" class="btn btn-secondary toolbar-inactive desktop-tablinks" id="calendar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="selectedMenu(event, 'calendar')">
+                <%= image_tag("home/active_calendar_Icon.png", srcset: { "home/active_calendar_Icon@2x.png": "2x" }, :alt => "Calendar", :class=>"d-inline-block align-bottom") %>
+              </a>
+              <div class="dropdown-menu calendars" aria-labelledby="dropdownMenuButton">
+                <%= render partial: "calendars/partials/partial_calendars" %>
+              </div>
+            </div>
+          <% end %>
+          <% if controller.action_name == "friends" %>
+            <a href="<%= friends_users_path(current_user) %>" class="btn btn-secondary">
+              <%= image_tag("home/active_friends.png", srcset: { "home/active_friends_Icon@2x.png": "2x" }, :alt => "Friends", :class=>"d-inline-block align-bottom") %>
+            </a>
+          <% else %>
+            <div class="dropdown">
+              <a href="<%= friends_users_path(current_user) %>" class="btn btn-secondary desktop-tablinks friends" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="selectedMenu(event, 'friends')">
+                <%= image_tag("home/friends_Icon.png", srcset: { "home/friends_Icon@2x.png": "2x" }, :alt => "Friends", :class=>"d-inline-block align-bottom") %>
+              </a>
+              <a href="<%= friends_users_path(current_user) %>" class="btn btn-secondary toolbar-inactive desktop-tablinks" id="friends" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="selectedMenu(event, 'friends')">
+                <%= image_tag("home/active_friends_Icon.png", srcset: { "home/active_friends_Icon@2x.png": "2x" }, :alt => "Friends", :class=>"d-inline-block align-bottom") %>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <%= render partial: "users/partials/partial_friends", :locals=>{friends: friends} %>
+                <div class="container">
+                  <a href="<%= friends_users_path(current_user) %>" class="my-3 text-uppercase text-center round-border d-block"><%= I18n.t('homepage.titles.view_friend_list') %>
+                  </a>
+                </div>
+              </div>
+            </div>
+          <% end %>
+
+          <% if request.fullpath == '/notifications' %>
+            <a href="<%= notifications_users_path(current_user) %>" class="btn btn-secondary">
+              <%= image_tag("home/active_notifications_Icon.png", { "home/active_notification_Icon@2x.png": "2x" }, :alt => "Notification", :class=>"d-inline-block align-bottom") %>
+            </a>
+          <% else %>
+            <div class="dropdown">
+              <a href="<%= notifications_users_path(current_user) %>" class="btn btn-secondary desktop-tablinks" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="selectedMenu(event, 'notification')">
+                <%= image_tag("home/notification_Icon.png", srcset: { "home/notification_Icon@2x.png": "2x" }, :alt => "Notification", :class=>"d-inline-block align-bottom") %>
+              </a>
+              <!-- <a href="javascript:void(0)" class="btn btn-secondary toolbar-inactive" id="notification"> -->
+              <a href="<%= notifications_users_path(current_user) %>" class="btn btn-secondary toolbar-inactive desktop-tablinks" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="selectedMenu(event, 'notification')">
+                <%= image_tag("home/active_notification_Icon.png", srcset: { "home/active_notification_Icon@2x.png": "2x" }, :alt => "Notification", :class=>"d-inline-block align-bottom") %>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <%= render partial: "users/partials/partial_notifications", :locals=>{notifications: notifications, resolution: ''}  %>
+                <div class="container">
+                  <a href="<%= notifications_users_path(current_user) %>" class="my-3 text-uppercase text-center round-border d-block"><%= I18n.t('notifications.titles.all_notifications')%>
+                  </a>
+                </div>
+              </div>
+            </div>
+          <% end %>
+
+          <% if request.fullpath.include?('raffles') %>
+            <a href="<%= raffles_path %>" class="btn btn-secondary">
+              <%= image_tag("home/active_raffles_Icon.png", srcset: { "home/active_raffles_Icon@2x.png": "2x" }, :alt => "Raffles", :class=>"d-inline-block align-bottom") %>
+            </a>
+          <% else %>
+            <div class="dropdown">
+             <a href="javascript:void(0)" class="btn btn-secondary desktop-tablinks" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="selectedMenu(event, 'raffles')">
+                <%= image_tag("home/raffles_Icon.png", srcset: { "home/raffles_Icon@2x.png": "2x" }, :alt => "Raffles", :class=>"d-inline-block align-bottom") %>
+              </a>
+              <!-- <a href="javascript:void()" class="btn btn-secondary toolbar-inactive" id="raffles"> -->
+              <a href="javascript:void(0)" class="btn btn-secondary toolbar-inactive desktop-tablinks" id="raffles" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="selectedMenu(event, 'raffles')">
+
+                <%= image_tag("home/active_raffles_Icon.png", srcset: { "home/active_raffles_Icon@2x.png": "2x" }, :alt => "Raffles", :class=>"d-inline-block align-bottom") %>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <%= render partial: "raffles/partials/partial_active_raffles" %>
+                <div class="container">
+                  <a href="<%= raffles_path %>" class="my-3 text-uppercase text-center round-border d-block"><%= I18n.t('raffles.titles.view_raffle_page').html_safe %>
+                  </a>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <% if controller.controller_name== 'wallets' %>
+            <a href="<%= wallets_path %>" class="btn btn-secondary">
+              <%= image_tag("home/active_wallet_Icon.png", srcset: { "home/active_wallet_Icon@2x.png": "2x" }, :alt => "Wallet", :class=>"d-inline-block align-bottom") %>
+            </a>
+          <% else %>
+            <div class="dropdown">
+              <a href="avascript:void(0)" class="btn btn-secondary desktop-tablinks" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="selectedMenu(event, 'wallet')">
+                <%= image_tag("home/wallet_Icon.png", srcset: { "home/wallet_Icon@2x.png": "2x" }, :alt => "Wallet", :class=>"d-inline-block align-bottom") %>
+              </a>
+              <!-- <a href="javascript:void()" class="btn btn-secondary toolbar-inactive" id="wallet"> -->
+              <a href="avascript:void(0)" class="btn btn-secondary desktop-tablinks toolbar-inactive" id="wallet" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="selectedMenu(event, 'wallet')">
+                <%= image_tag("home/active_wallet_Icon.png", srcset: { "home/active_wallet_Icon@2x.png": "2x" }, :alt => "Wallet", :class=>"d-inline-block align-bottom") %>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div class="mt-3">
+                  <%= render partial: "wallets/partials/header_main" %>
+                  <% if current_transactions.present? %>
+                    <div class="container">
+                      <a href="<%= wallets_path %>" class="my-3 text-uppercase text-center round-border d-block"><%= I18n.t('homepage.titles.full_history') %>
+                      </a>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="col-md-1 col-sm-1 flex-center menu-buttons dropdown">
+        <!-- <a href="#">
+          <div class="logo-avatar" style="background-image: url(<%= image_url(current_user.avatar.url) %>)"></div>
+        </a> -->
+        <div class="dropdown">
+          <a class="btn btn-secondary dropdown-toggle dropdown-toggle-manual" type="button" id="dropdownProfileButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="logo-avatar" style="background-image: url(<%= image_url(current_user.avatar.url) %>); display: inline-block;
+    vertical-align: middle; "></div>
+          </a>
+          <div class="dropdown-menu dropdown-left-manual"  aria-labelledby="dropdownProfileButton">
+            <a href="<%= user_path(current_user) %>" class="dropdown-item"><%= I18n.t('homepage.header.titles.my_profile') %></a>
+            <a href="<%= tournaments_path %>" class="dropdown-item"><%= I18n.t('homepage.header.titles.my_tournaments') %></a>
+            <%= link_to(I18n.t('homepage.header.titles.modify_profile'), edit_users_path, data: {turbolinks: false}, :class=>"dropdown-item") %>
+            <a href="#" class="dropdown-item"><%= I18n.t('homepage.footer.titles.help') %></a>
+            <%= link_to(I18n.t('homepage.header.titles.logout'), destroy_user_session_path, :class=>"dropdown-item", method: :delete) %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

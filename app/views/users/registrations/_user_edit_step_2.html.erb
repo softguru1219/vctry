@@ -1,0 +1,26 @@
+<div class="contain-padding">
+  <div class="step-title text-center">
+    <span><b><%= I18n.t('user.edit.titles.paypal_link').html_safe %></span>
+  </div>
+    <!-- <div class="paypal-link mt-3 text-center">
+      <a href="javascript:void(0)">LINK MY PAYPAL</a>
+    </div> -->
+  <div class="mt-3 form-group wrap-input100 game-ids">
+    <!--<#%= f.label :payment, 'LINK MY PAYPAL' %>-->
+    <%= f.text_field :payment, autocomplete: "payment", :class=>"input100 form-control", :placeholder=>I18n.t('user.placefolders.paypal') %>
+  </div>
+  <div class="mt-3 text-center flex-center" style="display: none">
+    <div class="dot_line mr-3"></div>
+    <div class="or_round flex-center">
+      <span>OR</span>
+    </div>
+    <span class="dot_line ml-3"></span>
+  </div>
+  <% unless current_user.payment.present? %>
+    <div class="paypal-link paypal_signup mt-3 mb-5 text-center">
+      <a href="http://www.paypal.com"><%= I18n.t('user.edit.titles.no_have_paypal').html_safe %></a>
+    </div>
+  <% end %>
+</div>
+
+<div class="button next-btn user-edit-btn"><%= I18n.t('button.step') %> 3</div>

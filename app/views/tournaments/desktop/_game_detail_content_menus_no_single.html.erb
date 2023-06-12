@@ -1,0 +1,38 @@
+<div class="mt-3 container game-detail-content__status">
+  <div class="wrapper">
+    <div class="game-detail-content__steps mt-3 row">
+      <% if @tournament[:check_in_participant_end_datetime].present? %>
+        <% if @tournament[:check_in_participant_end_datetime] > Time.now.utc || @tournament.matches.blank? %>
+          <div class="col-md-6 col-sm-6 pl-0">
+        <% else %>
+          <div class="col-md-4 col-sm-4 pl-0">
+        <% end %>
+          <a href="javascript:void(0)" class="tablinks desktop-overview is-active text-uppercase" onclick="detailTabSwitcher(event, 'desktop-overview')"><%= I18n.t('tournaments.titles.overview')%></a>
+        </div>
+
+        <% if @tournament[:check_in_participant_end_datetime] > Time.now.utc || @tournament.matches.blank? %>
+          <div class="col-md-6 col-sm-6 pl-0">
+        <% else %>
+          <div class="col-md-4 col-sm-4 pl-0">
+        <% end %>
+          <a href="javascript:void(0)" class="tablinks desktop-participants text-uppercase" onclick="detailTabSwitcher(event, 'desktop-participants')"><%= I18n.t('tournaments.titles.participants')%></a>
+        </div>
+
+        <% if @tournament[:check_in_participant_end_datetime] < Time.now.utc && @tournament.matches.present? %>
+          <div class="col-md-4 col-sm-4 pl-0">
+            <select class="select text-uppercase" name="desktop-brakets" onchange='mySelectHandler("desktop-brakets")'>
+              <option value="brackets-title" disabled selected class="d-none text-uppercase">Matches</option>
+              <% if @tournament.stages.present? %>
+                <% stages(@tournament).each do |stage|%>
+                  <% cache(stage) do %>
+                    <option class="tablinks desktop-<%= stage.name %>">Matches</option>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </select>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

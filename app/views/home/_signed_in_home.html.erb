@@ -1,0 +1,19 @@
+<div class="home-background flex-center">
+  <%= image_tag("home/home_background.png", :alt => "home_background", :class=>"full-width home-bg", :style=>"height: 421px; width: auto;") %>
+  <div class="home-background__title signed-home-bg" style="top: 6rem;">
+    <%= image_tag("home/logo.png", srcset: { "home/logo@2x.png": "2x" }, :alt => "logo", :class=>"logo-img", width: "110px") %>
+  </div>
+  <div class="home-background__title text-center px-4" style="top: 10rem;">
+    <%= I18n.t('homepage.titles.desktop.title').html_safe %>
+    <div class="px-5 mt-2 home-main-text">
+      <%= I18n.t('homepage.titles.main_text').html_safe %>
+    </div>
+  </div>
+</div>
+<%= render partial: 'premium_background' %>
+
+<style type="text/css">
+  .tour-background {
+    padding-top: unset !important;
+  }
+</style>

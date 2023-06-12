@@ -1,0 +1,131 @@
+<div class="game-detail-content full-width">
+  
+  <% if request.fullpath == '/tournaments/47' %>
+    <div class="mt-3 container">
+      <div class="text-center text-uppercase sponsored">
+        <strong>This tournament is sponsored by:</strong>
+        <div class="mt-3">
+          <%= image_tag("tournament/nike_brand.png") %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <div class="row mt-5">
+    <% if controller.action_name == "join_tournament" %>
+      <div class="col-md-8 col-sm-8">
+    <% else %>
+      <div class="col-md-12 col-sm-12">
+    <% end %>
+      <div class="game-detail-section pb-3">
+        <% if Tournament.normal_stage(@tournament) == true %>
+          <%= render partial: 'tournaments/desktop/game_detail_content_menus' %>
+        <% else %>
+          <%= render partial: 'tournaments/desktop/game_detail_content_menus_no_single' %>
+        <% end %>
+
+        <div class="tab-background container">
+          <div id="desktop-overview" class="tabcontent" style="display:block">
+            <%= render partial: 'tournaments/desktop/game_detail_overview' %>
+          </div>
+          <div id="desktop-participants" class="tabcontent">
+            <%= render partial: 'tournaments/desktop/game_detail_participants', cached: true  %>
+          </div>
+          <% if @tournament.stages.present? %>
+            <% @tournament.stages.each do |stage| %>
+              <% cache(stage) do %>
+                <div id="desktop-<%= stage.name %>" class="tabcontent">
+                  <%= render partial: 'game_detail_brackets_playoffs', locals: {stage: stage} %>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <% if controller.action_name == "join_tournament" %>
+      <div class="col-md-4 col-sm-4">
+        <div class="text-center"><%= I18n.t('tournaments.titles.join_tournament_title').html_safe %></div>
+        <div class="mt-2 register-section">
+          <%= render partial: "tournaments/desktop/partial_join_tournaments" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  function mySelectHandler(name){
+    var _curr_tab  = $('select[name="' + name + '"] option:selected').attr('class')
+    _curr_tab = _curr_tab.replace('tablinks ', '')
+    var value = $('select[name="' + name + '"] option:selected').val()
+    detailTabSwitcher(event , _curr_tab, name, value, true);
+  }
+  // $(".select").change(function(){
+  //   var _curr_tab = $(".select option:selected").html().toLowerCase();
+  //   detailTabSwitcher(event , _curr_tab);
+
+    // $.ajax({
+    //   url: "test.html",
+    //   context: document.body
+    // }).done(function() {
+    //   $( this ).addClass( "done" );
+    // });
+  // });
+  
+  function detailTabSwitcher(evt, status, name=null, value=null, type=false) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" is-active", "");
+    }
+    
+    if(type != true) {
+      $('select[name="desktop-brakets"]').val('brackets-title');
+      $('select[name="brakets"]').val('brackets-title');
+      $('select').removeClass('is-active')
+    }
+
+    document.getElementById(status).style.display = "block";
+    if (status.includes('desktop-')) {
+      status = status.replace('desktop-', '')
+      $('#' + status).show()
+      
+      if (evt.target.className.includes('select')) {
+        name = name.replace('desktop-', '')
+        $('select[name="' + name + '"]').addClass(' is-active')
+        $('select[name="' + name + '"]').val(value)
+        $('.brackets-groups').show()
+        tabcontent = document.getElementsByClassName("groupTabContent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+      } else {
+        $('a.' + status).addClass(' is-active')
+      }
+
+    } else {
+      status = 'desktop-' + status 
+      $('#' + status).show()
+
+      if (evt.target.className.includes('select')) {
+        name = 'desktop-' + name
+        $('select[name="' + name + '"]').addClass(' is-active')
+        $('select[name="' + name + '"]').val(value)
+        $('.brackets-groups').show()
+        tabcontent = document.getElementsByClassName("groupTabContent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+      } else {
+        $('a.' + status).addClass(' is-active')
+      }
+    }
+
+    evt.currentTarget.className += " is-active";
+  }
+</script>

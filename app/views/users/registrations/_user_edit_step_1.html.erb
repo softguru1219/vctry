@@ -1,0 +1,73 @@
+<% if resource.errors.full_messages.present? %>
+  <div class="mt-2 alert-message" >
+    <div class="alert alert-danger alert-dismissible fade show" style="font-size: 0.8rem">
+      <strong><%= I18n.t('errors.titles.warning')%></strong>
+      <% update_error_message(resource.errors.full_messages).each do |message| %>
+        <ul>
+          <li><%= message %></li>
+        </ul>
+      <% end %>
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+  </div>
+<% end %>
+
+<div class="form-group wrap-input100">
+  <%= f.label :username, I18n.t('user.labels.username'), :class=>"required" %>
+  <%= f.text_field :username, autocomplete: "username", :class=>"input100 form-control", :placeholder=>I18n.t('user.placefolders.username'), :required=>true %>
+  <div class="invalid-feedback">
+    <%= I18n.t('user.hints.username') %>
+  </div>
+</div>
+
+<div class="form-group wrap-input100">
+  <%= f.label :firstname, I18n.t('user.labels.firstname'), :class=>"required" %>
+  <%= f.text_field :firstname, autocomplete: "firstname", :class=>"input100 form-control", :placeholder=>I18n.t('user.placefolders.firstname'), :required=>true %>
+  <div class="invalid-feedback">
+    <%= I18n.t('user.hints.firstname') %>
+  </div>
+</div>
+
+<div class="form-group wrap-input100">
+  <%= f.label :lastname, I18n.t('user.labels.lastname'), :class=>"required" %>
+  <%= f.text_field :lastname, autocomplete: "lastname", :class=>"input100 form-control", :placeholder=>I18n.t('user.placefolders.lastname'), :required=>true %>
+  <div class="invalid-feedback">
+    <%= I18n.t('user.hints.lastname') %>
+  </div>
+</div>
+
+<div class="form-group wrap-input100">
+  <%= f.label :birthday, I18n.t('user.labels.birthday'), :class=>"required" %>
+  <div class="birthday">
+    <%= f.date_select :birthday, {:order=>[:day, :month, :year], :prompt=>true, :use_month_numbers=>false, :start_year => Date.current.year, :end_year => 1920}, :required=>true %>
+  </div>
+  <div class="invalid-feedback">
+    <%= I18n.t('user.hints.birthday') %>
+  </div>
+</div>
+
+<div class="form-group wrap-input100">
+  <%= f.label :address, I18n.t('user.labels.address'), :class=>"required" %>
+  <%= f.text_field :address, autocomplete: "address", :class=>"input100 form-control", :placeholder=>I18n.t('user.placefolders.address'), :required=>true %>
+  <div class="invalid-feedback">
+    <%= I18n.t('user.hints.address') %>
+  </div>
+</div>
+<div class="form-group wrap-input100">
+  <%= f.label :country, I18n.t('user.labels.country'), :class=>"required" %>
+  <% if current_user[:country].present? %>
+    <%= f.select :country, {},{}, {:class=>"form-control selectpicker countrypicker bfh-countries user-country", data: {default: current_user[:country]}} %>
+  <% else %>
+    <%= f.select :country, {},{}, {:include_blank => true, :title=>I18n.t('user.placefolders.country'), :class=>"form-control selectpicker countrypicker bfh-countries user-country", :required=>true, data: {default: current_user[:country]}} %>
+  <% end %>
+  <div class="invalid-feedback">
+    <%= I18n.t('user.hints.country') %>
+  </div>
+</div>
+
+<div class="form-group wrap-input100 flex-align-center" style="font-size: 12px;">
+  <%= f.check_box :terms_and_conditions %>
+  <span class="pl-1"><%= I18n.t('user.titles.terms_agree') %> <%= I18n.t('user.titles.terms_condition') %> & <%= I18n.t('user.titles.privacy') %> & <%= I18n.t('user.titles.legal_notice') %></span>
+</div>
+
+<div class="button next-btn user-edit-btn"><%= I18n.t('button.step') %> 2</div>

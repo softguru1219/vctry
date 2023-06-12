@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="game-detail game-detail__registered" id="desktoptimer_<%= @tournament.id %>">
+    <div class="flex-center">
+      <div class="spinner_loading">
+        <div class="spinner_img"></div>
+      </div>
+    </div>
+    <div class="game-detail__background" style="background-image: url(<%= asset_path @tournament.tournament_cover.url %>)">
+      <%= render partial: 'tournaments/desktop/game_detail_main_screen'%>
+      <div class="block-tnmt">
+        <div class="block-tnmt__row">
+          <div class="block-tnmt__item bottom-round--left">
+            <%= I18n.t('tournaments.titles.registrations').capitalize %>: <span class="pl-1"><strong><%= registration_status(@tournament) %></strong></span>
+          </div>
+          <div class="block-tnmt__item bottom-round--right">
+            <%= I18n.t('homepage.titles.slots').capitalize %>: <span class="pl-1"><strong><%= slots_num(@tournament) %> / <%= @tournament[:size] %></strong></span>
+          </div>
+        </div>
+        <div class="join-tournament-btn">
+          <div><%= I18n.t('tournaments.titles.checked_in') %>!</div>
+          <a href="javascript:void(0)" id="desktopcheckin_timer_<%= @tournament.id %>">
+            <% if @tournament[:registration_closing_datetime].present? && @tournament[:registration_closing_datetime] > Time.now.utc %>
+              <div class="pt-2 text-initial"><%= I18n.t('tournaments.titles.tournament_start_in')%> <span class="yellow clock"></span></div>
+              <% if @tournament.stages.blank? %>
+                <div class="leave-tournament">
+                  <a href="<%= tournament_cancel_path %>" class="leave-tournament-btn">
+                    <div class="pt-2 text-initial"><%= I18n.t('tournaments.titles.leave_tournament') %></div>
+                  </a>
+                </div>
+              <% end %>
+            <% elsif @tournament[:registration_closing_datetime].present? && @tournament[:registration_closing_datetime] < Time.now.utc %>
+              <div class="pt-2 text-initial"><%= I18n.t('tournaments.titles.tournament_started')%> <span class="yellow clock"></span> <%= I18n.t('homepage.titles.ago')%></div>
+              <% if @tournament.stages.present? %>
+                <% if @tournament.stages.first.stage_type == "single_elimination" %>
+                  <% if @next_match.blank? %>
+                    <% if next_match_status(@tournament) == true %>
+                      <div class="pt-2 text-initial"><%= I18n.t('tournaments.titles.match_progress') %></div>
+                    <% elsif Tournament.none_completed_match_status(@tournament, current_user) == true %>
+                      <div class="pt-2 text-initial"><%= I18n.t('tournaments.titles.match_progress') %></div>
+                    <% else %>
+                      <div class="pt-2 text-initial"><%= I18n.t('tournaments.titles.no_match') %></div>
+                    <% end %>
+                  <% end %>
+                <% else %>
+                  <div class="pt-2 text-initial"><%= I18n.t('tournaments.titles.tournament_is_ongoing') %></div>
+                <% end %>
+              <% end %>
+            <% end %>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

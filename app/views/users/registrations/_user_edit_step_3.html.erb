@@ -1,0 +1,100 @@
+<div class="step-title">
+  <span><b><%= I18n.t('user.edit.titles.select_id')%></b></span>
+</div>
+<div class="mt-3 user-game_lists" style="display: none;">
+  <div class="row">
+    <div class="col-4">
+      <a href="javascript:void(0)"><%= image_tag("tournament/game-1@2x.png", :alt => "game_1", :value=>'fifa20', :onClick=>"selectGame(event, 'fifa20')", :class=>"full-width game-tablinks") %></a>
+    </div>
+    <div class="col-4">
+      <a href="javascript:void(0)"><%= image_tag("tournament/game-2@2x.png", :alt => "game_2", :value=>'hearthstone', :onClick=>"selectGame(event, 'hearthstone')", :class=>"full-width game-tablinks") %></a>
+    </div>
+    <div class="col-4">
+      <a href="javascript:void(0)"><%= image_tag("tournament/game-3@2x.png", :alt => "game_3", :value=>'leagueoflegends', :onClick=>"selectGame(event, 'leagueoflegends')", :class=>"full-width game-tablinks") %></a>
+    </div>
+    <%= f.hidden_field :played_games %>
+  </div>
+</div>
+
+<div class="mt-3 game-ids">
+  <div class="form-group wrap-input100">
+    <%= f.label :discord_id, I18n.t('user.labels.discord') %>
+    <%= f.text_field :discord_id, autocomplete: "discord_id", :class=>"input100 form-control", :placeholder=>I18n.t('user.placefolders.discord') %>
+    <div class="invalid-feedback">
+      <%= I18n.t('user.hints.discord') %>
+    </div>
+  </div>
+  <div class="form-group wrap-input100">
+    <%= f.label :psn_id, I18n.t('user.labels.psn') %>
+    <%= f.text_field :psn_id, autocomplete: "psn_id", :class=>"input100 form-control", :placeholder=>I18n.t('user.labels.psn'), :maxlength=>"16" %>
+  </div>
+  <div class="form-group wrap-input100">
+    <%= f.label :xbox_live_id, I18n.t('user.labels.xbox') %>
+    <%= f.text_field :xbox_live_id, autocomplete: "xbox_live_id", :class=>"input100 form-control", :placeholder=>I18n.t('user.labels.xbox') %>
+  </div>
+  <div class="form-group wrap-input100">
+    <%= f.label :steam_id, I18n.t('user.labels.steam') %>
+    <%= f.text_field :steam_id, autocomplete: "steam_id", :class=>"input100 form-control", :placeholder=>I18n.t('user.labels.steam') %>
+  </div>
+  <div class="form-group wrap-input100">
+    <%= f.label :battle_tag_id,I18n.t('user.labels.battle') %>
+    <%= f.text_field :battle_tag_id, autocomplete: "battle_tag_id", :class=>"input100 form-control", :placeholder=>I18n.t('user.labels.battle') %>
+  </div>
+  <div class="form-group wrap-input100">
+    <%= f.label :epic_id, I18n.t('user.labels.epic') %>
+    <%= f.text_field :epic_id, autocomplete: "epic_id", :class=>"input100 form-control", :placeholder=>I18n.t('user.labels.epic') %>
+  </div>
+</div>
+
+<button type="submit" class="btn btn-default submit-button next-btn user-edit-btn"><%= I18n.t('button.save_complete') %></button>
+
+<script type="text/javascript">
+
+  $(document).ready(function() {
+    var played_games = "<%= current_user[:played_games] %>"
+    if (played_games.length > 0) {
+      $('.game-tablinks').each(function(){
+        if (played_games.indexOf($(this).attr('value')) > -1) {
+          $(this).addClass('game-tablinks--active')
+        }
+      })
+    }
+
+    exist_error_message = "<%= resource.errors.full_messages.present? %>"
+    if (exist_error_message == 'true') {
+      error_message = "<%= update_error_message(resource.errors.full_messages) %>"
+      if (error_message.includes('Discord')) {
+        $('#user_discord_id').prop('readOnly', false)
+      }
+      if (error_message.includes('PSN ID')) {
+        $('#user_psn_id').prop('readOnly', false)
+      }
+      if (error_message.includes('XBOX LIVE ID')) {
+        $('#user_xbox_live_id').prop('readOnly', false)
+      }
+      if (error_message.includes('STEAM ID')) {
+        $('#user_steam_id').prop('readOnly', false)
+      }
+      if (error_message.includes('BATTLE TAG')) {
+        $('#user_battle_tag_id').prop('readOnly', false)
+      }
+    }
+  })
+
+  function selectGame(evt, filter) {
+    var i, tabcontent, tablinks;
+    if($(evt.currentTarget).hasClass("game-tablinks--active")){
+      $(evt.currentTarget).removeClass("game-tablinks--active");
+    } else{
+      $(evt.currentTarget).addClass("game-tablinks--active");
+    }
+  }
+
+  $( "#edit_user" ).submit(function( e ) {
+    var games = []
+    $('.user-game_lists .game-tablinks--active').each(function(){
+      games.push($(this).attr('value'));
+    })
+    $('#user_played_games').val(games.toString())
+  })
+</script>

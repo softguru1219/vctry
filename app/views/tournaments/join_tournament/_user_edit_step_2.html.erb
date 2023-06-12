@@ -1,0 +1,78 @@
+<div class="form-group wrap-input100">
+  <%= f.label :username, 'User Name', :class=>"required" %>
+  <%= f.text_field :username, autocomplete: "username", :class=>"input100 form-control", :placeholder=>"Enter your username", :required=>true, :value=>current_user[:username] %>
+  <div class="invalid-feedback">
+    Enter a valid username.
+  </div>
+</div>
+
+<div class="form-group wrap-input100">
+  <%= f.label :firstname, 'First Name', :class=>"required" %>
+  <%= f.text_field :firstname, autocomplete: "firstname", :class=>"input100 form-control", :placeholder=>"Enter your first name", :required=>true, :value=>current_user[:firstname] %>
+  <div class="invalid-feedback">
+    Enter a valid first name.
+  </div>
+</div>
+
+<div class="form-group wrap-input100">
+  <%= f.label :lastname, 'Last Name', :class=>"required" %>
+  <%= f.text_field :lastname, autocomplete: "lastname", :class=>"input100 form-control", :placeholder=>"Enter your last name", :required=>true, :value=>current_user[:lastname] %>
+  <div class="invalid-feedback">
+    Enter a valid last name.
+  </div>
+</div>
+
+<div class="form-group wrap-input100">
+  <%= f.label :birthday, 'Date Of Birth', :class=>"required" %>
+  <div class="birthday">
+    <%= f.date_select :birthday, {:order=>[:day, :month, :year], :prompt=>true, :use_month_numbers=>true, :start_year => Date.current.year, :end_year => 1920, selected: current_user.birthday}, :required=>true %>
+  </div>
+</div>
+
+<div class="form-group wrap-input100">
+  <%= f.label :address, 'Full Address', :class=>"required" %>
+  <%= f.text_field :address, autocomplete: "address", :class=>"input100 form-control", :placeholder=>"Enter your full address", :required=>true, :value=>current_user[:address] %>
+  <div class="invalid-feedback">
+    Enter a valid full address.
+  </div>
+</div>
+
+<div class="form-group wrap-input100">
+  <%= f.label :country, 'Country', :class=>"required" %>
+  <%= f.select :country, {},{}, {:class=>"form-control selectpicker countrypicker bfh-countries user-country", data: {default: current_user[:country]}} %>
+  <div class="invalid-feedback">
+    Enter a valid country.
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    /* Autocomplete the address by google map */
+    function fillInAddress(place) {
+      for (var i = 0; i < place.address_components.length; i++) {
+        var addressType = place.address_components[i].types[0];
+        if (addressType == "country") {
+          $('.user-country .filter-option .filter-option-inner-inner').text(place.address_components[i].long_name);
+          $('select[data-default]').val(place.address_components[i].short_name);
+        }
+      }
+    }
+
+    function initAutocomplete() {
+      var address = document.getElementById('user_address');
+      var autocomplete = new google.maps.places.Autocomplete(address)
+      google.maps.event.addListener(autocomplete, 'place_changed', function() {
+        var place = autocomplete.getPlace();
+        if (place) {
+          fillInAddress(place);
+        }
+      });
+    }
+
+    google.maps.event.addDomListener(window, 'load', initAutocomplete);
+  })
+
+  document.addEventListener("turbolinks:load", function() {
+    $('.user-country').countrypicker();
+  });
+</script>

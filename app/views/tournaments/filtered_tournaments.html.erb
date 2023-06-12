@@ -1,0 +1,95 @@
+<div id="<%= @window_mode %>_mine" class="<%= @tabcontent %>">
+  <% if @filtered_tournaments.present? && filtered_mine(@filtered_tournaments).present? %>
+    <% filtered_mine(@filtered_tournaments).each do |tournament, index| %>
+      <% if @window_mode.include?('desktop') %>
+        <div class="container">
+          <% if @paid_mode == 'paid' %>
+            <%= render partial: 'tournaments/desktop/single_paid_tournament', locals: {tournament: tournament, status: 'mine'} %>
+          <% else %>
+            <%= render partial: 'tournaments/desktop/single_free_tournament', locals: {tournament: tournament, status: 'mine'} %>
+          <% end %>
+        </div>
+      <% else %>
+        <% if @paid_mode == 'paid' %>
+          <%= render partial: 'tournaments/single_paid_tournament', locals: {tournament: tournament, status: 'mine'} %>
+        <% else %>
+          <%= render partial: 'tournaments/single_free_tournament', locals: {tournament: tournament, status: 'mine'} %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+<div id="<%= @window_mode %>_ongoing" class="<%= @tabcontent %>">
+  <% if @filtered_tournaments.present? %>
+    <% @filtered_tournaments.each do |tournament| %>
+      <% if ongoing_tournament(tournament) %>
+        <% if @window_mode.include?('desktop') %>
+          <div class="container">
+            <% if @paid_mode == 'paid' %>
+              <%= render partial: 'tournaments/desktop/single_paid_tournament', locals: {tournament: tournament, status: 'ongoing'} %>
+            <% else %>
+              <%= render partial: 'tournaments/desktop/single_free_tournament', locals: {tournament: tournament, status: 'ongoing'} %>
+            <% end %>
+          </div>
+        <% else %>
+          <% if @paid_mode == 'paid' %>
+            <%= render partial: 'tournaments/single_paid_tournament', locals: {tournament: tournament, status: 'ongoing'} %>
+          <% else %>
+            <%= render partial: 'tournaments/single_free_tournament', locals: {tournament: tournament, status: 'ongoing'} %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+
+<div id="<%= @window_mode %>_upcoming" class="<%= @tabcontent %>" style="display: block">
+  <% if @filtered_tournaments.present? %>
+    <% @filtered_tournaments.each do |tournament| %>
+      <% if upcoming_tournament(tournament) %>
+        <% if @window_mode.include?('desktop') %>
+          <div class="container">
+            <% if @paid_mode == 'paid' %>
+              <%= render partial: 'tournaments/desktop/single_paid_tournament', locals: {tournament: tournament, status: 'upcoming'} %>
+            <% else %>
+              <%= render partial: 'tournaments/desktop/single_free_tournament', locals: {tournament: tournament, status: 'upcoming'} %>
+            <% end %>
+          </div>
+        <% else %>
+          <% if @paid_mode == 'paid' %>
+            <%= render partial: 'tournaments/single_paid_tournament', locals: {tournament: tournament, status: 'upcoming'} %>
+          <% else %>
+            <%= render partial: 'tournaments/single_free_tournament', locals: {tournament: tournament, status: 'upcoming'} %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+
+<div id="<%= @window_mode %>_completed" class="<%= @tabcontent %>">
+  <% if @filtered_tournaments.present? %>
+    <% @filtered_tournaments.each do |tournament| %>
+      <% if completed_tournament(tournament) %>
+        <% if @window_mode.include?('desktop') %>
+          <div class="container">
+            <% if @paid_mode == 'paid' %>
+              <%= render partial: 'tournaments/desktop/single_paid_tournament', locals: {tournament: tournament, status: 'completed'} %>
+            <% else %>
+              <%= render partial: 'tournaments/desktop/single_free_tournament', locals: {tournament: tournament, status: 'completed'} %>
+            <% end %>
+          </div>
+        <% else %>
+          <% if @paid_mode == 'paid' %>
+            <%= render partial: 'tournaments/single_paid_tournament', locals: {tournament: tournament, status: 'completed'} %>
+          <% else %>
+            <%= render partial: 'tournaments/single_free_tournament', locals: {tournament: tournament, status: 'completed'} %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+<div class="mt-4 pb-4 text-center">
+  <a href="#"><span class="round-border text-uppercase">View More Tournaments</span></a>
+</div>

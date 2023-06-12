@@ -1,0 +1,52 @@
+<div class="mt-3 container tournaments-status">
+  <div class="tournaments-status__select">
+    <a class="pull-left tablinks mine text-uppercase" status="mobile_mine" onclick="selectedTouraments(event, 'mobile_mine')"><%= I18n.t('tournaments.titles.mine')%></a>
+    <a class="tablinks ongoing text-uppercase" status="mobile_ongoing" onclick="selectedTouraments(event, 'mobile_ongoing')"><%= I18n.t('tournaments.titles.ongoing')%></a>
+    <a class="tablinks active upcoming text-uppercase" status="mobile_upcoming" onclick="selectedTouraments(event, 'mobile_upcoming')"><%= I18n.t('tournaments.titles.upcoming')%></a>
+    <a class="pull-right tablinks completed text-uppercase" status="mobile_completed" onclick="selectedTouraments(event, 'mobile_completed')"><%= I18n.t('tournaments.titles.completed')%></a>
+  </div>
+</div>
+<div class="tab-background container-fluid" id="mobile-free">
+  <div id="mobile_mine" class="tabcontent">
+    <% if @free_tournaments.present? && filtered_mine(@free_tournaments).present? %>
+      <% filtered_mine(@free_tournaments).each do |tournament| %>
+        <%= render partial: 'tournaments/single_free_tournament', locals: {tournament: tournament, status: 'mine'} %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div id="mobile_ongoing" class="tabcontent">
+    <% if @free_tournaments.present? %>
+      <% @free_tournaments.each do |tournament| %>
+        <% if ongoing_tournament(tournament) %>
+          <%= render partial: 'tournaments/single_free_tournament', locals: {tournament: tournament, status: 'ongoing'} %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div id="mobile_upcoming" class="tabcontent" style="display: block">
+    <% if @free_tournaments.present? %>
+      <% @free_tournaments.each do |tournament| %>
+        <% if upcoming_tournament(tournament) %>
+          <%= render partial: 'tournaments/single_free_tournament', locals: {tournament: tournament, status: 'upcoming'} %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div id="mobile_completed" class="tabcontent">
+    <% if @free_tournaments.present? %>
+      <% @free_tournaments.reverse.each do |tournament| %>
+        <% if completed_tournament(tournament) %>
+          <%= render partial: 'tournaments/single_free_tournament', locals: {tournament: tournament, status: 'completed'} %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+  <!-- <div class="mt-4 pb-4 text-center"> -->
+  <div class="pb-2 text-center">
+    <a href="#" class="round-border text-uppercase d-none"><%= I18n.t("homepage.titles.mobile.tournaments")%></a>
+  </div>
+</div>
+

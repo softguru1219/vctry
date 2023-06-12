@@ -1,0 +1,65 @@
+<a href="<%= tournament_path(tournament) %>" id="timer_<%= status %>_<%= tournament.id %>">
+  <div class="px-2 tabcontent__background mt-2">
+    <div class="tmt-row py-2 flex-align-center">
+      <%= image_tag(tournament.mobile_logo.url, :alt => "tournament_bg", :width=>80, :style=>"border-radius: 10px;") %>
+      <div class="tmt-row__intro">
+        <div class="flex-align-center">
+          <span class="game-mark text-uppercase"><b><%= game_style(tournament) %></b></span>
+          <% if tournament.prize.present? %>
+            <div class="game-mark game-mark--price mx-2">
+              <%= image_tag("home/arrow-down.png") %>
+              <span><b><%= prize(tournament) %>€</b></span>
+            </div>
+            <% if tournament.premium == true %>
+              <%= image_tag("home/premium_mark.png", :alt => "premium_btn") %>
+            <% end %>
+          <% elsif tournament.premium == true %>
+            <%= image_tag("home/premium_mark.png", :alt => "premium_btn", class: "ml-2") %>
+          <% end %>
+        </div>
+        <div class="dot-text">
+          <span class="game-title blue"><b><%= tournament.full_name %></b></span>
+        </div>
+        <% if status == 'upcoming' %>
+          <div class="game-date blue mt-2">
+            <%= I18n.t('tournaments.titles.event_start_in')%> <b><span class="yellow clock"></span></b>
+          </div>
+        <% elsif status=="ongoing" %>
+          <div class="game-date blue mt-2">
+            <%= I18n.t('tournaments.titles.event_started')%> <b><span class="yellow clock"></span></b> <%= I18n.t('homepage.titles.ago')%>
+          </div>
+        <% end %>
+        <div class="game-date blue">
+          <% if waiting_list(tournament).present? %>
+            <span><b><%= I18n.t('homepage.titles.slots').capitalize %> : <%= slots_num(tournament) %> / <%= tournament[:size] %> | </b><%= I18n.t('homepage.titles.waiting_list') %> : <%= waiting_list(tournament) %></span>
+          <% else %>
+            <span><b><%= I18n.t('homepage.titles.slots').capitalize %> : <%= slots_num(tournament) %> / <%= tournament[:size] %></b></span>
+          <% end %>
+        </div>
+      </div>
+      <% if tournament.protection == true %>
+        <div class="tmt-row_arrow pr-1">
+          <i class="fa fa-lock"></i>
+        </div>
+      <% end %>
+      <div class="tmt-row_arrow">
+        <i class="fa fa-chevron-right"></i>
+      </div>
+    </div>
+  </div>
+</a>
+
+<script>
+  $(document).ready(function (){
+    status = "<%= status %>"
+    start_time = "<%= tournament[:registration_closing_datetime] %>"
+    is_mobile = "<%= browser.device.mobile? %>"
+    if (is_mobile == "true") {
+      if (status == 'upcoming') {
+        new countDown({ clock : '#timer_<%= status %>_<%= tournament.id %>', startTime: start_time }).startTimer();
+      } else if (status == 'ongoing') {
+        new countDown({ clock : '#timer_<%= status %>_<%= tournament.id %>', startTime: start_time, elapse: true }).startTimer(); 
+      }
+    }
+  })
+</script>

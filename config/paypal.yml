@@ -1,0 +1,51 @@
+# test: &default
+
+#   # Credentials for REST APIs
+#   # client_id: EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM
+#   # client_secret: EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM
+
+#   client_id: AXynHDND8_ZE248gu5CjBwCZuCZoYyOfRhby5QgPhgDpouFpJcnV5Rq-W9Rkwhc6c-gjN7d4jyEGCU45
+#   client_secret: EEDmESTOWtFIm0wD5zoLVdeEUpWNvvnCk0CC7KEY6UdB277Wofep5H131tgy6lBlIoU_GAT4LwBYqpJ1
+
+#   # Mode can be 'live' or 'sandbox'
+#   mode: sandbox
+
+#   # Credentials for Classic APIs
+#   # app_id: APP-80W284485P519543T
+#   # username: jb-us-seller_api1.paypal.com
+#   # password: WX4WTU3S8MY44S7F
+#   # signature: AFcWxV21C7fd0v3bYYYRCpSSRl31A7yDhhsPUU2XhtMoZXsWHFxu-RWy
+
+#   username: sb-oub8h1373456_api1.business.example.com
+#   password: 3FT2YK5D7N6PHS9J
+#   signature: A45Tx05PlgvEFhIlL9eCTii3waW0ADeWQml61FWpHF.UY95ru.Glzv5p
+#   # # With Certificate
+#   # cert_path: "config/cert_key.pem"
+#   sandbox_email_address: sb-oub8h1373456@business.example.com
+
+  # # IP Address
+  # ip_address: 127.0.0.1
+  # # HTTP Proxy
+  # http_proxy: http://proxy-ipaddress:3129/
+
+development: &default
+  mode: sandbox
+  client_id: AXynHDND8_ZE248gu5CjBwCZuCZoYyOfRhby5QgPhgDpouFpJcnV5Rq-W9Rkwhc6c-gjN7d4jyEGCU45
+  client_secret: EEDmESTOWtFIm0wD5zoLVdeEUpWNvvnCk0CC7KEY6UdB277Wofep5H131tgy6lBlIoU_GAT4LwBYqpJ1
+
+  username: sb-oub8h1373456_api1.business.example.com
+  password: 3FT2YK5D7N6PHS9J
+  signature: A45Tx05PlgvEFhIlL9eCTii3waW0ADeWQml61FWpHF.UY95ru.Glzv5p
+  sandbox_email_address: sb-oub8h1373456@business.example.com
+
+production: &default
+  mode: live
+  client_id: AV7gHMXePmusuAA3Ii7B4tR3juaBrjU-disJRiJIaUoYODLRkLBf--sYbRGME1o_dRH3Vr9UM5Kd8T-7
+  client_secret: EGzukBmaU1Y-oUHvxA6TXOnH0djEh1YZR2tvCQDO1BTktnM6vmuqUwhWcGlFWYi9m8qV95vCYFyLNqjQ
+  
+staging:
+  <<: *default
+  mode: live
+
+
+

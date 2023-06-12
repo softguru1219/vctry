@@ -1,0 +1,150 @@
+<div class="container game-round">
+  <div class="game-detail game-detail__registered">
+    <div class="game-detail__background" style="background-image: url(<%= asset_path @tournament.tournament_cover.url %>)">
+      <!-- <div class="background-full-image game-detail__background"> -->
+      <!-- <div class="background-full-image"> -->
+      <!-- <#%= image_tag("home/desktop/tournament_bg.png", :class=>"full-width") %>-->
+      <div class="game-detail__content"></div>
+      <div class="back-btn flex-center" style="width: 15rem">
+        <a href="<%= tournament_checkin_path(@tournament) %>" class="btn-zIndex"><i class="fa fa-arrow-left"></i></a>
+        <% if @match.scores[score_players(@match).first.to_s].to_i > @match.scores[score_players(@match).second.to_s].to_i %>
+          <% if active_player(fifa_players(@match).first, @match, 0) == current_user %>
+            <span class="match-guidence pl-3"><%= I18n.t('tournaments.titles.complete_next_match') %></span>
+          <% else %>
+            <span class="match-guidence pl-3"><%= I18n.t('tournaments.titles.complete_miss_match') %></span>
+          <% end %>
+        <% elsif @match.scores[score_players(@match).first.to_s].to_i < @match.scores[score_players(@match).second.to_s].to_i %>
+          <% if active_player(fifa_players(@match).second, @match, 1) == current_user %>
+            <span class="match-guidence pl-3"><%= I18n.t('tournaments.titles.complete_next_match') %></span>
+          <% else %>
+            <span class="match-guidence pl-3"><%= I18n.t('tournaments.titles.complete_miss_match') %></span>
+          <% end %>
+        <% elsif Match.show_draw_result(@match).present? %>
+          <% if User.find(Match.show_draw_result(@match)) == current_user %>
+            <span class="match-guidence pl-3"><%= I18n.t('tournaments.titles.complete_next_match') %></span>
+          <% else %>
+            <span class="match-guidence pl-3"><%= I18n.t('tournaments.titles.complete_miss_match') %></span>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="flex-center">
+        <div class="game_titles text-center">
+          <span class="game-mark text-uppercase"><b><%= game_style(@tournament) %></b></span>
+          <div class="game_titles__details mt-2">
+            <span><%= @tournament.full_name %></span>
+            <% if @tournament.premium == true %>
+              <a href="<%= get_premium_path %>">
+                <%= image_tag("home/premium_mark.png", :alt => "premium_btn") %>
+              </a>
+            <% end %>
+          </div>
+          <!-- <div class="game_titles__date mt-1">
+            <i class="united states flag"></i>
+            <span>Groups > Group 1 > Round 1</span>
+          </div> -->
+          <div class="game_titles__date mt-4 flex-center">
+            <div class="text-uppercase"><b><%= I18n.t('tournaments.titles.game_over') %>!</b></div>
+          </div>
+          <div class="game_titles__date mt-1">
+            <% if finished_time(@match).present? %>
+              <div class="text-center">
+                <%= I18n.t('tournaments.titles.match_lasted') %> 
+                <span class="yellow"><b><%= finished_time(@match)[:hours] %>:<%= finished_time(@match)[:minutes] %>:<%= finished_time(@match)[:seconds] %></b></span>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="block-tnmt">
+        <div class="block-tnmt__row">
+          <div class="block-tnmt__item bottom-round--left">
+            <div class="game-player-pic" style="background-image: url(<%= image_url User.find(score_players(@match).first).avatar.url %>);">
+            </div>
+            <% if fifa_players(@match).present? && fifa_players(@match).length > 1 %>
+              <span class="pt-2 dot-text" style="width: 80px;"><b><%= fifa_players(@match).first %></b></span>
+            <% end %>
+            <div class="score-position">
+              <% if @match.scores[score_players(@match).first.to_s].to_i > @match.scores[score_players(@match).second.to_s].to_i %>
+                <div class="score-panel score-panel--win"><%= @match.scores[score_players(@match).first.to_s] %></div>
+              <% elsif @match.scores[score_players(@match).first.to_s].to_i < @match.scores[score_players(@match).second.to_s].to_i %>
+                <div class="score-panel score-panel--lose"><%= @match.scores[score_players(@match).first.to_s] %></div>
+              <% elsif Match.show_draw_result(@match).present? %>
+                <% if Match.show_draw_result(@match) == score_players(@match).first %>
+                  <div class="score-panel score-panel--win"><%= @match.scores[score_players(@match).first.to_s] %></div>
+                <% else %>
+                  <div class="score-panel score-panel--lose"><%= @match.scores[score_players(@match).first.to_s] %></div>
+                <% end %>
+              <% else %>
+                <div class="score-panel"><%= @match.scores[score_players(@match).first.to_s] %></div>
+              <% end %>
+              <div class="game-ready">
+                <% if platform_id(@tournament).present? %>
+                  <span class="pl-2 flex-align-center">
+                    <div class="mr-1 steam-title"><%= platform_id(@tournament) %>:</div>
+                    <% if get_fifa(@match, @tournament).present? %>
+                      <div class="steam-value"><b><%= get_fifa(@match, @tournament).first %></b></div>
+                    <% end %>
+                  </span>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          
+          <div class="block-tnmt__item bottom-round--right">
+            <div class="score-position">
+              <% if @match.scores[score_players(@match).first.to_s].to_i > @match.scores[score_players(@match).second.to_s].to_i %>
+                <div class="score-panel score-panel--lose"><%= @match.scores[score_players(@match).second.to_s] %></div>
+              <% elsif @match.scores[score_players(@match).first.to_s].to_i < @match.scores[score_players(@match).second.to_s].to_i %>
+                <div class="score-panel score-panel--win"><%= @match.scores[score_players(@match).second.to_s] %></div>
+              <% elsif Match.show_draw_result(@match).present? %>
+                <% if Match.show_draw_result(@match) == score_players(@match).second %>
+                  <div class="score-panel score-panel--win"><%= @match.scores[score_players(@match).second.to_s] %></div>
+                <% else %>
+                  <div class="score-panel score-panel--lose"><%= @match.scores[score_players(@match).second.to_s] %></div>
+                <% end %>
+              <% else %>
+                <div class="score-panel"><%= @match.scores[score_players(@match).second.to_s] %></div>
+              <% end %>
+              <div class="game-ready">
+                <% if platform_id(@tournament).present? %>
+                  <span class="pl-2 flex-align-center">
+                    <div class="mr-1 steam-title"><%= platform_id(@tournament) %>:</div>
+                    <% if get_fifa(@match, @tournament).length > 1 %>
+                      <div class="steam-value"><b><%= get_fifa(@match, @tournament).second %></b></div>
+                    <% end %>
+                  </span>
+                <% end %>
+              </div>
+            </div>
+            <div class="game-player-pic" style="background-image: url(<%= image_url User.find(score_players(@match).second).avatar.url %>);">
+            </div>
+            <% if fifa_players(@match).present? && fifa_players(@match).length > 1 %>
+               <span class="pt-2 dot-text" style="width: 80px;"><b><%= fifa_players(@match).second %></b></span>
+            <% end %>
+          </div>
+        </div>
+        <div class="join-tournament-btn text-initial px-5">
+          <%= image_tag('tournament/vctry_mark@2x.png', :alt => "Ellipse", :width=>100) %>
+          <% if @match.scores[score_players(@match).first.to_s].to_i > @match.scores[score_players(@match).second.to_s].to_i %>
+            <div class="mt-2"><%= I18n.t('homepage.titles.winner') %>: <%= fifa_players(@match).first %></div>
+            <a href="<%= user_path(active_player(fifa_players(@match).first, @match, 0)) %>" target="_blank">
+              <div class="mt-2 text-uppercase round-border final-round-border"><%= I18n.t('homepage.titles.view') %> <%= fifa_players(@match).first %> <%= I18n.t('homepage.titles.profile') %></div>
+            </a>
+          <% elsif @match.scores[score_players(@match).first.to_s].to_i < @match.scores[score_players(@match).second.to_s].to_i %>
+            <div class="mt-2"><%= I18n.t('homepage.titles.winner') %>: <%= fifa_players(@match).second %></div>
+            <a href="<%= user_path(active_player(fifa_players(@match).second, @match, 1)) %>" target="_blank">
+              <div class="mt-2 text-uppercase round-border final-round-border"><%= I18n.t('homepage.titles.view') %> <%= fifa_players(@match).second %> <%= I18n.t('homepage.titles.profile') %></div>
+            </a>
+          <% elsif Match.show_draw_result(@match).present? %>
+            <div class="mt-2"><%= I18n.t('homepage.titles.winner') %>: <%= User.find(Match.show_draw_result(@match)).username %></div>
+            <a href="<%= user_path(User.find(Match.show_draw_result(@match))) %>" target="_blank">
+              <div class="mt-2 text-uppercase round-border final-round-border"><%= I18n.t('homepage.titles.view') %> <%= User.find(Match.show_draw_result(@match)).username %> <%= I18n.t('homepage.titles.profile') %></div>
+            </a>
+          <% else %>
+            <div class="mt-2"><%= I18n.t('homepage.titles.winner') %>: <%= I18n.t('homepage.titles.draw') %></div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<% if current_balance < @tournament.price %>
+  <div class="mt-3">
+    <div class="text-center join-tournament__step join-tournament__step--active">
+      <div class="profile_edit_title"><b><%= I18n.t('user.edit.titles.step')%> <%= 4 + Tournament.step_index(@tournament) %></b> / <%= I18n.t('tournaments.titles.buyin_pay') %></div>
+      <div class="mt-3 wallet__background flex-center">
+        <%= image_tag("home/wallet_bg@2x.png", :class=>"full-width") %>
+        <div class="wallet__balance deposit-val">
+          <b><span class="large-balance"><%= number_with_precision(current_balance, precision: 2) %></span></b>€
+        </div>
+        <div class="balance-title"><%= I18n.t('homepage.titles.current_balance') %></div>
+      </div>
+      <div class="mt-3">
+        <span class="text-uppercase"><%= I18n.t('tournaments.titles.buyin_price')%>:</span>
+        <div class="mt-1">
+          <span class="middle-balance yellow"><strong><%= @tournament.price %>€</strong></span>
+          <span class="grey pl-1">+ 10% <%= I18n.t('homepage.titles.fee') %></span>
+        </div>
+      </div>
+      <div class="mt-2">
+        <span class="text-uppercase"><%= I18n.t('homepage.titles.missing_balance') %>:</span>
+        <div class="mb-2">
+          <span class="middle-balance red"><strong><%= number_with_precision((current_balance - @tournament.price - Tournament.fee(@tournament.price)).abs, precision: 2) %>€</strong></span>
+        </div>
+      </div>
+      <div class="button flex-center tournament_deposit">
+        <%= image_tag("home/white-arrow-up.png") %>
+        <span class="pl-2"><%= I18n.t('homepage.titles.deposit').capitalize %></span>
+      </div>
+      <div class="tournament-paypal-btn"></div>
+    </div>
+  </div>
+<% else %>
+  <div class="mt-3">
+    <div class="text-center join-tournament__step join-tournament__step--active">
+      <div class="profile_edit_title"><b><%= I18n.t('user.edit.titles.step')%> <%= 4 + Tournament.step_index(@tournament) %></b> / <%= I18n.t('tournaments.titles.buyin_pay') %></div>
+      <div class="mt-3 wallet__background flex-center">
+        <%= image_tag("home/wallet_bg@2x.png", :class=>"full-width") %>
+        <div class="wallet__balance deposit-val">
+          <b><span class="large-balance"><%= number_with_precision(current_balance, precision: 2) %></span></b>€
+        </div>
+        <div class="balance-title"><%= I18n.t('homepage.titles.current_balance') %></div>
+      </div>
+      <div class="mt-3">
+        <span class="text-uppercase"><%= I18n.t('tournaments.titles.buyin_price')%>:</span>
+        <div class="mt-1">
+          <span class="middle-balance yellow"><strong><%= @tournament.price %>€</strong></span>
+          <span class="grey pl-1">+ 10% <%= I18n.t('homepage.titles.fee') %></span>
+        </div>
+      </div>
+      <div class="mt-2">
+        <span class="text-uppercase"><%= I18n.t('homepage.titles.will_balance') %>:</span>
+        <div class="mb-2">
+          <span class="middle-balance yellow"><strong><%= number_with_precision((current_balance - @tournament.price - Tournament.fee(@tournament.price)), precision: 2) %>€</strong></span>
+        </div>
+      </div>
+      <div class="button buyIn text-uppercase">
+        <%= I18n.t('homepage.titles.pay').capitalize %> <%= number_with_precision((@tournament.price + Tournament.fee(@tournament.price)), precision: 2) %>€ <%= I18n.t('homepage.titles.buy_in_title')%>
+      </div>
+    </div>
+  </div>
+<% end %>

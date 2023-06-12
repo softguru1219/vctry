@@ -1,0 +1,47 @@
+<div class="flex-center mt-4">
+  <div class="picks-title font-30">
+    <span><%= I18n.t('homepage.titles.desktop.picks') %></span>
+  </div>
+</div>
+<% @tournaments.in_groups_of(3, false).each do |group| %>
+  <div class="row mt-2">
+    <% group.each do |tournament| %>
+      <div class="col-md-4 pr-0">
+        <!--<#%= link_to image_tag(tournament.featured_image.url, :alt => "premium_btn", :class=>"full-width"), tournament_path(tournament) %>-->
+        <a href="<%= tournament_path(tournament) %>">
+          <div class="featured-image" style="background-image: url(<%= tournament.featured_image.url %>) "></div>
+        </a>
+        <div class="tournemants-main-time">
+          <% if tournament.scheduled_date_start.present? %>
+            <div class="tour-date-mark">
+              <span class="yellow"><b><%= local_time(tournament[:registration_closing_datetime], format: "%e") %></b></span><br>
+              <span><%= local_time(tournament[:registration_closing_datetime], format: "%b") %></span>
+            </div>
+          <% end %>
+        </div>
+        <div class="tournaments-main-detail mt-1">
+          <span class="game-mark text-uppercase"><%= game_style(tournament) %></span>
+          <div class="game-description mt-1">
+            <span><b><%= tournament.full_name %></b></span>
+          </div>
+          <div class="game-date mt-1">
+            <% if tournament.scheduled_date_start.present? %>
+              <span><%= local_time(tournament[:registration_closing_datetime], format: "%a, %b %e - %H:%M %p %Z") %></span><br>
+            <% end %>
+            <% if waiting_list(tournament).present? %>
+              <span><b>Slots : <%= slots_num(tournament) %> / <%= tournament[:size] %></b> +<%= waiting_list(tournament) %> waiting</span>
+            <% else %>
+              <span><b>Slots : <%= slots_num(tournament) %> / <%= tournament[:size] %></b></span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<div class="py-4 text-center">
+  <a href="<%= tournaments_path %>">
+    <span class='round-border text-uppercase'><%= I18n.t('homepage.titles.desktop.tournaments') %></span>
+  </a>
+</div>

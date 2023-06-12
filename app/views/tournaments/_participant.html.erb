@@ -1,0 +1,16 @@
+<a href="<%= user_path(participant.user_id) %>" target="_blank">
+  <div class="participant-pic" style="background-image: url(<%= image_url User.find(participant.user_id).avatar.url %>); background-size: cover;">
+  <!--<#%= image_tag(User.find(participant.user_id).avatar.url, :alt => "home_background", :class=>"full-width", style: "border-radius: 50%")%>-->
+    <% if participant.checked_in == true %>
+      <div class="check-in">
+        <% if current_user && participant.user_id == current_user.id %>
+          <%= image_tag("tournament/current_check_in.png", :alt => "profile_pic", :class=>"d-inline-block") %>
+        <% else %>
+          <%= image_tag("tournament/check_in.png", :alt => "profile_pic", :class=>"d-inline-block") %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</a>
+
+<div class="mt-2 blue"><%= User.find(participant.user_id).username %></div>

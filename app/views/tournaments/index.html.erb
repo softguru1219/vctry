@@ -1,0 +1,97 @@
+<div class="container-fluid">
+  <div class="row home-mobile-resolution">
+    <div class="tournaments full-width">
+      <% if upcoming_tournament_list(@tournaments).present? %>
+        <div class="browse-tournaments">
+          <div class="container mt-3">
+            <span class="title"><%= I18n.t('tournaments.titles.browse_tournaments') %></span>
+          </div>
+          <div id="carouselExampleIndicators-tournament" class="carousel slide full-width" data-ride="carousel" data-interval="5000">
+            <div class="carousel-inner">
+              <% upcoming_tournament_list(@tournaments.order("registration_closing_datetime ASC")).sample(5).each_with_index do |tournament, index| %>
+                <% if index == 0 %>
+                  <div class="carousel-item active">
+                <% else %>
+                  <div class="carousel-item">
+                <% end %>
+                  <%= render partial: 'browse_tournaments', locals: {tournament:  tournament} %>
+                </div>
+              <% end %>
+            </div>
+            <ol class="carousel-indicators my-3">
+              <% upcoming_tournament_list(@tournaments.order("registration_closing_datetime ASC")).sample(5).each_with_index do |tournament, index| %>
+                <% if index == 0 %>
+                  <li data-target="#carouselExampleIndicators-tournament" data-slide-to="<%= index %>" class="active author-bar"></li>
+                <% else %>
+                  <li data-target="#carouselExampleIndicators-tournament" data-slide-to="<%= index %>" class="author-bar"></li>
+                <% end %>
+              <% end %>
+            </ol>
+          </div>
+        </div>
+      <% end %>
+      <% if flash[:leave_tournament].present? %>
+        <div class="container alert-message mt-3 stream-alert text-center">
+          <div class="alert alert-danger alert-dismissible fade show">
+            <span><%= flash[:leave_tournament] %></span>
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+          </div>
+        </div>
+      <% end %>
+      <%= render partial: 'game_lists' %>
+    </div>
+    <%= render partial: 'home/partials/content_creator' %>
+    <%= render partial: 'home/partials/quotation' %>
+  </div>
+</div>
+
+<div class="desktop-resolution">
+  <div class="tournaments full-width">
+    <% if upcoming_tournament_list(@tournaments).present? %>
+      <div id="carouselExampleIndicators-tournament-desktop" class="carousel slide full-width" data-ride="carousel" data-interval="5000">
+        <div class="carousel-inner">
+          <% upcoming_tournament_list(@tournaments.order("registration_closing_datetime ASC")).sample(5).each_with_index do |tournament, index| %>
+            <% if index == 0 %>
+              <div class="carousel-item active">
+            <% else %>
+              <div class="carousel-item">
+            <% end %>
+              <%= render partial: 'tournaments/desktop/browse_tournaments', locals: {tournament:  tournament} %>
+            </div>
+          <% end %>
+        </div>
+        <ol class="carousel-indicators text-center">
+          <% upcoming_tournament_list(@tournaments.order("registration_closing_datetime ASC")).sample(5).each_with_index do |tournament, index| %>
+            <% if index == 0 %>
+              <li data-target="#carouselExampleIndicators-tournament-desktop" data-slide-to="<%= index %>" class="active author-bar"></li>
+            <% else %>
+              <li data-target="#carouselExampleIndicators-tournament-desktop" data-slide-to="<%= index %>" class="author-bar"></li>
+            <% end %>
+          <% end %>
+        </ol>
+      </div>
+    <% end %>
+    <% if flash[:leave_tournament].present? %>
+      <div class="container alert-message mt-3 stream-alert text-center">
+        <div class="alert alert-danger alert-dismissible fade show">
+          <span><%= flash[:leave_tournament] %></span>
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+      </div>
+    <% end %>
+    <%= render partial: 'tournaments/desktop/game_lists' %>
+  </div>
+  <%= render partial: 'home/desktop/premium_background' %>
+  <%= render partial: 'home/desktop/content_creator' %>
+  <%= render partial: 'home/desktop/quotation' %>
+</div>
+
+<script>
+  $(document).ready(function (){
+    $('.premium-icon-btn').click(function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+       window.location = "<%= get_premium_path %>";
+    });
+  })
+</script>

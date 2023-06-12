@@ -1,0 +1,55 @@
+<% if Raffle.current_raffle.present? %>
+  <%= render partial: "raffles/partials/partial_first_raffle", :locals=>{current_raffle: Raffle.current_raffle} %>
+<% else %>
+
+  <div class="raffles">
+    <div class="container my-3">
+      <% if Raffle.all.blank? %>
+        <div class="raffles__title">
+          <span class><%= I18n.t('raffles.titles.daily_raffle') %></span>
+        </div>
+        <div class="mt-5 text-center">
+          <%= image_tag "home/big_raffles.png", srcset: { "home/big_raffles@2x.png": "2x" } %>
+          <div class="mt-4"><%= I18n.t('raffles.titles.no_raffle') %></div>
+        </div>
+      <% end %>
+      <div class="mt-3">
+        <div class="row">
+          <div class="col-md-12 col-sm-12">
+            <div class="tickets mt-4">
+              <%= image_tag("home/ticket_icon.png")%>
+              <div class="container-fluid tickets__content shadow-sm py-4">
+                <div class="tickets__title"><b><%= I18n.t('raffles.titles.my_raffle_ticket') %>:</b>
+                  <div class="tickets__count"><%= current_user.tickets.to_i %></div>
+                  <% if current_user.last_ticket_claimed.present? %>
+                    <% if (current_user.last_ticket_claimed.to_date + 1.day) > Time.now.utc.to_date %>
+                      <div class="text-uppercase"><%= I18n.t('raffles.titles.redeemed_ticket').html_safe %></div>
+                    <% else %>
+                      <div class="px-4 mt-2 request_ticket">
+                        <a href="javascript:void(0)">
+                          <div class="tickets__daily mx-5"><%= I18n.t('raffles.titles.get_my_ticket') %></div>
+                        </a>
+                      </div>
+                      <div class="mt-2 requested_ticket">
+                        <div class="text-uppercase"><%= I18n.t('raffles.titles.redeemed_ticket').html_safe %></div>
+                      </div>
+                    <% end %>
+                  <% else %>
+                    <div class="px-4 mt-2 request_ticket">
+                      <a href="javascript:void(0)">
+                        <div class="tickets__daily mx-5"><%= I18n.t('raffles.titles.get_my_ticket') %></div>
+                      </a>
+                    </div>
+                    <div class="mt-2 requested_ticket">
+                      <div class="text-uppercase"><%= I18n.t('raffles.titles.redeemed_ticket').html_safe %></div>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

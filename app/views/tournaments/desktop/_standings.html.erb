@@ -1,0 +1,62 @@
+<div class="desktop-resolution">
+  <div class="container standings">
+    <div class="py-5">
+      <div class="back-btn">
+        <a href="<%= tournament_path(@tournament) %>"><i class="fa fa-arrow-left"></i></a>
+      </div>
+      <div class="mt-3 text-wrap">
+        <b><%= @tournament.full_name %></b>
+      </div>
+      <% if @standings.present? %>
+        <% @standings.each do |standing| %>
+          <div class="mt-3">
+            <div class="container standings__block shadow-sm">
+              <div class="row">
+                <div class="col-2 col-sm-2 standings__ranking">
+                  <% if standing.rank == 1 %>
+                    <span class="yellow big-font"><%= standing.rank %></span><b><%= standing.rank.ordinalize.split(standing.rank.to_s).last %></b>
+                  <% elsif standing.rank == 2 %>
+                    <span class="strong-grey big-font"><%= standing.rank %></span><b><%= standing.rank.ordinalize.split(standing.rank.to_s).last %></b>
+                  <% elsif standing.rank == 3 %>
+                    <span class="brown big-font"><%= standing.rank %></span><b><%= standing.rank.ordinalize.split(standing.rank.to_s).last %></b>
+                  <% else %>
+                    <span class="grey big-font"><%= standing.rank %></span><b><%= standing.rank.ordinalize.split(standing.rank.to_s).last %></b>
+                  <% end %>
+                </div>
+                <% if Standing.player(standing).present? %>
+                  <div class="col-10 py-2">
+                    <a href="<%= user_path(Standing.player(standing).id) %>" class="full-width flex-align-center">
+                      <%= image_tag(Standing.player(standing).avatar.url, :width=>'10%', :style=>"border-radius: 50%") %>
+                      <div class="d-inline-block ml-3 standings__content">
+                        <b><%= Standing.player(standing).username %></b>
+                        <% if standing_prize(@tournament, standing.rank).present? %>
+                          <div class="raffles-block-content">
+                            <%= image_tag("home/big_arrow_down@2x.png", :width=>'8%')%>
+                            <span class="pl-1 grey"><%= I18n.t('homepage.titles.won').capitalize %> <b><%= standing_prize(@tournament, standing.rank) %>€</b> <%= I18n.t('homepage.titles.of') %> <%= I18n.t('homepage.titles.standing_prize_pool').capitalize %></b></span>
+                          </div>
+                        <% end %>
+                      </div>
+                    </a>
+                  </div>
+                <% else %>
+                  <div class="col-10 flex-align-center py-2">
+                    <%= image_tag('profile/default_avatar.jpg', :width=>'10%', :style=>"border-radius: 50%") %>
+                    <div class="d-inline-block ml-3 standings__content">
+                      <b><%= I18n.t('homepage.titles.nickname') %></b>
+                      <% if standing_prize(@tournament, standing.rank).present? %>
+                        <div class="raffles-block-content">
+                          <%= image_tag("home/big_arrow_down@2x.png", :width=>'8%')%>
+                          <span class="pl-1 grey"><%= I18n.t('homepage.titles.won').capitalize %> <b><%= standing_prize(@tournament, standing.rank) %>€</b> <%= I18n.t('homepage.titles.of') %> <%= I18n.t('homepage.titles.standing_prize_pool').capitalize %></b></span>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

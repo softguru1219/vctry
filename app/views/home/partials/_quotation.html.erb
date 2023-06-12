@@ -1,0 +1,58 @@
+<% if ContentCreator.all.present? %>
+  <div id="carouselExampleIndicators" class="carousel slide full-width" data-ride="carousel" data-interval="5000">
+    <div class="carousel-inner">
+      <% ContentCreator.all.sample(5).each_with_index do |creator, index| %>
+        <% if index == 0 %>
+          <div class="carousel-item active">
+        <% else %>
+          <div class="carousel-item">
+        <% end %>
+          <div class="quotation-bg flex-center">
+            <%= image_tag("home/quotation.png", :alt => "premium_btn", :class=>"full-width") %>
+            <% if creator.logo.present? %>
+              <img src="<%= creator.logo %>" alt="premium_btn", class="pewdiepie-img", width="40%">
+            <% else %>
+              <%= image_tag("home/testimonial.png", :alt => "premium_btn", :class=>"pewdiepie-img", :width=>"40%") %>
+            <% end %>
+            <%= image_tag("home/quote.png", :alt => "premium_btn", :class=>"quote-img") %>
+          </div>
+          <div class="container text-center">
+            <div class="quote-comments container">
+              <span>
+                <% if session[:locale] == 'de' %>
+                  <%= creator.german_description %>
+                <% else %>
+                  <%= creator.description %>
+                <% end %>
+              </span>
+            </div>
+            <div class="author-name mt-3">
+              <b><%= creator.name %></b>
+            </div>
+            <div class="author-carrer mt-2">
+              <span>
+                <% if session[:locale] == 'de' %>
+                  <%= creator.german_subtitle %>
+                <% else %>
+                  <%= creator.subtitle %>
+                <% end %>
+              </span>
+            </div>
+            <div class="mt-2">
+              <span class="author-carrer text-uppercase"><%= I18n.t('homepage.titles.content_creator_code') %></span>: <span class="author-code"><b><%= creator.code %></b></span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <ol class="carousel-indicators my-3">
+      <% ContentCreator.all.sample(5).each_with_index do |creator, index| %>
+        <% if index == 0 %>
+          <li data-target="#carouselExampleIndicators" data-slide-to="<%= index %>" class="active author-bar"></li>
+        <% else %>
+          <li data-target="#carouselExampleIndicators" data-slide-to="<%= index %>" class="author-bar"></li>
+        <% end %>
+      <% end %>
+    </ol>
+  </div>
+<% end %>

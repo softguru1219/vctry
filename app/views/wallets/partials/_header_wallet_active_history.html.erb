@@ -1,0 +1,43 @@
+<div class="mt-3 container wallet__history__block shadow-sm">
+  <div class="row">
+    <div class="col-2 block-left flex-center">
+      <% if ct.transaction_type == 'deposit' %>
+        <%= image_tag("home/big_arrow_up@2x.png", :width=>'60%')%>
+      <% elsif ct.transaction_type == 'withdraw' %>
+        <%= image_tag("home/big_arrow_down@2x.png", :width=>'60%')%>
+      <% elsif ct.transaction_type == 'premium_withdraw' %>
+        <%= image_tag("home/big_arrow_down@2x.png", :width=>'60%')%>
+      <% elsif ct.transaction_type == 'buyIn' %>
+        <%= image_tag("home/buy-in-arrow@2x.png", :width=>'60%')%>
+      <% elsif ct.transaction_type == 'cash' %>
+        <%= image_tag("home/buy-out-arrow@2x.png", :width=>'60%')%>
+      <% elsif ct.transaction_type == 'prize_money' %>
+        <%= image_tag("home/big_arrow_up@2x.png", :width=>'60%')%>
+      <% end %>
+    </div>
+
+    <div class="col-10 flex-align-center block-right py-2">
+      <div class="d-inline-block">
+        <% if ct.transaction_type == 'deposit' %>
+          <div class="text-left block-right__price">+ <%= ct.amount %> €</div>
+          <div class="text-left"><b><%= I18n.t('homepage.titles.deposit').capitalize %></b> | <%= local_time(ct.created_at, format: "%m/%d/%Y %H:%M %p %Z") %></div>
+        <% elsif ct.transaction_type == 'withdraw' %>
+          <div class="text-left block-right__price"><%= ct.amount %> €</div>
+          <div class="text-left"><b><%= I18n.t('homepage.titles.withdraw').capitalize %></b> | <%= local_time(ct.created_at, format: "%m/%d/%Y %H:%M %p %Z") %></div>
+        <% elsif ct.transaction_type == 'premium_withdraw' %>
+          <div class="text-left block-right__price"><%= ct.amount %> €</div>
+          <div class="text-left"><b><%= I18n.t('wallets.titles.premium_purchase') %></b> | <%= local_time(ct.created_at, format: "%m/%d/%Y %H:%M %p %Z") %></div>
+        <% elsif ct.transaction_type == 'buyIn' %>
+          <div class="text-left block-right__price"><%= ct.amount %> €</div>
+          <div class="text-left"><b><%= I18n.t('wallets.titles.buy_in_title') %></b> | <%= I18n.t('homepage.titles.tournament').capitalize %> #<%= ct.tournament_id %> | <%= local_time(ct.created_at, format: "%m/%d/%Y %H:%M %p %Z") %></div>
+        <% elsif ct.transaction_type == 'cash' %>
+          <div class="text-left block-right__price"><%= ct.amount %> €</div>
+          <div class="text-left"><b><%= I18n.t('homepage.titles.cash_prize').capitalize %></b> | <%= I18n.t('homepage.titles.tournament').capitalize %> #<%= ct.tournament_id %> | <%= local_time(ct.created_at, format: "%m/%d/%Y %H:%M %p %Z") %></div>
+        <% elsif ct.transaction_type == 'prize_money' %>
+          <div class="text-left block-right__price">+ <%= ct.amount %> €</div>
+          <div class="text-left"><b><%= I18n.t('homepage.titles.prize_money').capitalize %></b> | <%= local_time(ct.created_at, format: "%m/%d/%Y %H:%M %p %Z") %></div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

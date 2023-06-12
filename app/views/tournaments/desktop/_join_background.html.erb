@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="game-detail" id="desktoptimer_<%= @tournament.id %>">
+    <div class="game-detail__background" style="background-image: url(<%= asset_path @tournament.tournament_cover.url %>)">
+      <!-- <div class="background-full-image game-detail__background"> -->
+      <!-- <div class="background-full-image"> -->
+      <!-- <#%= image_tag("home/desktop/tournament_bg.png", :class=>"full-width") %>-->
+      <%= render partial: 'tournaments/desktop/game_detail_main_screen'%>
+      <div class="block-tnmt">
+        <div class="block-tnmt__row">
+          <div class="block-tnmt__item bottom-round--left">
+            <%= I18n.t('tournaments.titles.registrations').capitalize %>: <span class="pl-1"><strong><%= registration_status(@tournament) %></strong></span>
+          </div>
+          <div class="block-tnmt__item bottom-round--right">
+            <%= I18n.t('homepage.titles.slots') %>: <span class="pl-1"><strong><%= slots_num(@tournament) %> / <%= @tournament[:size] %></strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= render partial: 'tournaments/desktop/game_detail_content' %>
+</div>
+<% if @tournament[:registration_closing_datetime].present? %>
+  <%= local_time(@tournament[:registration_closing_datetime], format: "%Y/%m/%d %H:%M:%S" , style: 'display: none',  class: 'schedule-start') %>
+<% end %>
+
+<script>
+  $(document).ready(function (){
+    check_schedule_time = "<%= @tournament[:registration_closing_datetime].present? %>"
+    setTimeout(function(){
+      start_time = $('.schedule-start').text();
+      if (check_schedule_time == "true") {
+        past_time = "<%=  @tournament[:registration_closing_datetime] < Time.now.utc %>"
+        if (past_time == 'true') {
+          new countDown({ clock : '#desktoptimer_<%= @tournament.id %>', startTime: start_time, elapse: true }).startTimer();
+        } else {
+          new countDown({ clock : '#desktoptimer_<%= @tournament.id %>', startTime: start_time }).startTimer();
+        }
+      }
+    }, 1000);
+
+    $('.desktop-resolution .block-tnmt__item').css("height", "41px");
+    $('.desktop-resolution .bottom-round--left').css({"border-bottom": "2px solid #ffab2e", "border-bottom-left-radius" : "33px"});
+    $('.desktop-resolution .bottom-round--right').css({"border-bottom": "2px solid #ffab2e", "border-bottom-right-radius" : "33px"});
+    $('.desktop-resolution .game_titles').css({"bottom": "3.7rem"});
+  })
+</script>

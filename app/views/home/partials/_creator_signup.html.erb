@@ -1,0 +1,145 @@
+<div class="form-group wrap-input100">
+  <%= f.label :firstname, I18n.t('user.labels.firstname'), :class=>"required" %>
+  <%= f.text_field :firstname, autocomplete: "firstname", :class=>"input100 form-control", :placeholder=>I18n.t('user.placefolders.firstname'), :value=>current_user.firstname, :required=>true %>
+  <div class="invalid-feedback">
+    <%= I18n.t('user.hints.firstname') %>
+  </div>
+</div>
+
+<div class="form-group wrap-input100">
+  <%= f.label :lastname, I18n.t('user.labels.lastname'), :class=>"required" %>
+  <%= f.text_field :lastname, autocomplete: "lastname", :class=>"input100 form-control", :placeholder=>I18n.t('user.placefolders.lastname'), :value=>current_user.lastname, :required=>true %>
+  <div class="invalid-feedback">
+    <%= I18n.t('user.hints.lastname') %>
+  </div>
+</div>
+
+<div class="form-group wrap-input100">
+  <%= f.label :discord_id, I18n.t('homepage.content_creator.user.labels.discord'), :class=>"required" %>
+  <%= f.text_field :discord_id, autocomplete: "discord", :class=>"input100 form-control", :placeholder=>I18n.t('homepage.content_creator.user.placefolders.discord'), :value=>current_user.discord_id, :required=>true %>
+  <div class="invalid-feedback">
+    <%= I18n.t('homepage.content_creator.user.hints.discord') %>
+  </div>
+</div>
+
+<div class="form-group wrap-input100">
+  <%= f.label :birthday, I18n.t('user.labels.birthday'), :class=>"required" %>
+  <div class="birthday">
+    <% if current_user.present? && current_user[:birthday].present? %>
+      <%= date_select("user", "birthday", default: { day: current_user[:birthday].day, month: current_user[:birthday].month, year: current_user[:birthday].year }, :order=>[:day, :month, :year], use_month_numbers: true, :start_year => Date.current.year, :end_year => 1920, required: true) %>
+    <% else %>
+      <%= date_select("user", "birthday", default: { day: nil, month: nil, year: nil }, :order=>[:day, :month, :year], use_month_numbers: true, :start_year => Date.current.year, :end_year => 1920, required: true) %>
+    <% end %>
+  </div>
+</div>
+
+<div class="form-group wrap-input100">
+  <div class="form-group">
+    <label class="required" for="user_language"><%= I18n.t('user.labels.language') %></label>
+    <%= select_tag :language, options_for_select(languages), {:include_blank => true, :class=>"form-control selectpicker", :title=>I18n.t('user.placefolders.language'), :required=>true } %>
+    <div class="invalid-feedback">
+      <%= I18n.t('user.hints.language') %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group wrap-input100 steamPanel">
+  <label class="required" for="user_youtube"><%= I18n.t('user.labels.stream') %></label>
+  <div class="row mt-2">
+    <div class="col-6">
+      <a href="javascript:void(0)">
+        <div class="stream-btn stream-btn--active" onclick="selectSteam(event, 'youtube')"><%= I18n.t('user.labels.youtube') %></div>
+      </a>
+    </div>
+    <div class="col-6">
+      <a href="javascript:void(0)">
+        <div class="stream-btn" onclick="selectSteam(event, 'twitch')"><%= I18n.t('user.labels.twitch') %></div>
+      </a>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-6">
+      <a href="javascript:void(0)">
+        <div class="stream-btn" onclick="selectSteam(event, 'facebook')"><%= I18n.t('user.labels.facebook') %></div>
+      </a>
+    </div>
+    <div class="col-6">
+      <a href="javascript:void(0)">
+        <div class="stream-btn" onclick="selectSteam(event, 'mixer')"><%= I18n.t('user.labels.mixer') %></div>
+      </a>
+    </div>
+  </div>
+
+  <%= text_field_tag :youtube, nil, :class=>"input100 form-control mt-2 steamTabContent", :placeholder=>I18n.t('user.placefolders.youtube'), :required=>true, :style=>"display: block !important" %>
+  <%= text_field_tag :twitch, nil, :class=>"input100 form-control mt-2 steamTabContent", :placeholder=>I18n.t('user.placefolders.twitch') %>
+  <%= text_field_tag :facebook, nil, :class=>"input100 form-control mt-2 steamTabContent", :placeholder=>I18n.t('user.placefolders.facebook') %>
+  <%= text_field_tag :mixer, nil, :class=>"input100 form-control mt-2 steamTabContent", :placeholder=>I18n.t('user.placefolders.mixer') %>
+</div>
+
+<div class="form-group wrap-input100">
+  <label class="required" for="user_address"><%= I18n.t('user.edit.titles.select_game') %></label>
+  <div class="game-lists full-width">
+    <div class="row mt-1">
+      <div class="col-4">
+        <a href="javascript:void(0)">
+          <%= image_tag("tournament/fifa21.png", :alt => "game_1", :value=>'fifa21', :onClick=>"selectGame(event, 'fifa21')", :class=>"full-width game-tablinks content_creator_img") %>
+        </a>
+      </div>
+      <div class="col-4">
+        <a href="javascript:void(0)"><%= image_tag("tournament/game-2@2x.png", :alt => "game_2", :value=>'hearthstone', :onClick=>"selectGame(event, 'hearthstone')", :class=>"full-width game-tablinks") %></a>
+      </div>
+      <div class="col-4">
+        <a href="javascript:void(0)"><%= image_tag("tournament/game-3@2x.png", :alt => "game_3", :value=>'leagueoflegends', :onClick=>"selectGame(event, 'leagueoflegends')", :class=>"full-width game-tablinks") %></a>
+      </div>
+      <%= f.hidden_field :played_games %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= f.label :user_message, I18n.t('user.labels.send_message') %>
+  <%= f.text_area(:user_message, cols: 20, rows: 5, class: 'form-control') %>
+</div>
+
+<button type="submit" class="btn btn-default submit-button text-uppercase"><%= I18n.t('button.send_partnership') %></button>
+
+<script type="text/javascript">
+
+  $(document).ready(function() {
+    var played_games = "<%= current_user[:played_games] %>"
+    if (played_games.length > 0) {
+      $('.game-tablinks').each(function(){
+        if (played_games.indexOf($(this).attr('value')) > -1) {
+          $(this).addClass('game-tablinks--active')
+        }
+      })
+    }
+  })
+
+  function selectGame(evt, filter) {
+    var i, tabcontent, tablinks;
+    if($(evt.currentTarget).hasClass("game-tablinks--active")){
+      $(evt.currentTarget).removeClass("game-tablinks--active");
+    } else{
+      $(evt.currentTarget).addClass("game-tablinks--active");
+    }
+  }
+
+  $( "#new_user" ).submit(function( e ) {
+    var games = []
+    $('.game-lists .game-tablinks--active').each(function(){
+      games.push($(this).attr('value'));
+    })
+    $('#user_played_games').val(games)
+  })
+
+  function selectSteam(evt, status) {
+    var i, tabcontent, tablinks;
+    $(".steamTabContent").hide();
+    $(".steamTabContent").val("");
+    $(".steamTabContent").prop("required", false);
+    $('.stream-btn').removeClass('stream-btn--active')
+    $(evt.currentTarget).addClass("stream-btn--active");
+    $('#' + status).attr("style", "display: block !important").prop("required", true);
+  }
+</script>

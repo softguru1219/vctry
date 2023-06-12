@@ -1,0 +1,28 @@
+<header id="header">
+  <% if current_user %>
+    <%= render partial: "desktop_header" %>
+  <% end %>
+  <div class="container-fluid">
+    <%= render partial: "mobile_header" %>
+  </div>
+</header>
+
+<script type="text/javascript">
+  function openNav() {
+    document.getElementById("nav_mobile").style.height = "100%";
+  }
+
+  function closeNav() {
+    document.getElementById("nav_mobile").style.height = "0%";
+  }
+
+  function signupNav() {
+    document.getElementById("signup_overlay_mobile").style.width = "100%";
+    document.getElementById("nav_mobile").style.width = "0%";
+  }
+
+  function signupcloseNav() {
+    document.getElementById("signup_overlay_mobile").style.width = "0%";
+  }
+
+</script>

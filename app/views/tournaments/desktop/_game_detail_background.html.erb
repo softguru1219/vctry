@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="game-detail yello-background" id="desktoptimer_<%= @tournament.id %>">
+    <div class="game-detail__background" style="background-image: url(<%= asset_path @tournament.tournament_cover.url %>)">
+      <!-- <div class="background-full-image game-detail__background"> -->
+      <!-- <div class="background-full-image"> -->
+      <!-- <#%= image_tag("home/desktop/tournament_bg.png", :class=>"full-width") %>-->
+      <%= render partial: 'tournaments/desktop/game_detail_main_screen'%>
+      <div class="block-tnmt">
+        <div class="block-tnmt__row">
+          <div class="block-tnmt__item bottom-round--left">
+            <%= I18n.t('tournaments.titles.registrations').capitalize %>: <span class="pl-1"><strong><%= registration_status(@tournament) %></strong></span>
+          </div>
+          <div class="block-tnmt__item bottom-round--right">
+            <%= I18n.t('homepage.titles.slots') %>: <span class="pl-1"><strong><%= slots_num(@tournament) %> / <%= @tournament[:size] %></strong></span>
+          </div>
+        </div>
+        <a href="<%= tournament_join_path(@tournament) %>" class="full-width join-block" data-turbolinks="false">
+          <div class="join-tournament-btn"><%= I18n.t('tournaments.titles.join_tournament') %></div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <% if flash[:single_play].present? %>
+    <div class="alert-message mt-3 stream-alert">
+      <div class="alert alert-danger alert-dismissible fade show">
+        <span><%= flash[:single_play] %>.</span>
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+    </div>
+  <% elsif flash[:stream_alert].present? %>
+    <div class="alert-message mt-3 stream-alert">
+      <div class="alert alert-danger alert-dismissible fade show">
+        <span><%= flash[:stream_alert] %>. <a href="<%= edit_users_path %>" data-turbolinks="false"><%= I18n.t('tournaments.titles.check_profile')%></a></span>
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+    </div>
+  <% end %>
+  <%= render partial: 'tournaments/desktop/game_detail_content', cached: true %>
+</div>

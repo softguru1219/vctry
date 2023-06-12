@@ -1,0 +1,57 @@
+<div class="game-lists full-width">
+  <span class="title font-30"><%= I18n.t('tournaments.titles.popular_game')%></span>
+  <div class="row mt-3">
+    <div class="col-md-2 col-sm-2 pr-0">
+      <a href="<%= tournaments_path(:fifa21) %>">
+        <div class="game-lists-img" style="background-image: url(<%= asset_path 'tournament/fifa21.jpg' %>); border-radius: 17px">
+        </div>
+      </a>
+    </div>
+    <div class="col-md-2 col-sm-2 pr-0">
+      <a href="javascript:void(0)" class="inactive-cursor">
+        <div class="game-lists-img game-lists-inactive" style="background-image: url(<%= asset_path 'tournament/fall_guys.jpg' %>)">
+          <div class="comming-img-container"><%= I18n.t('tournaments.titles.coming_soon')%></div>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-2 col-sm-2 pr-0">
+      <a href="javascript:void(0)" class="inactive-cursor">
+        <div class="game-lists-img game-lists-inactive" style="background-image: url(<%= asset_path 'tournament/fortnite.jpg' %>)">
+          <div class="comming-img-container"><%= I18n.t('tournaments.titles.coming_soon')%></div>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-2 col-sm-2 pr-0">
+      <a href="javascript:void(0)" class="inactive-cursor">
+        <div class="game-lists-img game-lists-inactive" style="background-image: url(<%= asset_path 'tournament/valorant.jpg' %>)">
+          <div class="comming-img-container"><%= I18n.t('tournaments.titles.coming_soon')%></div>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-2 col-sm-2 pr-0">
+      <a href="javascript:void(0)" class="inactive-cursor">
+        <div class="game-lists-img game-lists-inactive" style="background-image: url(<%= asset_path 'tournament/hearthstone.png' %>)">
+          <div class="comming-img-container"><%= I18n.t('tournaments.titles.coming_soon')%></div>
+        </div>  
+      </a>
+    </div>
+    <div class="col-md-2 col-sm-2">
+      <a href="javascript:void(0)" class="inactive-cursor">
+        <div class="game-lists-img game-lists-inactive" style="background-image: url(<%= asset_path 'tournament/rocket-league.jpg' %>)">
+          <div class="comming-img-container"><%= I18n.t('tournaments.titles.coming_soon')%></div>
+        </div>  
+      </a>
+    </div>
+    <!-- <div class="col-md-2 col-sm-2">
+      <div class="comming-img-container">
+        <div class="comming-img-title text-uppercase"><#%= I18n.t('tournaments.titles.coming_soon')%></div>
+      </div>
+    </div>
+    <div class="col-md-2 col-sm-2">
+      <div class="comming-img-container">
+        <#%= image_tag("tournament/coming_soon@2x.png", :alt => "game_6", :class=>"full-width game-tablinks") %>
+        <div class="comming-img-title text-uppercase"><#%= I18n.t('tournaments.titles.coming_soon')%></div>
+      </div>
+    </div> -->
+  </div>
+</div>

@@ -1,0 +1,77 @@
+<div class="mt-3 container tournaments-status">
+  <div class="tournaments-status__select">
+    <a class="pull-left tablinks text-uppercase desktopmine" status="desktop_mine" onclick="selectedTouraments(event, 'desktop_mine')"><%= I18n.t('homepage.header.titles.my_tournaments')%></a>
+    <a class="tablinks text-uppercase desktopongoing" status="desktop_ongoing" onclick="selectedTouraments(event, 'desktop_ongoing')"><%= I18n.t('tournaments.titles.ongoing_tournaments')%></a>
+    <a class="tablinks active text-uppercase desktopupcoming" status="desktop_upcoming" onclick="selectedTouraments(event, 'desktop_upcoming')"><%= I18n.t('tournaments.titles.upcoming_tournaments')%></a>
+    <a class="pull-right tablinks text-uppercase desktopcompleted" status="desktop_completed" onclick="selectedTouraments(event, 'desktop_completed')"><%= I18n.t('tournaments.titles.completed_tournaments')%></a>
+  </div>
+</div>
+
+<div class="tab-background container-fluid" id="desktop-free">
+  <div id="desktop_mine" class="tabcontent container">
+    <% if @free_tournaments.present? && filtered_mine(@free_tournaments).present? %>
+      <% filtered_mine(@free_tournaments).each do |tournament| %>
+        <%= render partial: 'tournaments/desktop/single_free_tournament', locals: {tournament: tournament, status: 'mine'} %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div id="desktop_ongoing" class="tabcontent container">
+    <% if @free_tournaments.present? %>
+      <% @free_tournaments.each do |tournament| %>
+        <% if ongoing_tournament(tournament) %>
+          <%= render partial: 'tournaments/desktop/single_free_tournament', locals: {tournament: tournament, status: 'ongoing'} %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div id="desktop_upcoming" class="tabcontent container" style="display: block">
+    <% if @free_tournaments.present? %>
+      <% @free_tournaments.each do |tournament| %>
+        <% if upcoming_tournament(tournament) %>
+          <%= render partial: 'tournaments/desktop/single_free_tournament', locals: {tournament: tournament, status: 'upcoming'} %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div id="desktop_completed" class="tabcontent container">
+    <% if @free_tournaments.present? %>
+      <% @free_tournaments.reverse.each do |tournament| %>
+        <% if completed_tournament(tournament) %>
+          <%= render partial: 'tournaments/desktop/single_free_tournament', locals: {tournament: tournament, status: 'completed'} %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+  <!-- <div class="mt-4 pb-4 text-center"> -->
+  <div class="pb-2 text-center">
+    <a href="#" class="round-border text-uppercase d-none"><%= I18n.t('tournaments.titles.more_tournaments')%></a>
+  </div>
+</div>
+
+<script>
+  function selectedTouraments(evt, status) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    $("#" + status).show();
+    if (status.includes("desktop")) {
+      status = status.replace('desktop', '') 
+      $('#' + status).show()
+      $('a.' + status).addClass(' active')
+    } else {
+      status = 'desktop' + status 
+      $('#' + status).show()
+      $('a.' + status).addClass(' active')
+    }
+    evt.currentTarget.className += " active";
+  }
+</script>

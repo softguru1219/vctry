@@ -1,0 +1,37 @@
+<div class="game-detail-content full-width">
+  
+  <% if request.fullpath == '/tournaments/47' %>
+    <div class="mt-3 container">
+      <div class="text-center text-uppercase sponsored">
+        <strong>This tournament is sponsored by:</strong>
+        <div class="mt-3">
+          <%= image_tag("tournament/nike_brand.png") %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <% if Tournament.normal_stage(@tournament) == true %>
+    <%= render partial: 'tournaments/game_detail_content_menus' %>
+  <% else %>
+    <%= render partial: 'tournaments/game_detail_content_menus_no_single' %>
+  <% end %>
+
+  <div class="tab-background container">
+    <div id="overview" class="tabcontent" style="display:block">
+      <%= render partial: 'tournaments/game_detail_overview' %>
+    </div>
+    <div id="participants" class="tabcontent">
+      <%= render partial: 'tournaments/game_detail_participants', cached: true %>
+    </div>
+    <% if @tournament.stages.present? %>
+      <% @tournament.stages.each do |stage| %>
+        <% cache(stage) do %>
+          <div id="<%= stage.name %>" class="tabcontent">
+            <%= render partial: 'game_detail_brackets_playoffs', locals: {stage: stage} %>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

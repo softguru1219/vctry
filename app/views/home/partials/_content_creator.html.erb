@@ -1,0 +1,20 @@
+<div class="mt-4 flex-center creator-background">
+  <div class="contain-padding row">
+    <div class="col-md-6 col-sm-6">
+      <div class="mt-4 flex-center">
+        <%= image_tag("home/Illustration.png", :alt => "premium_btn", :class=>"full-width", srcset: { "home/Illustration@2x.png": "1x" }) %>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-6">
+      <div class="mt-4 text-center content-creator__mb-5 px-4">
+        <div class="creator-question"><%= I18n.t('homepage.content_creator.title') %>?</div>
+        <div class="creator-answer"><%= I18n.t('homepage.content_creator.content') %></div>
+        <div class="mt-4">
+          <a href="<%= content_creator_path %>">
+            <span class="apply-btn text-uppercase"><%= I18n.t('button.apply_here') %></span></a>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

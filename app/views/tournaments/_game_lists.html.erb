@@ -1,0 +1,65 @@
+<div class="game-lists full-width">
+  <div class="container mt-3">
+    <span class="title"><%= I18n.t('tournaments.titles.choose_game')%></span>
+    <div class="row mt-3">
+      <div class="col-6 mt-2 left-game">
+        <a href="javascript:void(0)">
+          <div class="game-lists-img" style="background-image: url(<%= asset_path 'tournament/fifa21.jpg' %>)" game="fifa21" mode="mobile" onclick="selectGame(event, 'game-1', 'fifa21', 'mobile')">
+          </div>
+        </a>
+      </div>
+      <div class="col-6 mt-2 right-game">
+        <a href="javascript:void(0)" class="inactive-cursor">
+          <div class="game-lists-img game-lists-inactive" style="background-image: url(<%= asset_path 'tournament/fall_guys.jpg' %>)" game="fall_guys" mode="desktop" onclick="selectGame(event, 'game-2', 'fall_guys', 'desktop')">
+            <div class="comming-img-container"><%= I18n.t('tournaments.titles.coming_soon')%></div>
+          </div>
+        </a>
+      </div>
+      <div class="col-6 mt-2 left-game">
+        <a href="javascript:void(0)" class="inactive-cursor">
+          <div class="game-lists-img game-lists-inactive" style="background-image: url(<%= asset_path 'tournament/fortnite.jpg' %>)" game="fortnite" mode="desktop" onclick="selectGame(event, 'game-3', 'fortnite', 'desktop')">
+            <div class="comming-img-container"><%= I18n.t('tournaments.titles.coming_soon')%></div>
+          </div>
+        </a>
+      </div>
+      <div class="col-6 mt-2 right-game">
+        <!-- <a href="javascript:void(0)"><#%= image_tag("tournament/game-4@2x.png", :alt => "game_3", :game=>"f1", :mode=>"mobile", :onClick=>"selectGame(event, 'game-4', 'f1', 'mobile')", :class=>"full-width game-tablinks", :style=>"border-radius: 10px;") %></a> -->
+        <a href="javascript:void(0)" class="inactive-cursor">
+          <div class="game-lists-img game-lists-inactive" style="background-image: url(<%= asset_path 'tournament/valorant.jpg' %>)" game="valorant" mode="desktop" onclick="selectGame(event, 'game-4', 'valorant', 'desktop')">
+            <div class="comming-img-container"><%= I18n.t('tournaments.titles.coming_soon')%></div>
+          </div>
+        </a>
+      </div>
+      <div class="col-6 mt-2 left-game">
+        <a href="javascript:void(0)" class="inactive-cursor">
+          <div class="game-lists-img game-lists-inactive" style="background-image: url(<%= asset_path 'tournament/hearthstone.png' %>)" game="hearthstone" mode="desktop" onclick="selectGame(event, 'game-5', 'hearthstone', 'desktop')">
+            <div class="comming-img-container"><%= I18n.t('tournaments.titles.coming_soon')%></div>
+          </div>  
+        </a>
+      </div>
+      <div class="col-6 mt-2 right-game">
+        <a href="javascript:void(0)" class="inactive-cursor">
+          <div class="game-lists-img game-lists-inactive" style="background-image: url(<%= asset_path 'tournament/rocket-league.jpg' %>)" game="rocket-league" mode="desktop" onclick="selectGame(event, 'game-6', 'rocket league', 'desktop')">
+            <div class="comming-img-container"><%= I18n.t('tournaments.titles.coming_soon')%></div>
+          </div>  
+        </a>
+      </div>
+    </div>
+    <div class="row mt-3 choose-tournaments">
+      <div class="col-6">
+        <a href="javascript:void(0)" class="round-border pull-left round-border--active freePaidTourLinks freeTour text-uppercase" onclick="selectFreePaidTour(event, 'freeTour')"><%= I18n.t('tournaments.titles.free_tournaments')%></a>
+      </div>
+      <div class="col-6">
+        <a href="javascript:void(0)" class="round-border pull-right freePaidTourLinks paidTour text-uppercase" paid_mode="paid" onclick="selectFreePaidTour(event, 'paidTour')"><%= I18n.t('tournaments.titles.paid_tournaments')%></a>
+      </div>
+    </div>
+  </div>
+
+  <div id="freeTour" class="freeTourTabContent" style="display: block;">
+    <%= render partial: 'game_lists_free_tournament' %>
+  </div>
+
+  <div id="paidTour" class="freeTourTabContent">
+    <%= render partial: 'game_lists_paid_tournament' %>
+  </div>
+</div>

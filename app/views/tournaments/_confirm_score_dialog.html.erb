@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="col-12 mb-3">
+    <button type="button" class="accordion-btn flex-center text-uppercase score-button" data-toggle="collapse" data-target="#scoreCollapse" aria-expanded="true" aria-controls="scoreCollapse">
+      <div class="collapse-round-border text-uppercase yellow blue-background full-width">
+        <p class="mb-2"><%= I18n.t('tournaments.titles.click_final_score')%></p>
+        <div id="scoreCollapse" class="collapse full-width mt-2 collapse-panel score-collapse">
+          <%= form_tag(confirm_score_path(@tournament, @match), method: :post, class: "score-confirm") do %>
+            <div class="score-collapse__panel py-3 container input-score-panel">
+              <div class="row flex-align-center">
+                <div class="col-3">
+                  <div class="score-player-image" style="background-image: url(<%= image_url User.find(score_players(@match).first).avatar.url %>);"></div>
+                </div>
+                <div class="col-3">
+                  <input type="text" name="<%= score_players(@match).first %>" class="input-score" value="<%= @match.scores.present? ? @match.scores[score_players(@match).first.to_s] : nil %>">
+                </div>
+                <div class="col-3">
+                  <input type="text" name="<%= score_players(@match).second %>" class="input-score" value="<%= @match.scores.present? ? @match.scores[score_players(@match).second.to_s] : nil %>">
+                </div>
+                <div class="col-3">
+                  <div class="score-player-image" style="background-image: url(<%= image_url User.find(score_players(@match).second).avatar.url %>);"></div>
+                </div>
+              </div>
+              <div class="row mt-2 blue">
+                <div class="col-3 text-center dot-text">
+                  <% if fifa_players(@match).present? && fifa_players(@match).length > 1 %>
+                    <b><%= fifa_players(@match).first %></b>
+                  <% end %>
+                </div>
+                <div class="col-6"></div>
+                <div class="col-3 text-center dot-text">
+                  <% if fifa_players(@match).present? && fifa_players(@match).length > 1 %>
+                    <b><%= fifa_players(@match).second %></b>
+                  <% end %>
+                </div>
+              </div>
+              <div class="confirm-score container mt-2 blue text-normal confirm_time_<%= @tournament.id %>">
+                <div><b><%= I18n.t('tournaments.titles.confirm_the_final_score') %>?</b></div>
+                <div><%= I18n.t('tournaments.titles.no_confirm_before') %> <b><span class="yellow clock"></span></b> <%= I18n.t('tournaments.titles.auto_approve')%></div>
+              </div>
+            </div>
+            <div class="text-uppercase confirm-submit py-3">
+              <span class="score-confirm-btn"><b><%= I18n.t('tournaments.titles.confirm_final_score')%></b></span>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </button>
+  </div>
+</div>
+
+<script>
+  check_submitter = "<%= !@match.submitter.nil? %>"
+  check_current_user = "<%= current_user != @match.submitter %>"
+  if (check_submitter == 'true' && check_current_user == 'true') {
+    $('.input-score').css({"background": "#343742", "color": "#fff"})
+    $('.input-score').each(function() {
+      if($(this).val().length > 0){
+        $(this).prop('readOnly', true)
+      }
+    })
+  }
+
+  $(document).ready(function (){
+    check_confirm_time = "<%= Match.confirm_time(@match).present? %>"
+    setTimeout(function(){
+      confirm_time = $('.confirm-time').text()
+      if (check_confirm_time == "true") {
+        new countDown({ clock : '.confirm_time_<%= @tournament.id %>', startTime: confirm_time }).startTimer();
+      }
+    }, 1000);
+
+    $('.confirm-submit').click(function(e) {
+      e.stopPropagation();
+      $(this).closest('.score-confirm').submit();
+    })
+  })
+</script>

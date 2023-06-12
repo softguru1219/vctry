@@ -1,0 +1,85 @@
+<div class="container-fluid">
+  <div class="row home-mobile-resolution">
+    <div class="tournaments full-width">
+      <%= render partial: 'tournaments/game_round' %>
+      <% if is_player(@match) == true && status_check_in(@match) == true %>
+        <% if @match[:status] == 'running' || @match[:status] == 'completed' %>
+          <% if Match.submit_score_time(@match, @tournament) > Time.now.utc %>
+            <div class="text-center mt-3" id="submit_score_timer_<%= @tournament.id %>" style="color: #343742; font-size: 0.9rem"><%= I18n.t('tournaments.titles.score_submit_available') %> <b><span class="yellow clock"></span></b></div>
+          <% else %>
+            <div class="mt-3">
+              <%= render partial: 'tournaments/game_round_chat' %>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+      <div class="mt-3">
+        <%= render partial: "tournaments/call_admin"%>
+      </div>
+      <div class="game-detail">
+        <%= render partial: 'tournaments/game_detail_content' %>
+      </div>
+    </div>
+    <%= render partial: 'home/partials/content_creator' %>
+    <%= render partial: 'home/partials/quotation' %>
+  </div>
+  
+  <div class="row desktop-resolution">
+    <div class="tournaments full-width">
+      <%= render partial: 'tournaments/desktop/game_round' %>
+      <% if is_player(@match) == true && status_check_in(@match) == true %>
+        <% if @match[:status] == 'running' || @match[:status] == 'completed' %>
+          <% if Match.submit_score_time(@match, @tournament) > Time.now.utc %>
+            <div class="text-center mt-3" id="desktop_submit_score_timer_<%= @tournament.id %>" style="color: #343742; font-size: 0.9rem"><%= I18n.t('tournaments.titles.score_submit_available') %> <b><span class="yellow clock"></span></b></div>
+          <% else %>
+            <div class="mt-3">
+              <%= render partial: 'tournaments/game_round_chat' %>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+      <div class="mt-3">
+        <%= render partial: "tournaments/call_admin"%>
+      </div>
+      <div class="container game-detail">
+        <%= render partial: 'tournaments/desktop/game_detail_content' %>
+      </div>
+    </div>
+    <div class="mt-5 full-width">
+      <%= render partial: 'home/desktop/premium_background' %>
+    </div>
+    <%= render partial: 'home/desktop/content_creator' %>
+    <%= render partial: 'home/desktop/quotation' %>
+  </div>
+</div>
+
+<%= local_time(@tournament[:registration_closing_datetime], format: "%Y/%m/%d %H:%M:%S" , style: 'display: none',  class: 'schedule-end') %>
+<% if Match.confirm_time(@match) %>
+  <%= local_time(Match.confirm_time(@match), format: "%Y/%m/%d %H:%M:%S" , style: 'display: none',  class: 'confirm-time') %>
+<% end %>
+<% if @match.scheduled_datetime.present? %>
+  <% if @match[:status] == "pending" %>
+    <%= local_time(Match.delay_time(@match.scheduled_datetime, @participant), format: "%Y/%m/%d %H:%M:%S" , style: 'display: none',  class: 'match-schedule-time') %>
+    <%= local_time(Match.delay_time(@match.scheduled_datetime, @participant) + 10.minutes, format: "%Y/%m/%d %H:%M:%S" , style: 'display: none',  class: 'match-check-time') %>
+  <% elsif @match[:status] == 'running' %>
+    <%= local_time(@match.scheduled_datetime, format: "%Y/%m/%d %H:%M:%S" , style: 'display: none',  class: 'match-schedule-time') %>
+  <% end %>
+<% end %>
+
+<script>
+  document.addEventListener("turbolinks:load", function() {
+    window.connectMatch("<%= @match.id %>");
+    window.connectTournament("<%= @tournament.id %>");
+  });
+
+  $(document).ready(function (){
+    setTimeout(function(){
+      submit_time = "<%= Match.submit_score_time(@match, @tournament) %>"
+      valid_submit_time = "<%= Match.submit_score_time(@match, @tournament).present? && Match.submit_score_time(@match, @tournament) > Time.now.utc %>"
+      if (valid_submit_time == 'true') {
+        new countDown({ clock : '#desktop_submit_score_timer_<%= @tournament.id %>', startTime: submit_time }).startTimer();
+        new countDown({ clock : '#submit_score_timer_<%= @tournament.id %>', startTime: submit_time }).startTimer();
+      }
+    }, 1000);
+  })
+</script>

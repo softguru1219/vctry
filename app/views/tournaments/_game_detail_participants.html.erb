@@ -1,0 +1,21 @@
+<div class="game-detail-participants mt-3">
+  <div class="game-detail-overview__text blue">
+    <div class="mt-3">
+      <p class="mb-1"><b><%= @participants.length %> <%= I18n.t('tournaments.titles.players').capitalize %></b> (<%= open_slotes_num(@tournament) %> <%= I18n.t('homepage.titles.open').capitalize %> <%= I18n.t('homepage.titles.slots').capitalize %>)</p>
+    </div>
+  </div>
+  <div class="player-images">
+    <% @participants.in_groups_of(4, false).each do |group| %>
+      <div class="row mt-3 flex-align-center">
+        <% group.each do |participant| %>
+          <div class="col-3 text-center mb-2">
+            <%= render partial: 'tournaments/participant', locals: {participant:  participant} %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class="mt-3 mb-3 text-center">
+    <a href="#"><span class="round-border text-uppercase"><%= I18n.t('tournaments.titles.more_players').capitalize %></span></a>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<% if exist_raffle_winner.blank? %>
+  <div class="raffles-subscribe subscribed">
+<% else %>
+  <div class="raffles-subscribe">
+<% end %>
+  <div class="py-4">
+    <b><%= I18n.t('raffles.titles.congrat_subscribe_raffle').html_safe %></b>
+    <div class="mt-3 subscribe-desc"><%= I18n.t('raffles.titles.luck_winner')%>:</div>
+    <div class="mt-3 yellow raffle_end_time_<%= @current_raffle.id %>">
+      <b><span class="subscribe-announce-time clock"></span></b>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function (){
+    exist_raffle_end_time = "<%= @current_raffle.present? && @current_raffle.raffle_end_date.present? %>"
+    setTimeout(function(){
+      if (exist_raffle_end_time == "true") {
+        raffle_id = $('.current_raffle_id').val()
+        current_raffle_end_time = $('.desktop_current_raffle_end_time').text()
+        new countDown({ clock : `.raffle_end_time_${raffle_id}`, startTime: current_raffle_end_time }).startTimer();
+      }
+    }, 1000);
+  });
+</script>

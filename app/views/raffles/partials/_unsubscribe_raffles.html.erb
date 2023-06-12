@@ -1,0 +1,25 @@
+<% if exist_raffle_winner.blank? %>
+  <div class="raffles-subscribe unsubscribed">
+    <div class="py-4">
+      <b><%= I18n.t('raffles.titles.subscribe_raffle') %> <%= I18n.t('homepage.titles.raffle').capitalize %></b>
+      <div class="mt-1 subscribe-desc"><%= I18n.t('raffles.titles.selecting_ticket')%></div>
+      <div class="number mt-3">
+        <span class="minus">-</span>
+        <input type="text" value="<%= @current_raffle.cost %>"/>
+        <span class="plus">+</span>
+      </div>
+      <div class="mt-4">
+        <% if @current_raffle.cost.to_i <= current_user.tickets.to_i %>
+          <a href="javascript:void(0)" class="raffles-subscribe__btn"><%= I18n.t('raffles.titles.subscribe_raffle') %> <%= I18n.t('homepage.titles.raffle') %>
+          </a>
+        <% else %>
+          <a href="javascript:void(0)" class="subscribe-disbled raffles-subscribe__btn"><%= I18n.t('raffles.titles.subscribe_raffle') %> <%= I18n.t('homepage.titles.raffle') %>
+          </a>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<input type="hidden" class="raffle_cost" name="raffle_cost" value="<%= @current_raffle.cost %>">
+<input type="hidden" class="raffle_id" name="raffle_id" value="<%= @current_raffle.id %>">

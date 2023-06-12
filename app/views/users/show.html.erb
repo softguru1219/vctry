@@ -1,0 +1,61 @@
+<div class="user-profile">
+  <div class="container-fluid">
+    <div class="row home-mobile-resolution">
+      <%= render partial: "users/partials/mobile_user" %>
+      <%= render partial: 'users/partials/user_tournament' %>
+
+      <div class="tour-background">
+        <div class="contain-padding">
+          <% if @tournaments.present? %>
+            <%= render partial: 'home/toornaments_background', object: @tournaments %>
+          <% end %>
+          <%= render partial: 'home/partials/content_creator' %>
+        </div>
+      </div>
+      <%= render partial: 'home/partials/quotation' %>
+    </div>
+  </div>
+
+  <div class="desktop-resolution">
+    <div class="container">
+      <%= render partial: "users/desktop/user" %>
+    </div>
+    <%= render partial: 'users/desktop/user_tournament' %>
+    <%= render partial: 'home/desktop/premium_background' %>
+
+    <div class="tour-background">
+      <div class="container">
+        <% if @tournaments.present? %>
+          <%= render partial: 'home/desktop/toornaments_background', object: @tournaments %>
+        <% end %>
+      </div>
+    </div>
+    <%= render partial: 'home/desktop/content_creator' %>
+    <%= render partial: 'home/desktop/quotation' %>
+  </div>
+
+<script>
+  function selectedTouraments(evt, status) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    $("#" + status).show();
+    if (status.includes("desktop")) {
+      status = status.replace('desktop', '') 
+      $('#' + status).show()
+      $('a.' + status).addClass(' active')
+    } else {
+      status = 'desktop' + status 
+      $('#' + status).show()
+      $('a.' + status).addClass(' active')
+    }
+    evt.currentTarget.className += " active";
+  }
+</script>

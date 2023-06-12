@@ -1,0 +1,11 @@
+{
+    "name": "vctry",
+    "description": "Dare to win",
+    "keywords": [
+    ],
+    "scripts": {
+      "dokku": {
+        "postdeploy": "bundle exec rake db:migrate"
+      }
+    }
+  }

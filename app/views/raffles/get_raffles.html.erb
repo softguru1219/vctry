@@ -1,0 +1,33 @@
+ <div class="pt-3 event-status">
+  <div class="back-btn">
+    <a href="<%= raffles_path %>" class="back-btn__color"><i class="fa fa-arrow-left"></i></a>
+  </div>
+</div>
+
+<div class="mt-3 raffles-events">
+  <div><b><%= I18n.t('raffles.titles.past_raffle') %></b></div>
+  <% @past_raffles.each do |raffle| %>
+    <a href="<%= raffle_path(raffle) %>">
+      <% if selected_raffle_date(raffle, params) %>
+        <div class="mt-2 raffles-events__groups container groups-active">
+      <% else %>
+        <div class="mt-2 raffles-events__groups container">
+      <% end %>
+        <div class="tmt-row py-2 flex-align-center">
+          <%= image_tag(@past_raffles.first.banner.url, :alt => "profile_pic", :style=>"width: 80px; height: 90px;") %>
+          <div class="tmt-row__intro">
+            <div class="dot-text">
+              <span class="raffle-title white"><b><%= raffle.description.html_safe %></b></span>
+            </div>
+            <div class="raffle-date white mt-2">
+              <span><%= local_time(raffle[:raffle_end_date], format: "%a, %b %e - %H:%M %p %Z") %></span>
+            </div>
+          </div>
+          <div class="tmt-row_arrow">
+            <i class="fa fa-chevron-right"></i>
+          </div>
+        </div>
+      </div>
+    </a>
+  <% end %>
+</div>

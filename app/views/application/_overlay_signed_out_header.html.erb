@@ -1,0 +1,31 @@
+<div class="col-md-12 mt-4 flex-center">
+  <div class="overlay-closebtn">
+    <a href="javascript:void(0)" class="d-inline-block align-bottom mobile-menu-icon" onclick="closeNav()">
+      <%= image_tag("home/Menu_close_icon.png", :alt => "Menu_close") %>
+    </a>
+  </div>
+  <div class="flex-center">
+    <div class="mr-2">
+      <span class="profile-nickname"><%= I18n.t('homepage.footer.titles.login') %> / <%= I18n.t('homepage.footer.titles.signup') %></span>
+    </div>
+    <div class="overlay-profile-picture">
+      <%= image_tag("home/Ellipse_plus.png", :alt => "Ellipse", :class=>"d-inline-block") %>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-12 mt-4">
+  <%= link_to I18n.t('homepage.footer.titles.home').capitalize, root_path %>
+  <%= link_to I18n.t('homepage.footer.titles.tournaments'), tournaments_path %>
+  <a href="<%= raffles_path %>"><%= I18n.t('homepage.titles.raffle').capitalize %></a>
+  <%= link_to I18n.t('homepage.titles.calendar').capitalize, calendars_path %>
+  <a href="<%= wallets_path %>"><%= I18n.t('homepage.titles.wallet').capitalize %></a>
+  <a href="<%= get_premium_path %>"><%= I18n.t('homepage.titles.overlay_premium').html_safe %></a>
+  <a href="<%= about_path %>"><%= I18n.t('homepage.footer.titles.about') %></a>
+  <a href="<%= jobs_path %>"><%= I18n.t('homepage.footer.titles.jobs') %></a>
+</div>
+<div class="col-md-12 mt-3">
+  <%= link_to I18n.t('homepage.footer.titles.login'), new_user_session_path %>
+  <%= link_to I18n.t('homepage.footer.titles.signup'), new_user_registration_path %>
+  <a href="#"><%= I18n.t('homepage.footer.titles.help')%></a>
+</div>

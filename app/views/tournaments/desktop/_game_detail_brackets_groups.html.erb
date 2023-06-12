@@ -1,0 +1,71 @@
+<div class="brackets-groups mt-4">
+  <strong>Groups</strong>
+  <% if @tournament.matches.present? %>
+    <% @tournament.matches.order("created_at ASC").in_groups_of(2, false).each_with_index do |group, group_idx| %>
+      <div class="row">
+        <% group.each_with_index do |tm, idx| %>
+          <div class="col-md-6">
+            <a href="javascript:void(0)" class="groupTabLinks" onclick="selectGroup(event, 'desktop-group<%= (group_idx * 2) + idx + 1 %>')">
+              <div class="mt-3 group-table">
+                <table class="table">
+                  <thead>
+                    <th scope="row" class="none-border text-uppercase">Group <%= (group_idx * 2) + idx + 1 %></th>
+                    <th scope="row" class="none-border"></th>
+                  </thead>
+                  <tbody>
+                      <tr>
+                        <td class="none-border">Nickname</td>
+                        <td class="none-border"><strong>6</strong></td>
+                      </tr>
+                      <tr>
+                          <td>Time Muller</td>
+                          <td><strong>6</strong></td>
+                      </tr>
+                      <tr>
+                          <td>Time Muller</td>
+                          <td><strong>6</strong></td>
+                      </tr>
+                      <tr>
+                          <td>Time Muller</td>
+                          <td><strong>6</strong></td>
+                      </tr>
+                  </tbody>
+                </table>
+              </div>
+            </a>
+          </div>
+        <% end%>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<% if @tournament.matches.present? %>
+  <% @tournament.matches.each_with_index do |tm, idx| %>
+    <div id="desktop-group<%= idx + 1 %>" class="groupTabContent">
+      <%= render partial: 'tournaments/desktop/game_group_detail', :locals=>{tm: tm, idx: idx} %>
+    </div>
+  <% end %>
+<% end %>
+
+<script>
+  function selectGroup(evt, status) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("groupTabContent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+
+    $('.brackets-groups').hide();
+    document.getElementById(status).style.display = "block";
+
+    if (status.includes('desktop')) {
+      status = status.replace('desktop-', '')
+    } else {
+      status = 'desktop-' + status
+    }
+    document.getElementById(status).style.display = "block";
+    // evt.currentTarget.className += " is-active";
+  }
+
+</script>

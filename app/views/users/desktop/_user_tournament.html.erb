@@ -1,0 +1,35 @@
+<div class="tab-background container-fluid">
+  <div id="desktoppast" class="tabcontent container">
+    <% if @user.tournaments.present? %>
+      <% @user.tournaments.each do |tournament, index| %>
+        <% if completed_tournament(tournament) %>
+          <%= render partial: 'tournaments/desktop/single_free_tournament', locals: {tournament: tournament, status: 'completed'} %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div id="desktopupcoming" class="tabcontent container" style="display: block">
+    <% if @user.tournaments.present? %>
+      <% @user.tournaments.each do |tournament, index| %>
+        <% if upcoming_tournament(tournament) %>
+          <%= render partial: 'tournaments/desktop/single_free_tournament', locals: {tournament: tournament, status: 'upcoming'} %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div id="desktopbest" class="tabcontent container">
+     <% if @user.tournaments.present? %>
+      <% @user.tournaments.each do |tournament, index| %>
+        <% if ongoing_tournament(tournament) %>
+          <%= render partial: 'tournaments/desktop/single_free_tournament', locals: {tournament: tournament, status: 'ongoing'} %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="mt-4 pb-4 text-center">
+    <a href="#"><span class="round-border text-uppercase"><%= I18n.t('tournaments.titles.more_tournaments') %></span></a>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="container">
+  <a href="<%= tournament_path(tournament) %>">
+    <div class="browse-tournaments" style="background-image: url(<%= asset_path  tournament.tournament_cover.url %>)">
+      <!--<#%= link_to image_tag(tournament.tournament_cover.url, :alt => "tournament_bg", :class=>"full-width"), tournament_path(tournament) %>-->
+      <div class="flex-center">
+        <div class="tournemant-date">
+          <% if tournament.registration_closing_datetime.present? %>
+            <div class="tournemant-date__mark">
+              <span class="yellow"><b><%= local_time(tournament[:registration_closing_datetime], format: "%e") %></b></span><br>
+              <span class="month text-uppercase"><%= local_time(tournament[:registration_closing_datetime], format: "%b") %></span>
+            </div>
+          <% end %>
+        </div>
+        <div class="tournament_titles text-center">
+          <span class="game-mark text-uppercase"><%= game_style(tournament) %></span>
+          <div class="tournament_titles__details mt-2">
+            <span><%= tournament.full_name %></span>
+          </div>
+          <div class="tournament_titles__date mt-1">
+            <% if tournament.registration_closing_datetime.present? %>
+              <span><%= local_time(tournament[:registration_closing_datetime], format: "%a, %b %e - %H:%M %p %Z") %></span>
+            <% end %>
+          </div>
+          <div class="tournament_titles__date mt-1">
+            <span><%= I18n.t('homepage.titles.slots').capitalize %> : <%= slots_num(tournament) %> / <%= tournament[:size] %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>

@@ -1,0 +1,21 @@
+<div class="game-detail game-round">
+  <div class="container">
+    <%  if match_type(@match).present? %>
+      <% if @tournament.status.downcase != 'completed' %>
+        <% if match_type(@match).downcase == 'running' || match_type(@match).downcase == 'completed' %>
+          <% if @match.submitter.nil? && @match.confirmer.nil? %>
+            <%= render partial: "tournaments/input_score_dialog"%>
+          <% elsif !@match.submitter.nil? && current_user != @match.submitter %>
+            <%= render partial: "tournaments/confirm_score_dialog" %>
+            <div class="container confirm-score mb-3">
+              <div class="text-center"><b><%= I18n.t('tournaments.titles.no_agree_final_score')%></b></div>
+              <div class="text-center"><%= I18n.t('tournaments.titles.click_admin') %></div> 
+            </div>
+          <% elsif !@match.submitter.nil? && current_user == @match.submitter %>
+            <%= render partial: "tournaments/input_score_dialog" %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

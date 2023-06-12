@@ -1,0 +1,132 @@
+<div class="row">
+  <div class="tournaments container-fluid join-tournament">
+    <fieldset class="section is-active">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, :class=>'needs-validation', novalidate: true }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+        <% if current_user %>
+          <div class="mt-4 px-3">
+            <div class="text-center join-tournament__step complete flex-center">
+              <span class="pr-2"><b><%= I18n.t('user.edit.titles.step')%> 1</b> / <%= I18n.t('tournaments.titles.login') %></span>
+              <%= image_tag("home/white-check.png")%>
+            </div>
+          </div>
+          <div class="mt-3">
+            <div class="container">
+              <div class="wrapper">
+                <div class="form-wrapper mt-3 px-3">
+                  <div class="mt-3 text-center">
+                    <span class="profile_edit_title" style="font-size: 0.95rem !important"><b><%= I18n.t('user.edit.titles.step')%> 2</b> / <%= I18n.t('tournaments.titles.complete_info') %></span>
+                  </div>
+                  <div class="steps row mt-3">
+                    <div class="col-md-4 padding-10">
+                      <a href="javascript:void(0)" class="is-active"><%= I18n.t('user.edit.titles.personal') %></a>
+                    </div>
+                    <div class="col-md-4 padding-10">
+                      <a href="javascript:void(0)"><%= I18n.t('user.edit.titles.payment') %></a></div>
+                    <div class="col-md-4 padding-10">
+                      <a href="javascript:void(0)"><%= I18n.t('tournaments.titles.game_id') %></a>
+                    </div>
+                  </div>
+                  <div class="mt-3">
+                    <%= render partial: "tournaments/join_tournament/user_edit_step_2", :locals=>{f: f} %>
+                    <div class="button user-next-btn"><%= I18n.t('homepage.titles.next')%> <%= I18n.t('user.edit.titles.step')%></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% else %>
+          <%= render partial: "tournaments/join_tournament/user_edit_step_3", :locals=>{f: f} %>
+        <% end %>
+      <% end %>
+      <div class="form-wrapper" style="border: unset; background-color: unset">
+        <div class="mt-3 px-3">
+          <div class="button next-tournament"><%= I18n.t('homepage.titles.next')%> <%= I18n.t('user.edit.titles.step')%></div>
+        </div>
+      </div>
+
+      <% if @tournament.protection == true && @tournament.protection_pwd.present? %>
+        <div class="mt-3 px-3">
+          <div class="text-center join-tournament__step"><b><%= I18n.t('user.edit.titles.step')%> 3</b> / <%= I18n.t('user.labels.password')%></div>
+        </div>
+      <% end %>
+
+      <div class="mt-3 px-3">
+        <div class="text-center join-tournament__step"><b><%= I18n.t('user.edit.titles.step')%> <%= 3 + Tournament.step_index(@tournament) %></b> / <%= I18n.t('homepage.titles.premium')%></div>
+      </div>
+
+      <div class="mt-3 px-3">
+        <div class="text-center join-tournament__step"><b><%= I18n.t('user.edit.titles.step')%> <%= 4 + Tournament.step_index(@tournament) %></b> / <%= I18n.t('tournaments.titles.buyin_pay')%></div>
+      </div>
+      <div class="mt-3 px-3">
+        <div class="text-center final-btn"><b><%= I18n.t('button.final_registration.desktop') %></b></div>
+      </div>
+    </fieldset>
+
+    <% if @tournament.protection == true && @tournament.protection_pwd.present? %>
+      <fieldset class="section mt-3">
+        <div class="container">
+          <%= render partial: "tournaments/join_tournament/user_edit_step_6" %>
+        </div>
+      </fieldset>
+    <% end %>
+
+    <fieldset class="section mt-3">
+      <div class="container">
+        <% if @tournament.premium == true && !current_user.subscriptions.present? %>
+          <%= render partial: "tournaments/join_tournament/user_edit_step_4" %>
+        <% elsif @tournament.price > 0 && paid_tournament(@tournament) == false %>
+          <%= render partial: "tournaments/join_tournament/user_edit_step_5" %>
+        <% end %>
+        <% if condition_join_tournament(@tournament) == true %>
+          <div class="mt-3">
+            <a href="<%= tournament_register_path(@tournament) %>">
+              <div class="button text-center final-btn final-btn--active">
+                <b><%= I18n.t('button.final_registration.mobile') %></b>
+              </div>
+            </a>
+          </div>
+        <% end %>
+      </div>
+    </fieldset>
+  </div>
+</div>
+
+<script>
+  var input_fields = $('.desktop-resolution .is-active .form-group input')
+  var select_fields = $('.desktop-resolution .is-active .form-group select')
+  if (input_fields.valid() == true && select_fields.valid() == true) {
+    input_fields.closest('.wrapper').hide();
+  } else {
+    $('.next-tournament').hide()
+  }
+  $(document).ready(function(){
+    //clicking the next button hides the current section and shows the next section
+    $('fieldset .user-next-btn').click(function() {
+      // Get the form that this button lives in
+      var form = $(this).closest("form");
+      // Get the validator object for the form
+      var validator = form.data("validator");
+      // Get the section that we're currently validating.  May need to modify this depending on the structure of your DOM
+      var section = $(this).closest("fieldset");
+      // Get all controls (input, textarea, select, etc) in the section
+      var fields = section.find(":input");
+      if (fields.length > 0 && fields.valid() == false) {
+        fields.parent().addClass('was-validated');
+      }
+    });
+
+    $('fieldset .next-tournament').click(function(){
+      var button = $(this);
+      var currentSection = button.parents(".section");
+      var currentSectionIndex = currentSection.index() - 2;
+
+      if (currentSectionIndex < 2) {
+        var headerSection = $('.steps li').eq(currentSectionIndex);
+        currentSection.removeClass("is-active").next().addClass("is-active");
+        headerSection.removeClass("is-active").next().addClass("is-active");
+        $("span.step_index").text(currentSectionIndex + 2)
+      }
+    });
+  });
+</script>

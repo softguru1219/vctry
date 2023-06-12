@@ -1,0 +1,283 @@
+<div class="container game-round" id="desktoptimer_<%= @tournament.id %>">
+  <div class="game-detail">
+    <div class="game-detail__background" style="background-image: url(<%= asset_path @tournament.tournament_cover.url %>)">
+      <!-- <div class="background-full-image game-detail__background"> -->
+      <!-- <div class="background-full-image"> -->
+      <!-- <#%= image_tag("home/desktop/tournament_bg.png", :class=>"full-width") %>-->
+      <div class="game-detail__content"></div>
+      <div class="back-btn">
+        <a href="<%= tournament_checkin_path(@tournament) %>" class="btn-zIndex"><i class="fa fa-arrow-left"></i></a>
+      </div>
+      <div class="flex-center">
+        <div class="game_titles text-center">
+          <span class="game-mark text-uppercase"><b><%= game_style(@tournament) %></b></span>
+          <div class="game_titles__details mt-2">
+            <span><%= @tournament.full_name %></span>
+            <% if @tournament.premium == true %>
+              <a href="<%= get_premium_path %>">
+                <%= image_tag("home/premium_mark.png", :alt => "premium_btn") %>
+              </a>
+            <% end %>
+          </div>
+          <div class="game_titles__date mt-1 flex-center">
+            <% if @tournament.country.present? %>
+              <div class="flag flag-<%= @tournament.country.downcase %>"></div>
+            <% else %>
+              <i class="fa fa-flag"></i>
+            <% end %>
+            <span class="pl-1"><%= match_stage_number(@match) %></span>
+          </div>
+          <% if is_player(@match) == true && match_type(@match).present? %>
+            <% if @tournament.status.downcase != 'completed'%>
+              <% if status_check_in(@match) == false %>
+                <% if match_type(@match).downcase == 'pending' %>
+                  <% if @match.scheduled_datetime.present? && (Match.delay_time(@match.scheduled_datetime, @participant) + 10.minutes >= Time.now.utc) %>
+                    <div class="game_titles__date mt-4 flex-center">
+                      <% if (Match.delay_time(@match.scheduled_datetime, @participant) < Time.now.utc) %>
+                        <div class="d-inline-block mr-4">
+                          <div class="text-uppercase"><b><%= I18n.t('tournaments.titles.have_to_checkin') %></b></div>
+                          <div class="text-right"><%= I18n.t('homepage.titles.before').capitalize %> <b><span class="yellow clock"></span></b></div>
+                        </div>
+                      <% end %>
+                      <a href="<%= tournament_match_check_path(@tournament, @match) %>">
+                        <div class="d-inline-block ml-4">
+                          <span class="check-border"><%= I18n.t('button.checkin_btn')%> </span>
+                        </div>
+                      </a>
+                    </div>
+                  <% end %>
+                <% end %>
+              <% else %>
+                <% if match_type(@match).downcase == 'pending' %>
+                  <div class="game_titles__date mt-4 flex-center">
+                    <div class="d-inline-block mr-4">
+                      <div class="text-uppercase"><b>You are ready</b></div>
+                      <% if (Match.delay_time(@match.scheduled_datetime, @participant) + 10.minutes > Time.now.utc) %>
+                        <div class="text-right"><%= I18n.t('tournaments.titles.will_start_match') %> <b><span class="yellow clock"></span></b></div>
+                      <% end %>
+                    </div>
+                  </div>
+                <% elsif match_type(@match).downcase == 'running' %>
+                  <% if @match.submitter.nil? %>
+                    <div class="game_titles__date mt-1">
+                      <div class="text-uppercase"><b><%= I18n.t('homepage.titles.game').capitalize %> <%= I18n.t('homepage.titles.has')%> <%= I18n.t('tournaments.titles.started') %></b></div>
+                    </div>
+                    <div class="game_titles__date mt-1">
+                      <div class="text-center"><%= I18n.t('homepage.titles.the').capitalize %> <%= I18n.t('homepage.titles.match')%> <%= I18n.t('tournaments.titles.started') %> <b><span class="yellow clock"></span></b> <%= I18n.t('homepage.titles.ago') %></div>
+                    </div>
+                <!--<#% elsif match_type(@match).downcase == 'completed' %>-->
+                  <% elsif !@match.submitter.nil? && current_user == @match.submitter %>
+                    <div class="game_titles__date mt-1">
+                      <div class="text-uppercase"><b><%= I18n.t('tournaments.titles.confirm_score') %></b></div>
+                    </div>
+                    <div class="game_titles__date mt-1">
+                      <div class="text-center"><%= confirm_user(@match) %> <%= I18n.t('homepage.titles.has')%> 
+                        <b><span class="yellow clock"></span></b> <%= I18n.t('tournaments.titles.minute_to_confirm')%>
+                      </div>
+                    </div>
+                  <% elsif !@match.submitter.nil? && current_user != @match.submitter %>
+                    <div class="game_titles__date mt-1">
+                      <div class="text-uppercase"><b><%= I18n.t('tournaments.titles.have_to_confirm_score')%></b></div>
+                    </div>
+                    <div class="game_titles__date mt-1">
+                      <div class="text-center">
+                        <b><span class="yellow clock"></span></b>
+                      </div>
+                    </div>
+                  <% end %>
+                <% elsif match_type(@match).downcase == 'completed' %>
+                  <div class="game_titles__date mt-1">
+                    <div class="text-uppercase"><b><%= I18n.t('tournaments.titles.game_over')%>!</b></div>
+                  </div>
+                  <div class="game_titles__date mt-1">
+                    <% if finished_time(@match).present? %>
+                      <div class="text-center"><%= I18n.t('tournaments.titles.match_lasted') %> 
+                        <span class="yellow"><b><%= finished_time(@match)[:hours] %>:<%= finished_time(@match)[:minutes] %>:<%= finished_time(@match)[:seconds] %></b>
+                        </span>
+                      </div>
+                    <% end %>
+                  </div>
+                <% end %>
+              <% end %>
+            <% else %>
+              <div class="game_titles__date mt-1">
+                <div class="text-uppercase"><b><%= I18n.t('tournaments.titles.game_over')%>!</b></div>
+              </div>
+              <div class="game_titles__date mt-1">
+                <% if finished_time(@match).present? %>
+                  <div class="text-center"><%= I18n.t('tournaments.titles.match_lasted') %> 
+                    <span class="yellow"><b><%= finished_time(@match)[:hours] %>:<%= finished_time(@match)[:minutes] %>:<%= finished_time(@match)[:seconds] %></b>
+                    </span>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div class="block-tnmt">
+        <div class="block-tnmt__row">
+          <div class="block-tnmt__item bottom-round--left">
+            <div class="game-player-pic" style="background-image: url(<%= image_url User.find(score_players(@match).first).avatar.url %>);">
+            </div>
+            <% if fifa_players(@match).present? && fifa_players(@match).length > 1 %>
+              <span class="pt-2 dot-text" style="width: 80px;"><b><%= fifa_players(@match).first %></b></span>
+            <% end %>
+            <div class="score-position">
+              <% if match_type(@match).downcase == 'pending'%>
+                <div class="score-panel" style="margin-top: -3rem;"><%= score(@match).first %></div>
+              <% else %>
+                <div class="score-panel"><%= score(@match).first %></div>
+              <% end %>
+              <div class="game-ready">
+                <% if @tournament.status.downcase != 'completed'%>
+                  <% if match_type(@match).downcase == 'pending'%>
+                    <% if fifa_players(@match).present? && fifa_players(@match).length > 0 %>
+                      <% if ready_status(active_player(fifa_players(@match).first, @match, 0), @match) == true %>
+                        <div class="game-ready__checkbox">
+                          <%= image_tag("home/checkbox@2x.png", :class=>"full-width") %>
+                        </div>
+                        <span class="pl-2"><b><%= I18n.t('homepage.titles.ready').capitalize %></b></span>
+                      <% else %>
+                        <% if platform_id(@tournament).present? %>
+                          <span class="pl-2 flex-align-center d-none">
+                            <div class="mr-1 steam-title"><%= platform_id(@tournament) %>:</div>
+                            <% if get_fifa(@match, @tournament).present? %>
+                              <div class="steam-value"><b><%= get_fifa(@match, @tournament).first %></b></div>
+                            <% end %>
+                          </span>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                  <% elsif platform_id(@tournament).present? %>
+                    <span class="pl-2 flex-align-center">
+                      <div class="mr-1 steam-title"><%= platform_id(@tournament) %>:</div>
+                      <% if get_fifa(@match, @tournament).present? %>
+                        <div class="steam-value"><b><%= get_fifa(@match, @tournament).first %></b></div>
+                      <% end %>
+                    </span>
+                  <% end %>
+                <% else %>
+                  <% if platform_id(@tournament).present? %>
+                    <span class="pl-2 flex-align-center">
+                      <div class="mr-1 steam-title"><%= platform_id(@tournament) %>:</div>
+                      <% if get_fifa(@match, @tournament).present? %>
+                        <div class="steam-value"><b><%= get_fifa(@match, @tournament).first %></b></div>
+                      <% end %>
+                    </span>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="block-tnmt__item bottom-round--right">
+            <div class="score-position">
+              <% if match_type(@match).downcase == 'pending'%>
+                <div class="score-panel" style="margin-top: -3rem"><%= score(@match).second %></div>
+              <% else %>
+                <div class="score-panel"><%= score(@match).second %></div>
+              <% end %>
+              <div class="game-ready">
+                <% if @tournament.status.downcase != 'completed'%>
+                  <% if match_type(@match).downcase == 'pending'%>
+                    <% if fifa_players(@match).present? && fifa_players(@match).length > 1 %>
+                      <% if ready_status(active_player(fifa_players(@match).second, @match, 1), @match) == true %>
+                        <div class="game-ready__checkbox">
+                          <%= image_tag("home/checkbox@2x.png", :class=>"full-width") %>
+                        </div>
+                        <span class="pl-2"><b><%= I18n.t('homepage.titles.ready').capitalize %></b></span>
+                      <% else %>
+                        <% if platform_id(@tournament).present? %>
+                          <span class="pl-2 flex-align-center d-none">
+                            <div class="mr-1 steam-title"><%= platform_id(@tournament) %>:</div>
+                            <% if get_fifa(@match, @tournament).length > 1 %>
+                              <div class="steam-value"><b><%= get_fifa(@match, @tournament).second %></b></div>
+                            <% end %>
+                          </span>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                  <% else %>
+                    <% if platform_id(@tournament).present? %>
+                      <span class="pl-2 flex-align-center">
+                        <div class="mr-1 steam-title"><%= platform_id(@tournament) %>:</div>
+                        <% if get_fifa(@match, @tournament).length > 1 %>
+                          <div class="steam-value"><b><%= get_fifa(@match, @tournament).second %></b></div>
+                        <% end %>
+                      </span>
+                    <% end %>
+                  <% end %>
+                <% else %>
+                  <% if platform_id(@tournament).present? %>
+                    <span class="pl-2 flex-align-center">
+                      <div class="mr-1 steam-title"><%= platform_id(@tournament) %>:</div>
+                      <% if get_fifa(@match, @tournament).length > 1 %>
+                        <div class="steam-value"><b><%= get_fifa(@match, @tournament).second %></b></div>
+                      <% end %>
+                    </span>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+            <div class="game-player-pic" style="background-image: url(<%= image_url User.find(score_players(@match).second).avatar.url %>);">
+            </div>
+            <% if fifa_players(@match).present? && fifa_players(@match).length > 1 %>
+               <span class="pt-2 dot-text" style="width: 80px;"><b><%= fifa_players(@match).second %></b></span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div id="desktoptimer_real_schedule_<%= @tournament.id %>" style="display: none">
+  <span class="yellow clock"></span>
+</div>
+
+<script>
+  $(document).ready(function (){
+    tournament_status = "<%= @tournament.status %>"
+    match_status = "<%= match_type(@match).downcase %>"
+    check_submitter = "<%= !@match.submitter.nil? %>"
+    active_user = "<%= current_user != @match.submitter%>"
+    check_confirm_time = "<%= Match.confirm_time(@match).present? %>"
+    match_check_time = "<%= Match.delay_time(@match.scheduled_datetime, @participant)%>"
+    valid_match_check_time = "<%= Match.delay_time(@match.scheduled_datetime, @participant) < Time.now.utc %>"
+    check_status = "<%= status_check_in(@match) == true %>"
+    full_status_check = "<%= Match.full_status_check(@match, current_user) %>"
+
+    setTimeout(function(){
+      if (tournament_status == 'completed') {
+        end_time = $('.schedule-end').text() 
+      } else if (check_confirm_time == "true" && match_status == 'running' && (active_user == 'true' || active_user == 'false')) {
+        end_time = $('.confirm-time').text() 
+      } else if (match_status== 'pending' && valid_match_check_time == 'true'){
+        if (check_status == 'false'){
+          end_time = $('.match-check-time').text()
+        } else {
+          end_time = $('.match-check-time').text()
+        }
+      } else{
+        end_time = $('.match-schedule-time').text() 
+      }
+      if (end_time.length > 0) {
+        if (match_status == 'pending') {
+          new countDown({ clock : '#desktoptimer_<%= @tournament.id %>', startTime: $('.match-check-time').text()}).startTimer();
+        } else if(match_status == 'running') {
+          if (check_submitter == "false"){
+            end_time = $('.match-schedule-time').text()
+            new countDown({ clock : '#desktoptimer_<%= @tournament.id %>', startTime: end_time, elapse: true }).startTimer();
+          } else if (check_confirm_time == "true" && match_status == 'running' && (active_user == 'true' || active_user == 'false')) {
+            new countDown({ clock : '#desktoptimer_<%= @tournament.id %>', startTime: end_time }).startTimer();
+          }
+        }
+      }
+
+      if (match_status == 'pending') {
+        real_schedult_time = $('.match-schedule-time').text()
+        new countDown({ clock : '#desktoptimer_real_schedule_<%= @tournament.id %>', startTime: real_schedult_time }).startTimer();
+      }
+    }, 1000);
+  })
+</script>

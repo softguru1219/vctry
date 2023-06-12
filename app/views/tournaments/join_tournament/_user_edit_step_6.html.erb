@@ -1,0 +1,36 @@
+<div class="join-tournament__step join-tournament__step--active">
+  <div class="text-center profile_edit_title"><b><%= I18n.t('user.edit.titles.step')%> 3</b> / <%= I18n.t('user.labels.password')%></div>
+  <div class="mt-3">
+    <label><%= I18n.t('tournaments.titles.protection') %></label>
+    <input type="password" class="tournament_password"/>
+    <div class="invalid-feedback">
+      <%= I18n.t('errors.titles.tournament_protection') %>
+    </div>
+    <div class="button mt-4 user-next-btn tournament-pwd-btn"><%= I18n.t('homepage.titles.next')%> <%= I18n.t('user.edit.titles.step')%></div>
+  </div>
+</div>
+
+<script>
+  $('.tournament_password').keyup(function() {
+    $('.invalid-feedback').hide();
+  });
+
+  $('.tournament-pwd-btn').click(function() {
+    var admin_password = $('.admin_password').text();
+    var password = $('.tournament_password').eq(0).val() || $('.tournament_password').eq(1).val()
+    if (password == null || password == "") {
+      $('.invalid-feedback').show();
+    } else if (password == admin_password) {
+      var button = $(this);
+      var currentSection = button.parents(".section");
+      var currentSectionIndex = currentSection.index() - 2;
+
+      if (currentSectionIndex < 2) {
+        currentSection.removeClass("is-active").next().addClass("is-active");
+        $("span.step_index").text(currentSectionIndex + 2)
+      }
+    } else {
+      $('.invalid-feedback').show();
+    }
+  });
+</script>

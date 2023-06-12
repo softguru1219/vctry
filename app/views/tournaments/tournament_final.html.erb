@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <div class="row home-mobile-resolution">
+    <div class="tournaments full-width">
+      <div class="game-detail">
+        <%= render partial: 'tournaments/completed_tournament' %>
+        <div class="mt-5">
+          <%= render partial: 'tournaments/game_detail_content' %>
+        </div>
+      </div>
+    </div>
+    <%= render partial: 'home/partials/content_creator' %>
+    <%= render partial: 'home/partials/quotation' %>
+  </div>
+  
+  <div class="row desktop-resolution">
+    <div class="tournaments full-width">
+      <div class="container game-detail">
+        <%= render partial: 'tournaments/desktop/completed_tournament' %>
+        <%= render partial: 'tournaments/desktop/game_detail_content' %>
+      </div>
+    </div>
+    <%= render partial: 'home/desktop/content_creator' %>
+    <%= render partial: 'home/desktop/quotation' %>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("turbolinks:load", function() {
+    window.connectTournament("<%= @tournament.id %>");
+  })
+</script>

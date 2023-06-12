@@ -1,0 +1,22 @@
+<div class="desktop-resolution">
+  <div class="header-background">
+    <div class="row container header-container">
+      <div class="col-md-2 col-sm-3 logo-background">
+        <%= link_to image_tag("home/logo.png", :alt => "logo", :class=>"logo-img", srcset: { "home/logo@2x.png": "2x" }), root_path %>
+      </div>
+      <div class="col-md-3 col-sm-3 search-background flex-center">
+        <div class="search-box">
+          <%= text_field_tag :search, nil, :class=>"form-control input-search-panel", :placeholder=>I18n.t('homepage.header.titles.search') %>
+          <%= image_submit_tag("home/search-btn.png", :alt => "logo", :class=>"search-icon" ) %>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-5 menu-buttons">
+      </div>
+
+      <div class="col-md-3 col-sm-1 flex-right">
+        <a href="<%= root_path %>" class="blue font-14"><%= I18n.t('homepage.footer.titles.login') %> / <%= I18n.t('homepage.footer.titles.signup') %></a>
+      </div>
+    </div>
+  </div>
+</div>

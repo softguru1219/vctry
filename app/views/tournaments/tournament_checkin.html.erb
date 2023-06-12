@@ -1,0 +1,175 @@
+<div class="container-fluid">
+  <div class="row home-mobile-resolution">
+    <div class="tournaments full-width">
+      <div class="game-detail">
+        <% if @tournament[:registration_closing_datetime].present? && @tournament[:registration_closing_datetime] < Time.now.utc && (@next_match.present? || @running_next_match.present?) %>
+          <%= render partial: "tournaments/tournament_next_game" %>
+        <% else %>
+          <div class="game-detail game-detail__registered">
+            <div class="flex-center">
+              <div class="spinner_loading">
+                <div class="spinner_img"></div>
+              </div>
+            </div>
+            <div class="game-detail__background" style="background-image: url(<%= asset_path @tournament.mobile_cover.url %>)">
+              <%= render partial: 'tournaments/game_detail_main_screen'%>
+              <div class="block-tnmt">
+                <div class="block-tnmt__row">
+                  <div class="block-tnmt__item bottom-round--left">
+                    <%= I18n.t('tournaments.titles.registrations').capitalize %>: <span class="pl-1"><strong><%= registration_status(@tournament) %></strong></span>
+                  </div>
+                  <div class="block-tnmt__item bottom-round--right">
+                    <%= I18n.t('homepage.titles.slots').capitalize %>: <span class="pl-1"><strong><%= slots_num(@tournament) %> / <%= @tournament[:size] %></strong></span>
+                  </div>
+                </div>
+                <div class="join-tournament-btn">
+                  <div><%= I18n.t('tournaments.titles.checked_in')%>!</div>
+                    <a href="javascript:void(0)" id="checkin_timer_<%= @tournament.id %>">
+                      <% if @tournament[:registration_closing_datetime].present? && @tournament[:registration_closing_datetime] > Time.now.utc %>
+                        <div class="pt-2 text-initial"><%= I18n.t('tournaments.titles.tournament_start_in')%> <span class="yellow clock"></span></div>
+                        <% if @tournament.stages.blank? %>
+                          <div class="leave-tournament">
+                            <a href="<%= tournament_cancel_path %>" class="leave-tournament-btn">
+                              <div class="pt-2 text-initial"><%= I18n.t('tournaments.titles.leave_tournament') %></div>
+                            </a>
+                          </div>
+                        <% end %>
+                      <% elsif @tournament[:registration_closing_datetime].present? && @tournament[:registration_closing_datetime] < Time.now.utc %>
+                        <div class="pt-2 text-initial"><%= I18n.t('tournaments.titles.tournament_started')%> <span class="yellow clock"></span> <%= I18n.t('homepage.titles.ago')%></div>
+                        <% if @tournament.stages.present? %>
+                          <% if @tournament.stages.first.stage_type == "single_elimination" %>
+                            <% if @next_match.blank? %>
+                              <% if next_match_status(@tournament) == true %>
+                                <div class="pt-2 text-initial container"><%= I18n.t('tournaments.titles.match_progress') %></div>
+                              <% elsif Tournament.none_completed_match_status(@tournament, current_user) == true %>
+                                <div class="pt-2 text-initial container"><%= I18n.t('tournaments.titles.match_progress') %></div>
+                              <% else %>
+                                <div class="pt-2 text-initial container"><%= I18n.t('tournaments.titles.no_match') %></div>
+                              <% end %>
+                            <% end %>
+                          <% else %>
+                            <div class="pt-2 text-initial container"><%= I18n.t('tournaments.titles.tournament_is_ongoing') %></div>
+                          <% end %>
+                        <% end %>
+                      <% end %>
+                    </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <div class="container alert-message mt-3 stream-alert">
+          <% if @next_match.blank? && @running_next_match.blank? %>
+            <% if flash[:remove_match].present? %>
+              <div class="container alert-message mt-3 stream-alert">
+                <div class="alert alert-danger alert-dismissible fade show">
+                  <span><%= flash[:remove_match] %></span>
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <%= render partial: 'tournaments/game_detail_content' %>
+      </div>
+    </div>
+    <%= render partial: 'home/partials/content_creator' %>
+    <%= render partial: 'home/partials/quotation' %>
+  </div>
+
+  <div class="row desktop-resolution">
+    <div class="tournaments full-width">
+      <div class="game-detail">
+        <% if @tournament[:registration_closing_datetime].present? && @tournament[:registration_closing_datetime] < Time.now.utc && (@next_match.present? || @running_next_match.present?) %>
+          <%= render partial: "tournaments/desktop/tournament_next_game" %>
+        <% else %>
+          <%= render partial: 'tournaments/desktop/tournament_checkin'%>
+          <% if @next_match.blank? && @running_next_match.blank? %>
+            <% if flash[:remove_match].present? %>
+              <div class="container alert-message mt-3 stream-alert">
+                <div class="alert alert-danger alert-dismissible fade show">
+                  <span><%= flash[:remove_match] %></span>
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+          <%= render partial: 'tournaments/desktop/game_detail_content' %>
+        <% end %>
+      </div>
+    </div>
+    <%= render partial: 'home/desktop/content_creator' %>
+    <%= render partial: 'home/desktop/quotation' %>
+  </div>
+</div>
+
+<%= local_time(@tournament[:registration_closing_datetime], format: "%Y/%m/%d %H:%M:%S" , style: 'display: none',  class: 'schedule-start') %>
+<% if @running_next_match.present? %>
+  <%= local_time(Match.delay_time(@running_next_match.scheduled_datetime, @participant), format: "%Y/%m/%d %H:%M:%S" , style: 'display: none',  class: 'running_match-schedule-time') %>
+<% elsif @next_match.present? && @next_match.scheduled_datetime.present? %>
+  <%= local_time(Match.delay_time(@next_match.scheduled_datetime, @participant) + 10.minutes , format: "%Y/%m/%d %H:%M:%S" , style: 'display: none',  class: 'match-schedule-time') %>
+<% end %>
+
+<% if @tournament.stages.present? %>
+  <div class="single_stage d-none"><%= single_stage(@tournament) %></div>
+<% end %>
+
+<script>
+  $(document).ready(function() {
+    url = "<%= refresh_tournament_path %>"
+    tournament_id = "<%= @tournament.id %>"
+    $('.spinner_loading').show()
+    $.ajax({
+      url: url,
+      method: "POST",
+      data: { 
+        tournament_id: tournament_id,
+      }
+    }).done( function(resp) {
+      $('.spinner_loading').hide()
+      console.log('Pulled the api')
+    });
+  })
+</script>
+
+<script>
+  document.addEventListener("turbolinks:load", function() {
+    window.connectTournament("<%= @tournament.id %>");
+  });
+  
+  $(document).ready(function (){
+    /*non_stage = "<#%= Stage.check_stages(@tournament).blank? %>"*/
+    non_stage = "<%= @tournament.stages.blank? %>"
+    invalid_register_time = "<%= @tournament[:registration_closing_datetime].present? && @tournament[:registration_closing_datetime] < Time.now.utc %>"
+    
+    single_stage = "false"
+    if (non_stage == "false") {
+      single_stage = $('.single_stage').val();
+    }
+    
+    if (non_stage == "true" || invalid_register_time == "true" || (invalid_register_time == "true" && single_stage == "true")) {
+      $('.home-mobile-resolution .game-detail__registered').css({"height": "28rem"});
+      $('.home-mobile-resolution .game-detail__registered .game_titles').css({"bottom": "12.2rem"});
+      $('.desktop-resolution .game-detail__registered').css({"height": "27rem"});
+      $('.desktop-resolution .game_titles').css({"bottom": "11.2rem"});
+    } else {
+      $('.tournaments .game_titles').css({"bottom": "9.7rem"});
+      $('.desktop-resolution .game_titles').css({"bottom": "9.7rem"});
+    }
+    
+    setTimeout(function(){
+      start_time = $('.schedule-start').text();
+      past_time = "<%=  @tournament[:registration_closing_datetime] < Time.now.utc %>"
+      if (past_time == 'true') {
+        new countDown({ clock : '#desktoptimer_<%= @tournament.id %>', startTime: start_time, elapse: true }).startTimer();
+        new countDown({ clock : '#timer_<%= @tournament.id %>', startTime: start_time, elapse: true }).startTimer();
+        new countDown({ clock : '#checkin_timer_<%= @tournament.id %>', startTime: start_time, elapse: true }).startTimer();
+      }
+      else {
+        new countDown({ clock : '#desktoptimer_<%= @tournament.id %>', startTime: start_time }).startTimer();
+        new countDown({ clock : '#timer_<%= @tournament.id %>', startTime: start_time }).startTimer();
+        new countDown({ clock : '#checkin_timer_<%= @tournament.id %>', startTime: start_time }).startTimer();
+      }
+    }, 1000);
+  })
+</script>

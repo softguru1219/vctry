@@ -1,0 +1,79 @@
+<div class="mt-4 full-width">
+  <div class="content-creator__bg">
+    <div class="container">
+      <div class="text-center pt-5">
+        <div class="mt-4">
+          <span class="creator-question"><%= I18n.t('homepage.content_creator.title') %></span><br>
+          <span class="creator-answer"><%= I18n.t('homepage.content_creator.main_content') %></span>
+        </div>
+      </div>
+      <% unless current_user %>
+        <div class="mt-4 pb-3">
+          <div class="container">
+            <div class="wrapper">
+              <div class="form-wrapper mt-3">
+                <div class="text-center mt-3">
+                  <span class="profile_edit_title"><b><%= I18n.t('user.edit.titles.step') %> 1</b> / <%= I18n.t('homepage.footer.titles.login') %></span>
+                </div>
+                <div class="mt-4 px-3">
+                  <div class="auth-panel">
+                    <div class="auth-panel__row ">
+                      <div class="home-mobile-resolution">
+                        <a href="<%= new_user_session_path %>" class='auth-panel__bg text-uppercase'>
+                          <%= I18n.t('homepage.footer.titles.login') %>
+                        </a>
+                      </div>
+                      <div class="desktop-resolution">
+                        <a href="<%= root_path %>" class="auth-panel__bg text-uppercase">
+                          <%= I18n.t('homepage.footer.titles.login') %>
+                        </a>
+                      </div>
+
+                      <div class="my-3 flex-center">
+                        <div class="dot_line mr-3"></div>
+                        <div class="or_round flex-center">
+                          <span class="text-uppercase"><%= I18n.t('homepage.titles.or') %></span>
+                        </div>
+                        <span class="dot_line ml-3 white"></span>
+                      </div>
+                      <div class="mb-4">
+                        <div class="home-mobile-resolution">
+                          <a href="<%= new_user_registration_path %>" class='auth-panel__bg active text-uppercase'>
+                            <%= I18n.t('homepage.footer.titles.signup') %>
+                          </a>
+                        </div>
+                        <div class="desktop-resolution">
+                          <a href="<%= root_path %>" class='auth-panel__bg active text-uppercase'>
+                            <%= I18n.t('homepage.footer.titles.signup') %>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <% if current_user %>
+        <div class="mt-3 pb-5">
+          <div class="container">
+            <div class="wrapper">
+              <div class="form-wrapper">
+                <div class="text-center mt-3">
+                  <span class="profile_edit_title"><b><%= I18n.t('user.edit.titles.step') %> 2</b> / <%= I18n.t('homepage.titles.tell_us_more') %></span>
+                </div>
+                <%= form_for(resource, url: partner_request_path, html: { method: :post, :class=>'needs-validation', novalidate: true }) do |f| %>
+                  <div class="mt-4 px-3">
+                    <%= render partial: "home/partials/creator_signup", :locals=>{f: f} %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

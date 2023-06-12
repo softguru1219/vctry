@@ -1,0 +1,36 @@
+<% if current_user.nil? %>
+  <header id="header">
+    <%= render partial: "desktop_common_header" %>
+  </header>
+<% end %>
+
+<div class="bg-gradient">
+  <div class="footer-page container blue text-center mb-5" style="min-height: 526px">
+    <%= image_tag('home/about.png', class: "full-width")%>
+    <div class="mt-4 font-30"><b>About</b></div>
+    <div class="footer-child-section mt-3 font-18">
+      <div>VCTRY is an Esports start-up based in the Hannover region and founded by enthusiastic industry veterans and successful entrepreneurs. Firmly anchored in the German Esports scene, combined with the virtues of true entrepreneurship, we pursue the goal of developing Esports both on the grassroots level as well as setting new standards in the professional areas of the respective games. </div>
+      <div class="mt-3">
+        This way we enable every Esports enthusiast, regardless of his or her individual skills, to grow with us and to develop from beginner to professional level in order to make a living with Esports in the long run.
+      </div>
+      <div class="mt-3">
+        Furthermore, our ecosystem offers B2B partners the opportunity to establish their brand sustainably in the rapidly growing Esports market and to attract attention through sophisticated product placements. 
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="home-mobile-resolution">
+  <div class="row">
+    <div class="tour-background">
+      <div class="contain-padding">
+        <%= render partial: 'home/partials/content_creator' %>
+      </div>
+    </div>
+    <%= render partial: 'home/partials/quotation' %>
+  </div>
+</div>
+<div class="desktop-resolution">
+  <%= render partial: 'home/desktop/content_creator' %>
+  <%= render partial: 'home/desktop/quotation' %>
+</div>

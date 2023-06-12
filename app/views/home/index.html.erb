@@ -1,0 +1,49 @@
+<div class="row home-mobile-resolution">
+  <%= render partial: current_user ? 'signed_in_home' : 'signed_out_home' %>
+  <div class="tour-background">
+    <!-- <#%= render partial: 'home/partials/event_lists' %> -->
+    <div class="contain-padding">
+      <div class="tournaments mt-5">
+        <%= render partial: 'home/game_lists' %>
+      </div>
+      <% if @tournaments.present? %>
+        <%= render partial: 'toornaments_background' %>
+      <% elsif !Rails.env.production? %>
+        <%= render partial: 'tournament_background' %>
+      <% end %>
+    </div>
+    <%= render partial: 'home/partials/content_creator' %>
+  </div>
+  <%= render partial: 'home/partials/quotation' %>
+</div>
+
+<div class="desktop-resolution">
+  <%= render partial: current_user ? 'home/desktop/signed_in_home' : 'home/desktop/signed_out_home' %>
+  <div class="home-body" style="background: none">
+    <!-- <#%= render partial: 'home/desktop/event_lists' %> -->
+    <div class="px-6">
+      <div class="row px-5-percent">
+        <div class="game-lists-bg full-width">
+          <div class="tournaments pt-4 game-lists-padding">
+            <%= render partial: 'home/desktop/game_lists' %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="px-6">
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+          <% if @tournaments.present? %>
+            <%= render partial: 'home/desktop/toornaments_background' %>
+          <% elsif !Rails.env.production? %>
+            <%= render partial: 'home/desktop/tournament_background' %>
+          <% end %>
+        </div>
+        <div class="col-md-1"></div>
+      </div>
+    </div>
+  </div>
+  <%= render partial: 'home/desktop/content_creator' %>
+  <%= render partial: 'home/desktop/quotation' %>
+</div>

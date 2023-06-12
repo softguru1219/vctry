@@ -1,0 +1,90 @@
+<div class="container-fluid">
+  <div class="row home-mobile-resolution">
+    <div class="tournaments full-width">
+      <%= render partial: 'game_detail_background' %>
+    </div>
+    <div class="tour-background">
+      <% unless flash[:join_error_message].nil? %>
+        <div class="alert alert-danger alert-dismissible fade show game-completed__error" role="alert">
+          <%= flash[:join_error_message] %>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <% end %>
+    </div>
+    <%= render partial: 'home/partials/content_creator' %>
+    <%= render partial: 'home/partials/quotation' %>
+  </div>
+  
+  <div class="row desktop-resolution">
+    <div class="tournaments full-width">
+      <div class="game-detail">
+        <%= render partial: 'tournaments/desktop/game_detail_background' %>
+      </div>
+    </div>
+    <% unless flash[:join_error_message].nil? %>
+      <div class="alert alert-danger alert-dismissible fade show game-completed__error" role="alert">
+        <%= flash[:join_error_message] %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <% end %>
+
+    <div class="mt-5 full-width">
+      <%= render partial: 'home/desktop/premium_background' %>
+    </div>
+    <%= render partial: 'home/desktop/content_creator' %>
+    <%= render partial: 'home/desktop/quotation' %>
+  </div>
+</div>
+
+<% if @tournament[:registration_closing_datetime].present? %>
+  <%= local_time(@tournament[:registration_closing_datetime], format: "%Y/%m/%d %H:%M:%S" , style: 'display: none',  class: 'schedule-start') %>
+<% end %>
+
+<script>
+  $(document).ready(function (){
+    check_schedule_time = "<%= @tournament[:registration_closing_datetime].present? %>"
+    is_mobile = "<%= browser.device.mobile? %>"
+    is_desktop = "<%= !browser.device.mobile? %>"
+    
+    setTimeout(function(){
+      start_time = $('.schedule-start').text();
+      if (check_schedule_time == "true") {
+        past_time = "<%=  @tournament[:registration_closing_datetime] < Time.now.utc %>"
+        if (past_time == 'true') {
+          if (is_desktop == "true") {
+            new countDown({ clock : '#desktoptimer_<%= @tournament.id %>', startTime: start_time, elapse: true }).startTimer();
+          } else if(is_mobile == "true") {
+            new countDown({ clock : '#timer_<%= @tournament.id %>', startTime: start_time, elapse: true }).startTimer();
+          }
+
+        } else {
+          if (is_desktop == "true") {
+            new countDown({ clock : '#desktoptimer_<%= @tournament.id %>', startTime: start_time }).startTimer();
+          } else if(is_mobile == "true") {
+            new countDown({ clock : '#timer_<%= @tournament.id %>', startTime: start_time }).startTimer();
+          }
+        }
+      }
+    }, 1000);
+
+    var join_time = "<%= @tournament[:registration_opening_datetime].present? && @tournament[:registration_closing_datetime].present? && @tournament[:registration_opening_datetime] < Time.now.utc && @tournament[:registration_closing_datetime] > Time.now.utc %>"
+    var registration_status = "<%= @tournament.registration_enabled %>"
+    var passed_participatn_check_time = "<%= @tournament.check_in_participant_end_datetime.present? && @tournament.check_in_participant_end_datetime < Time.now.utc %>"
+
+    tournament_size = "<%= @tournament.size %>"
+    participant_length = "<%= @tournament.participants.present? ? @tournament.participants.length : 0 %>"
+
+    if (registration_status == "false" || join_time == "false" || passed_participatn_check_time =="true" || (parseInt(tournament_size) <= parseInt(participant_length))) {
+      $('.join-block').hide();
+      $('.yello-background').css({"background": "none", "height": "unset"});
+      $('.game-detail .game_titles').css({"bottom": "3.7rem"})
+      $('.desktop-resolution .block-tnmt__item').css("height", "41px");
+      $('.desktop-resolution .bottom-round--left').css({"border-bottom": "2px solid #ffab2e", "border-bottom-left-radius" : "33px"});
+      $('.desktop-resolution .bottom-round--right').css({"border-bottom": "2px solid #ffab2e", "border-bottom-right-radius" : "33px"});
+    }
+  })
+</script>

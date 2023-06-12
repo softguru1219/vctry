@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="game-detail yello-background">
+    <div class="game-detail__background" style="background-image: url(<%= asset_path @tournament.tournament_cover.url %>)">
+      <!-- <div class="background-full-image game-detail__background"> -->
+      <!-- <div class="background-full-image"> -->
+      <!-- <#%= image_tag("home/desktop/tournament_bg.png", :class=>"full-width") %>-->
+      <%= render partial: 'tournaments/desktop/game_detail_main_screen'%>
+      <div class="block-tnmt">
+        <div class="block-tnmt__row">
+          <div class="block-tnmt__item bottom-round--left">
+            <%= I18n.t('tournaments.titles.registrations').capitalize %>: <span class="pl-1"><strong><%= registration_status(@tournament) %></strong></span>
+          </div>
+          <div class="block-tnmt__item bottom-round--right">
+            <%= I18n.t('homepage.titles.slots').capitalize %>: <span class="pl-1"><strong><%= slots_num(@tournament) %> / <%= @tournament[:size] %></strong></span>
+          </div>
+        </div>
+        <% if @tournament[:check_in_participant_start_datetime].present? && @tournament[:check_in_participant_start_datetime] > Time.now.utc %>
+          <div class="join-tournament-btn" id="desktopcheckin_timer_<%= @tournament.id %>"><span class="closed-title"><%= I18n.t('tournaments.titles.checkin_available') %></span> <span class="clock"></span>
+          </div>
+        <% elsif @tournament[:check_in_participant_end_datetime].present? && @tournament[:check_in_participant_end_datetime] > Time.now.utc %>
+          <a href="<%= tournament_checkin_path(@tournament) %>" class="full-width join-block" id="desktopcheckin_timer_<%= @tournament.id %>">
+            <div class="join-tournament-btn"><span class="closed-title"><%= I18n.t('tournaments.titles.checkin_before') %></span> <span class="clock"></span></div>
+          </a>
+          <% if Stage.check_stages(@tournament).blank? %>
+            <a href="<%= tournament_cancel_path %>" class="full-width join-block leave-tournament leave-tournament-btn">
+              <div class="join-tournament-btn"><span class="closed-title"><%= I18n.t('tournaments.titles.leave_tournament') %></span></div>
+            </a>
+          <% end %>
+        <% else %>
+          <a href="javascript:void(0)" class="full-width join-block">
+            <div class="join-tournament-btn"><%= I18n.t('tournaments.titles.checkin_closed') %> 00:00:00</div>
+          </a>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <%= render partial: 'tournaments/desktop/game_detail_content' %>
+</div>
+
+<script>
+  $(document).ready(function (){
+    setTimeout(function(){
+      start_time = $('.schedule-start').text();
+      check_endtime = "<%= @tournament[:check_in_participant_end_datetime].present? %>"
+      if (valid_participant_start_check == "true") {
+        checkin_start_time = $('.participant-check-start').text();
+        new countDown({ clock : '#desktopcheckin_timer_<%= @tournament.id %>', startTime: checkin_start_time }).startTimer();
+      } else if (check_endtime == 'true') {
+        checkin_end_time = $('.participant-check-end').text();
+        new initcountDown({ clock : '#desktopcheckin_timer_<%= @tournament.id %>', startTime: checkin_end_time, closed_title: true }).startTimer();
+      }
+    }, 1000);
+  });
+</script>

@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="row">
+    <div class="tournaments container-fluid join-tournament cancel-block">
+      <div class="mt-3">
+        <div class="back-btn">
+          <a href="<%= tournament_register_path %>"><i class="fa fa-arrow-left"></i></a>
+        </div>
+      </div>
+      <div class="mt-3">
+        <div class="text-center join-tournament__step join-tournament__step--active">
+          <div class="profile_edit_title">
+            <b>Cancel & Refund Your Buy-in</b>
+          </div>
+          <div class="mt-3 wallet__background flex-center">
+            <%= image_tag("home/wallet_bg@2x.png") %>
+            <div class="wallet__balance deposit-val">
+              <b><span class="large-balance"><%= current_balance %></span></b>€
+            </div>
+            <div class="balance-title">Current balance</div>
+          </div>
+          <div class="mt-3">
+            <span class="text-uppercase">Refund that you'll receive:</span>
+            <div class="mt-1">
+              <span class="middle-balance yellow"><strong><%= @tournament.price %>€</strong></span>
+              <span class="grey pl-1">+ 0.50€ fee</span>
+            </div>
+          </div>
+          <div class="mt-2">
+            <span class="text-uppercase">Your balance will be:</span>
+            <div class="mb-2">
+              <span class="middle-balance yellow"><strong><%= (current_balance + @tournament.price + 0.5).abs %>€</strong></span>
+            </div>
+          </div>
+          <a href="javascript:void(0)">
+            <div class="button flex-center cancel-buton">
+              <%= image_tag("home/white-arrow-down.png") %>
+              <span class="text-uppercase pl-2">Cancel my registration</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  footer {
+    display: none
+  }
+</style>
+
+<script>
+  $('.cancel-buton').click(function() {
+    price = "<%= @tournament.price + 0.5 %>"
+    tournament_id = "<%= @tournament.id %>"
+    url = "<%= transaction_refund_users_path %>"
+    redirect_url = "<%= tournaments_path %>"
+    $.ajax({
+      url: url,
+      method: "POST",
+      data: { tournament_id: tournament_id, amount: parseFloat(price) }
+    }).done( function(resp) {
+      if (resp.status == 'ok') {
+        console.log(resp.status)
+      } else {
+        console.log(resp.status)
+      }
+      Turbolinks.visit(redirect_url);
+    });
+  })
+
+</script>

@@ -1,0 +1,11 @@
+<div class="text-center join-tournament__step join-tournament__step--active">
+  <div class="profile_edit_title"><b><%= I18n.t('user.edit.titles.step')%> <%= 3 + Tournament.step_index(@tournament) %></b> / <%= I18n.t('homepage.titles.premium')%></div>
+  <div class="mt-3 px-5">
+    <div class= "premium-desc">
+      <%= I18n.t('tournaments.titles.premium_register')%>
+    </div>
+    <a href="<%= get_premium_path %>" class="flex-center">
+      <div class="button"><%= I18n.t('button.premium').html_safe %></div>
+    </a>
+  </div>
+</div>

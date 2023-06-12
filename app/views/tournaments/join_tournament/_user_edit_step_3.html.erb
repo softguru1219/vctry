@@ -1,0 +1,48 @@
+<% unless current_user %>
+  <div class="wrapper">
+    <div class="form-wrapper mt-3">
+      <div class="text-center mt-3">
+        <span class="profile_edit_title"><b><%= I18n.t('user.edit.titles.step')%> 1</b> / <%= I18n.t('tournaments.titles.login') %></span>
+      </div>
+      <div class="mt-4 px-3">
+        <div class="auth-panel">
+          <div class="auth-panel__row ">
+            <%= link_to "<span class='auth-panel__bg'>LOG IN</span>".html_safe, new_user_session_path %>
+
+            <div class="my-3 flex-center">
+              <div class="dot_line mr-3"></div>
+              <div class="or_round flex-center">
+                <span><%= I18n.t('homepage.titles.or').capitalize %></span>
+              </div>
+              <span class="dot_line ml-3 white"></span>
+            </div>
+            <div class="mb-4">
+              <%= link_to "<span class='auth-panel__bg auth-panel__active'>SIGN UP</span>".html_safe, new_user_registration_path %>
+              <a href="new_user_registration_path">
+              <span class='auth-panel__bg auth-panel__active text-uppercase'><%= I18n.t('homepage.footer.titles.signup') %></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+<div class="mt-3">
+  <div class="wrapper">
+    <div class="form-wrapper mt-3 px-3">
+      <div class="mt-3 text-center">
+        <span class="profile_edit_title"><b><%= I18n.t('user.edit.titles.step')%> 2</b> / <%= I18n.t('tournaments.titles.complete_info') %></span>
+      </div>
+      <ul class="steps header_menu mt-3">
+        <li class="is-active header_menu__item"><%= I18n.t('user.edit.titles.personal') %></li>
+        <li class="header_menu__item flex-center mx-auto"><%= I18n.t('user.edit.titles.payment') %></li>
+        <li class="header_menu__item"><%= I18n.t('tournaments.titles.game_id') %></li>
+      </ul>
+      <div class="mt-3">
+        <%= render partial: "tournaments/join_tournament/user_edit_step_2", :locals=>{f: f} %>
+        <div class="button"><%= I18n.t('homepage.titles.next')%> <%= I18n.t('user.edit.titles.step')%></div>
+      </div>
+    </div>
+  </div>
+</div>

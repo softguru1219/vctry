@@ -1,0 +1,95 @@
+<div class="row mobile-resolution">
+  <div class="col-md-12 logo-background header_menu">
+    <a href="javascript:void(0);" onclick="openNav()" class="header_menu__item">
+      <%= image_tag("home/Menu_Icon.png", :alt => "Menu", :class=>"d-inline-block align-bottom mobile-menu-icon") %>
+    </a>
+    <a href="<%= root_path %>" class="header_menu__item flex-center mx-auto">
+      <%= image_tag("home/logo.png", srcset: { "home/logo@2x.png": "2x" }, :alt => "logo", :class=>"logo-img") %>
+    </a>
+    <% if current_user %>
+      <%= link_to image_tag(current_user.avatar.url, :class=>"header_menu__item--round"), user_path(current_user), :class=>"header_menu__item header_menu__item--round flex-center" %>
+    <% else %>
+      <a href="javascript:void(0)" class="header_menu__item header_menu__item--round flex-center">
+        <%= image_tag('home/Ellipse_plus.png', :alt => "Ellipse") %>
+      </a>
+    <% end %>
+  </div>
+
+  <% if current_user %>
+    <div class="col-md-12 menu-buttons">
+      <div class="container px-0">
+        <div class="row">
+          <% if controller.controller_name == 'tournaments' ||  controller.controller_name == 'groups' %>
+            <div class="col-2 flex-center px-0 single_menu_button menu-button-active">
+              <%= image_tag("home/active_tournament_Icon.png", srcset: { "home/active_tournament_Icon@2x.png": "2x" }, :alt => "tournament", :class=>"tablinks") %>
+            </div>
+          <% else %>
+            <div class="col-2 flex-center px-0 single_menu_button">
+              <%= link_to image_tag("home/tournament_Icon.png", srcset: { "home/tournament_Icon@2x.png": "2x" }, :alt => "Tournament", :class=>"tablinks"), tournaments_path %>
+            </div>
+          <% end %>
+
+          <% if controller.controller_name == 'calendars' %>
+            <div class="col-2 flex-center px-0 single_menu_button menu-button-active calendars-btn">
+              <%= image_tag("home/active_calendar_Icon.png", srcset: { "home/active_calendar_Icon@2x.png": "2x" }, :alt => "Calendar", :class=>"tablinks")%>
+            </div>
+          <% else %>
+            <div class="col-2 flex-center px-0 single_menu_button">
+              <%= link_to image_tag("home/calendar_Icon.png", srcset: { "home/calendar_Icon@2x.png": "2x" }, :alt => "Calendar", :class=>"tablinks"), calendars_path %>
+            </div>
+          <% end %>
+
+          <% if controller.action_name == "friends" %>
+            <div class="col-2 flex-center px-0 single_menu_button menu-button-active">
+              <%= image_tag("home/active_friends_Icon.png", srcset: { "home/active_friends_Icon@2x.png": "2x" }, :alt => "Friends", :class=>"tablinks")%>
+            </div>
+          <% else %>
+            <div class="col-2 flex-center px-0 single_menu_button">
+              <%= link_to image_tag("home/friends_Icon.png", srcset: { "home/friends_Icon@2x.png": "2x" }, :alt => "Friends", :class=>"tablinks"), friends_users_path(current_user) %>
+            </div>
+          <% end %>
+          <% if request.fullpath.include? '/notifications' %>
+            <div class="col-2 flex-center px-0 single_menu_button menu-button-active">
+              <%= image_tag("home/active_notification_Icon.png", srcset: { "home/active_notification_Icon@2x.png": "2x" }, :alt => "Notifications", :class=>"tablinks") %>
+            </div>
+          <% else %>
+            <div class="col-2 flex-center px-0 single_menu_button">
+              <%= link_to image_tag("home/notification_Icon.png", srcset: { "home/notification_Icon@2x.png": "2x" }, :alt => "Notifications", :class=>"tablinks"), notifications_users_path(current_user) %>
+            </div>
+          <% end %>
+
+          <% if controller.action_name == "raffles" %>
+            <div class="col-2 flex-center px-0 single_menu_button menu-button-active">
+              <%= image_tag("home/active_raffles_Icon.png", srcset: { "home/active_raffles_Icon@2x.png": "2x" }, :alt => "Raffles", :class=>"tablinks") %></a>
+            </div>
+          <% else %>
+            <div class="col-2 flex-center px-0 single_menu_button">
+              <%= link_to image_tag("home/raffles_Icon.png", srcset: { "home/raffles_Icon@2x.png": "2x" }, :alt => "Raffles", :class=>"tablinks"), raffles_path %></a>
+            </div>
+          <% end %>
+          <% if controller.action_name == "wallets" %>
+            <div class="col-2 flex-center px-0 single_menu_button menu-button-active">
+              <a href="javascript:void(0)"><%= image_tag("home/active_wallet_Icon.png", srcset: { "home/active_wallet_Icon@2x.png": "2x" }, :alt => "Wallet", :class=>"tablinks") %></a>
+            </div>
+          <% else %>
+            <div class="col-2 flex-center px-0 single_menu_button">
+             <%= link_to image_tag("home/wallet_Icon.png", srcset: { "home/wallet_Icon@2x.png": "2x" }, :alt => "Wallet", :class=>"tablinks"), wallets_path %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <% if controller.action_name == "friends" %>
+      <div class="col-md-3 search-background flex-center">
+        <%= form_tag(friend_search_users_path(current_user), method: :get, :class=>"search-box", remote: true) do %>
+          <%= text_field_tag :search, nil, :class=>"form-control input-search-panel", :placeholder=>"Search for a user..." %>
+          <%= image_submit_tag("home/search-btn.png", srcset: { "home/search-btn@2x.png": "2x" }, :alt => "logo", :class=>"search-icon") %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+  
+  <%= render partial: 'overlay_home' %>
+</div>
+

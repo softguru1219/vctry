@@ -1,0 +1,31 @@
+<div class="home-background signing">
+  <div class="row">
+    <div class="col-md-7" style="top: 17rem">
+      <div class="container" style="font-size: 50px; padding-left: 7rem">
+        <div class="main-text-box">
+          <b><%= I18n.t('homepage.titles.desktop.title').html_safe %></b>
+          <div class="mt-2 home-main-text"><%= I18n.t('homepage.titles.main_text').html_safe %></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="container flex-center">
+        <div class="auth-panel">
+          <%= render partial: 'users/sessions/desktop_login' %>
+          <div class="mt-5">
+            <div class="signup-box">
+              <%= image_tag("home/signup_title.png", :alt => "signup_title", :width=>80) %>
+              <%= render partial: 'users/registrations/desktop_signup_form' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style type="text/css">
+  .auth-panel {
+    z-index: 999;
+  }
+</style>

@@ -1,0 +1,72 @@
+<a href="<%= tournament_path(tournament) %>">
+  <div class="tabcontent__background mt-2">
+    <div class="tmt-row">
+      <%= image_tag(tournament.logo.url, :alt => "tournaments-1", :width => 80, :style=>"border-radius: 10px;" ) %>
+      <div class="container py-2 flex-align-center">
+        <div class="tmt-row__intro">
+          <div class="row flex-align-center">
+            <div class="col-md-4">
+              <div class="flex-center">
+                <div>
+                  <span class="game-mark text-uppercase">
+                    <b><%= game_style(tournament) %></b>
+                  </span>
+                  <% if tournament.prize.present? %>
+                    <div class="game-mark game-mark--price mt-1">
+                      <%= image_tag("home/arrow-down.png") %>
+                      <span><b><%= prize(tournament) %>€</b></span>
+                    </div>
+                  <% end %>
+                </div>
+                <span class="game-title blue pl-2 flex-6">
+                  <b><%= tournament.full_name %></b> 
+                  <% if tournament.premium == true %>
+                    <!-- <span class="d-inline-block round-dot yellow text-center premium-icon-btn">p</span> -->
+                    <%= image_tag("home/premium_mark.png", :alt => "premium_btn") %>
+                  <% end %>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <% if tournament[:registration_closing_datetime].present? %>
+                <div class="game-date"><b><%= local_time(tournament[:registration_closing_datetime], format: "%a, %b %e - %H:%M %p %Z") %></b></div>
+              <% end %>
+              <div class="game-date flex-align-center">
+                <% if tournament.country.present? %>
+                  <div class="flag flag-<%= tournament.country.downcase %>"></div>
+                <% else %>
+                  <i class="fa fa-flag"></i>
+                <% end %>
+                <% if tournament.online %>
+                  <span class="pl-1"><%= I18n.t('homepage.titles.online').capitalize %> (<%= country(tournament) %>)</span>
+                <% else %>
+                  <span class="pl-1"><%= country(tournament) %></span>
+                <% end %>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="game-date"><%= I18n.t('homepage.titles.slots').capitalize %></div>
+              <div class="game-date"><b><%= slots_num(tournament) %> / <%= tournament[:size] %></b></div>
+            </div>
+            <div class="col-md-2">
+              <div class="game-date"><%= I18n.t('tournaments.titles.registrations').capitalize %></div>
+              <% if registration_status(tournament) == I18n.t('homepage.titles.open').capitalize %>
+                <div class="game-date green"><b><%= registration_status(tournament) %></b></div>
+              <% else %>
+                <div class="game-date red"><b><%= registration_status(tournament) %></b></div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+         <% if tournament.protection == true %>
+          <div class="tmt-row_arrow pr-3">
+            <i class="fa fa-lock"></i>
+          </div>
+        <% end %>
+        <div class="tmt-row_arrow">
+          <i class="fa fa-chevron-right"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</a>

@@ -1,0 +1,36 @@
+<div class="form">
+  <%= image_tag(attachments['logo.png'].url) %>
+  <div class="form-group mb-1">
+    <h2 class='h3 strong'><%= I18n.t('homepage.titles.hi').capitalize %> </h2>
+    
+    <div>Full Name: <%= @user[:firstname] %> <%= @user[:lastname] %></div>
+    <div>Discord ID: <%= @user[:discord_id] %></div>
+    <div>Birthday: <%= @user["birthday(3i)"] %> / <%= @user["birthday(2i)"] %> / <%= @user["birthday(1i)"] %></div>
+    <% if @user[:played_games].present? %>
+      <div>Played Games: <%= @user[:played_games].split(',').join(', ') %></div>
+    <% end %>
+    <div>Language: <%= @language %></div>
+    <% if params[:youtube].present? %>
+      <div><%= I18n.t('user.labels.youtube') %>: <%= params[:youtube] %></div>
+    <% end %>
+    <% if params[:twitch].present? %>
+      <div><%= I18n.t('user.labels.twitch') %>: <%= params[:twitch] %></div>
+    <% end %>
+    <% if params[:facebook].present? %>
+      <div><%= I18n.t('user.labels.facebook') %>: <%= params[:facebook] %></div>
+    <% end %>
+    <% if params[:mixer].present? %>
+      <div><%= I18n.t('user.labels.mixer') %>: <%= params[:mixer] %></div>
+    <% end %>
+    <h3><%= @user[:user_message] %></h3>
+  </div>
+  
+  <div class="footer-group">
+    <div class="mt-1">
+      <div><%= I18n.t('mail.titles.vctry_esports') %> (haftungsbeschränkt)</div>
+      <div><%= I18n.t('mail.titles.street') %></div>
+      <div><%= I18n.t('mail.titles.street_number') %></div>
+      <div><%= I18n.t('homepage.titles.germany').capitalize %></div>
+    </div>
+  </div>
+</div>

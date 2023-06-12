@@ -1,0 +1,51 @@
+<div class="notifications">
+  <div class="container my-3">
+    <div class="notifications__title">
+      <span class><%= I18n.t('notifications.titles.notification_title').capitalize %></span>
+      <% if notifications.present? %>
+        <a href="<%= delete_notification_users_path(current_user)%>" class="round-border notifications__clear"><%= I18n.t('homepage.titles.clear').capitalize %> <%= I18n.t('homepage.titles.all') %></a>
+      <% end %>
+    </div>
+    <% if Notification.is_notifications(current_user, notifications).present? %>
+      <div class="mt-1">
+        <% notifications.order(updated_at: :desc).each do |notification| %>
+          <% if current_user.participants.where(tournament_id: notification.tournament_id).present? %>
+            <div class="notifications__lists">
+              <div class="row flex-align-center">
+                <% if resolution.present? %>
+                  <% if @is_desktop %>
+                    <div class="col-1">
+                  <% else %>
+                    <div class="col-2">
+                  <% end %>
+                <% else %>
+                  <div class="col-2">
+                <% end %>
+                  <!--<#%= image_tag(notification.icon.url, :alt => "logo", :class=>"frend-icon") %>-->
+                  <div class="notification-icon flex-center">
+                    <%= image_tag("home/active_tournament_Icon.png", :alt => "Tournament") %>
+                  </div>
+                </div>
+                <div class="col-10">
+                  <!-- <div><b>Nickname</b> became friend with <b>Really Long Nick Name</b></div> -->
+                  <% if Tournament.find_by(id: notification.tournament_id).present? %>
+                    <a href="<%= tournament_checkin_path(Tournament.find_by(id: notification.tournament_id)) %>"">
+                      <div><%= I18n.t('notification.titles.message') %></div>
+                    </a>
+                  <% end %>
+                  <div class="mt-1 notifications__time"><%= time_ago_in_words(notification.updated_at) %> ago</div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="mt-5 text-center">
+        <%= image_tag "home/big_notifications.png", srcset: { "home/big_notifications@2x.png": "2x" } %>
+        <div class="mt-3 empty-text"><%= I18n.t('notifications.titles.inform_notification').html_safe %></div>
+        <div class="mt-4"><b><%= I18n.t('notifications.titles.no_notification').html_safe %></b></div>
+      </div>
+    <% end %>
+  </div>
+</div>

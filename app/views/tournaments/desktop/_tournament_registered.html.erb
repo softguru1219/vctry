@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="game-detail game-detail__registered">
+    <div class="game-detail__background" style="background-image: url(<%= asset_path @tournament.tournament_cover.url %>)">
+      <%= render partial: 'tournaments/desktop/game_detail_main_screen'%>
+      <div class="block-tnmt">
+        <div class="block-tnmt__row">
+          <div class="block-tnmt__item bottom-round--left">
+            Registrations: <span class="pl-1"><strong><%= registration_status(@tournament) %></strong></span>
+          </div>
+          <div class="block-tnmt__item bottom-round--right">
+            Slots: <span class="pl-1"><strong><%= slots_num(@tournament) %> / <%= @tournament[:size] %></strong></span>
+          </div>
+        </div>
+        <div class="join-tournament-btn">
+          <div>You are registered !</div>
+          <a href="<%= tournament_cancel_path %>">
+            <div class="pt-2 yellow">Cancel</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div id="desktoptimer_register_<#%= @tournament.id %>" style="display: none">
+  <span class="yellow clock"></span>
+</div> -->
+
+<script>
+  $(document).ready(function (){
+    $('.desktop-resolution .game_titles').css({"bottom": "15vh"});
+  })
+</script>

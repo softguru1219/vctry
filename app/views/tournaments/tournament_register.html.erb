@@ -1,0 +1,103 @@
+<div class="container-fluid">
+  <div class="row home-mobile-resolution">
+    <div class="tournaments full-width">
+      <div class="game-detail">
+        <% if @tournament.check_in_participant_end_datetime.present? %>
+          <!--<#% if @tournament.check_in_participant_end_datetime > Time.now.utc %>
+            <#% if @tournament.check_in_participant_end_datetime - 10.minutes > Time.now.utc %>
+              <#%= render partial: 'tournaments/tournament_registered'%>
+            <#% else %>
+            <#% end %>
+          <#% end %>-->
+          <%= render partial: 'tournaments/tournament_check'%>
+        <% else %>
+           <%= render partial: 'tournaments/tournament_registered'%>
+        <% end %>
+        <%= render partial: 'tournaments/game_detail_content' %>
+      </div>
+    </div>
+    <%= render partial: 'home/partials/content_creator' %>
+    <%= render partial: 'home/partials/quotation' %>
+  </div>
+
+  <div class="row desktop-resolution">
+    <div class="tournaments full-width">
+      <div class="game-detail">
+        <% if @tournament.check_in_participant_end_datetime.present? %>
+          <!--<#% if @tournament.check_in_participant_end_datetime > Time.now.utc %>-->
+            <!--<#% if @tournament.check_in_participant_end_datetime - 10.minutes > Time.now.utc %>-->
+              <!--<#%= render partial: 'tournaments/desktop/tournament_registered'%>-->
+            <!--<#% else %>  -->
+          <%= render partial: 'tournaments/desktop/tournament_check'%>
+            <!--<#% end %>  -->
+          <!--<#% end %>  -->
+        <% else %>
+           <%= render partial: 'tournaments/desktop/tournament_registered'%>
+        <% end %>
+      </div>
+    </div>
+    <%= render partial: 'home/desktop/content_creator' %>
+    <%= render partial: 'home/desktop/quotation' %>
+  </div>
+</div>
+
+<%= local_time(@tournament[:registration_closing_datetime], format: "%Y/%m/%d %H:%M:%S" , style: 'display: none',  class: 'schedule-start') %>
+<% if @tournament[:check_in_participant_end_datetime].present? %>
+  <%= local_time(@tournament[:check_in_participant_end_datetime], format: "%Y/%m/%d %H:%M:%S" , style: 'display: none',  class: 'participant-check-end') %>
+  <%= local_time(@tournament[:check_in_participant_end_datetime] - 10.minutes, format: "%Y/%m/%d %H:%M:%S" , style: 'display: none',  class: 'participant-register-end') %>
+<% end %>
+
+<% if @tournament[:check_in_participant_start_datetime].present? && @tournament[:check_in_participant_start_datetime] > Time.now.utc %>
+  <%= local_time(@tournament[:check_in_participant_start_datetime], format: "%Y/%m/%d %H:%M:%S" , style: 'display: none',  class: 'participant-check-start') %>
+<% end %>
+
+<script>
+  $(document).ready(function() {
+    url = "<%= save_stage_path %>"
+    tournament_id = "<%= @tournament.id %>"
+    $.ajax({
+      url: url,
+      method: "POST",
+      data: { 
+        tournament_id: tournament_id,
+      }
+    }).done( function(resp) {
+      console.log('Pulled the api')
+    });
+  })
+</script>
+
+<script>
+  $(document).ready(function (){
+    start_time = $('.schedule-start').text()
+    is_mobile = "<%= browser.device.mobile? %>"
+    is_desktop = "<%= !browser.device.mobile? %>"
+    
+    if (is_mobile == "true") {
+      new countDown({ clock : '#timer_<%= @tournament.id %>', startTime: start_time }).startTimer();
+    } else if(is_desktop == "true") {
+      new countDown({ clock : '#desktoptimer_<%= @tournament.id %>', startTime: start_time }).startTimer();
+    }
+    
+    // register_time = $('.participant-register-end').text()
+    // new countDown({ clock : '#desktoptimer_register_<%= @tournament.id %>', startTime: register_time }).startTimer();
+
+    valid_participant_start_check = "<%= @tournament[:check_in_participant_start_datetime].present? && @tournament[:check_in_participant_start_datetime] > Time.now.utc %>"
+    
+    valid_participant_check = "<%= @tournament[:check_in_participant_end_datetime].present? && @tournament[:check_in_participant_end_datetime] > Time.now.utc %>"
+
+    non_stage = "<%= Stage.check_stages(@tournament).blank? %>"
+    if (valid_participant_check == "true" && non_stage == "true") {
+      $('.tournaments .yello-background').css({"height": "24.5rem"});
+      $('.tournaments .game_titles').css({"bottom": "8.7rem"});
+      $('.desktop-resolution .yello-background').css({"height": "24.5rem"});
+      $('.desktop-resolution .game_titles').css({"bottom": "8.7rem"});
+    } else {
+      $('.tournaments .yello-background').css({"height": "22.5rem"});
+      $('.tournaments .game_titles').css({"bottom": "6.7rem"});
+      $('.desktop-resolution .yello-background').css({"height": "22.5rem"});
+      $('.desktop-resolution .game_titles').css({"bottom": "6.7rem"});
+      $('.leave-tournament').hide();
+    }
+  })
+</script>

@@ -1,0 +1,43 @@
+<div class="game-detail__content"></div>
+<div class="back-btn">
+  <a href="/tournaments"><i class="fa fa-arrow-left"></i></a>
+</div>
+<div class="game-date" id="desktoptimer_<%= @tournament.id %>">
+  <% if @tournament[:registration_closing_datetime].present? && @tournament[:registration_closing_datetime] > Time.now.utc %>
+    <div class="tournemant-date__mark game-date__mark">
+      <span class="font-7rem text-uppercase"><%= I18n.t('tournaments.titles.start_in')%></span><br>
+      <b><span class="yellow clock"></span></b>
+    </div>
+  <% elsif @tournament[:registration_closing_datetime].present? && @tournament[:registration_closing_datetime] < Time.now.utc %>
+    <div class="tournemant-date__mark game-date__mark">
+      <span class="font-7rem text-uppercase"><%= I18n.t('tournaments.titles.started')%></span><br>
+      <b><span class="yellow clock"></span></b> <%= I18n.t('homepage.titles.ago')%>
+    </div>
+  <% end %>
+</div>
+<div class="game_titles contain-padding">
+  <span class="game-mark text-uppercase"><b><%= game_style(@tournament) %></b></span>
+  <div class="game_titles__details mt-2">
+    <span><%= @tournament.full_name %></span>
+    <% if @tournament.premium == true %>
+      <a href="<%= get_premium_path %>">
+        <%= image_tag("home/premium_mark.png", :alt => "premium_btn") %>
+      </a>
+    <% end %>
+  </div>
+  <div class="game_titles__date mt-1 flex-align-center">
+    <% if @tournament.country.present? %>
+      <div class="flag flag-<%= @tournament.country.downcase %>"></div>
+    <% else %>
+      <i class="fa fa-flag"></i>
+    <% end %>
+    <% if @tournament.online %>
+      <span class="pl-1"><%= I18n.t('homepage.titles.online').capitalize %> (<%= country(@tournament) %>)</span>
+    <% else %>
+      <span class="pl-1"><%= country(@tournament) %></span>
+    <% end %>
+  </div>
+  <div class="game_titles__date mt-1">
+    <span class="yellow"><%= @tournament.discord %></span>
+  </div>
+</div>

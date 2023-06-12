@@ -1,0 +1,15 @@
+<div class="container">
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put}) do |f| %>
+    <%= render partial: "users/partials/mobile_cover_upload", locals: {f: f} %>
+    <%= render partial: "users/desktop/cover_upload", locals: {f: f} %>
+  <% end %>
+</div>
+
+<div class="cover-dimention-error d-none"><%= I18n.t('errors.titles.cover_dimension')%></div>
+<div class="cover-size-error d-none"><%= I18n.t('errors.titles.cover_size')%></div>
+
+<style>
+  footer {
+    display: none;
+  }
+</style>

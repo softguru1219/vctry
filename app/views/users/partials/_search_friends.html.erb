@@ -1,0 +1,65 @@
+<div class="container mt-3 friend-search">
+  <div class="friends_title">
+    <span class><%= I18n.t('friends.titles.search_friend') %></span>
+  </div>
+  <div class="mt-3">
+    <% if @search_results.present? %>
+      <% @search_results.order("created_at ASC").each do |user| %>
+        <div class="friend_lists">
+          <%= image_tag(user.avatar.url, :alt => "logo", :class=>"frend-icon") %>
+          <div class="d-inline-block ml-3 full-width">
+            <span><%= user.full_name %></span>
+            <% if user.subscriptions.present? %>
+              <%= image_tag("home/premium_mark.png", :alt => "premium_btn") %>
+            <% end %>
+            <div class="flex-center text-uppercase mt-1 friend_send_request">
+              <div class="friend_lists__view_profile">
+                <div class="add_friend_url d-none"><%= add_friend_users_path(user) %></div>
+                <a href="javascript:void(0)" class="friend-round-border add_friend"><%= I18n.t('friends.titles.add_friend') %></a>
+              </div>
+              <div class="friend_lists__remove_profile">
+                <a href="<%= user_path(user) %>" class="friend-round-border">
+                  <%= I18n.t('homepage.titles.view') %> <%= I18n.t('homepage.titles.profile').capitalize %>
+                </a>
+              </div>
+            </div>
+            <div class="friend_wait_request">
+              <div class="flex-center text-uppercase mt-1">
+                <div class="friend_lists__view_profile" style="font-size: 0.5rem"><b><%= I18n.t('friends.titles.waiting_confirmation') %></b></div>
+                <div class="friend_lists__remove_profile">
+                  <%= link_to I18n.t('homepage.titles.cancel'), remove_friend_users_path(user), :class=>"friend-round-border" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  search_keyword = "<%= params[:search] %>"
+  if (search_keyword){
+    $('.friend-lists').hide();
+    $('.friend-search').show();
+  } else {
+    $('.friend-lists').show();
+    $('.friend-search').hide();
+  }
+
+  $('.friend_send_request .add_friend').click(function(){
+    var current_element = $(this)
+    search_results = "<%= @search_results.present? %>"
+    if (search_results == "true") {
+      url = $('.add_friend_url').text()
+      $.ajax({
+        url: url,
+        method: "GET",
+      }).done( function(resp) {
+        current_element.closest('.friend_send_request').hide()
+        current_element.closest('.friend_send_request').next().show()
+      });
+    }
+  })
+</script>

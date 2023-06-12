@@ -1,0 +1,122 @@
+<div class="home-mobile-resolution">
+  <%= render partial: "tournaments/partial_join_tournaments" %>
+</div>
+<div class="row desktop-resolution">
+  <div class="tournaments full-width">
+    <div class="game-detail">
+      <%= render partial: 'tournaments/desktop/join_background' %>
+    </div>
+  </div>
+  <% unless flash[:join_error_message].nil? %>
+    <div class="alert alert-danger alert-dismissible fade show game-completed__error" role="alert">
+      <%= flash[:join_error_message] %>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  <% end %>
+  <div class="mt-5 full-width">
+    <%= render partial: 'home/desktop/premium_background' %>
+  </div>
+  <%= render partial: 'home/desktop/content_creator' %>
+  <%= render partial: 'home/desktop/quotation' %>
+</div>
+
+<div class="d-none admin_password"><%= @tournament.protection_pwd %></div>
+<style>
+  footer {
+    display: none;
+  }
+</style>
+
+<span class="d-none join_confirm_buyin"><%= I18n.t('tournaments.titles.join_confirm_buyin') %></span>
+<span class="d-none from_tournament"><%= I18n.t('tournaments.titles.from_tournament') %></span>
+<span class="d-none deposit_confirm"><%= I18n.t('tournaments.titles.deposit_confirm') %></span>
+<span class="d-none to_wallet"><%= I18n.t('tournaments.titles.to_wallet') %></span>
+
+<script>
+  $('.buyIn').click(function() {
+    price = "<%= @tournament.price + Tournament.fee(@tournament.price) %>"
+    var join_confirm_buyin = $('.join_confirm_buyin').text()
+    var from_tournament = $('.from_tournament').text()
+
+    if (confirm(join_confirm_buyin + ' ' + price + '€' + ' ' + from_tournament)) {
+      tournament_id = "<%= @tournament.id %>"
+      url = "<%= transaction_buyin_users_path %>"
+      $.ajax({
+        url: url,
+        method: "POST",
+        data: { tournament_id: tournament_id, amount: parseFloat(price) }
+      }).done( function(resp) {
+        if (resp.status == 'ok') {
+          console.log(resp.status)
+        } else {
+          console.log(resp.status)
+        }
+        location.reload();
+      });
+    }
+  })
+
+
+  // Deposit for desktop
+  var deposit_confirm = $('.deposit_confirm').text()
+  var to_wallet = $('.to_wallet').text()
+  $('.desktop-resolution .tournament_deposit').click(function() {
+    deposit_btn = '.desktop-resolution .tournament_deposit'
+    paypal_btn = '.desktop-resolution .tournament-paypal-btn'
+    amount = "<%= @tournament.price + Tournament.fee(@tournament.price) %>"
+    if (confirm(deposit_confirm + ' ' + amount + '€' + ' ' + to_wallet)) {
+      deposit(deposit_btn, paypal_btn, amount)
+    }
+  });
+
+  // Deposit for mobile
+  $('.home-mobile-resolution .tournament_deposit').click(function() {
+    deposit_btn = '.home-mobile-resolution .tournament_deposit'
+    paypal_btn = '.home-mobile-resolution .tournament-paypal-btn'
+    amount = "<%= @tournament.price + Tournament.fee(@tournament.price) %>"
+    if (confirm(deposit_confirm + ' ' + amount + '€' + ' ' + to_wallet)) {
+      deposit(deposit_btn, paypal_btn, amount)
+    }
+  });
+
+  function deposit(deposit_btn, paypal_btn, amount) {
+    $(deposit_btn).hide();
+    $fee_amount = (parseInt(amount) + (parseInt(amount) * 2.49 / 100 ) + 0.35).toFixed(2)
+    paypal.Buttons({
+      createOrder: function(data, actions) {
+        // Set up the transaction
+        return actions.order.create({
+          purchase_units: [{
+            amount: {
+              value: $fee_amount
+            }
+          }]
+        });
+      },
+      onApprove: function(data, actions) {
+        // Call your server to validate and capture the transaction
+        return actions.order.capture().then(function(details) {
+          return fetch('/wallets/transaction', {
+            method: 'post',
+            headers: {
+              'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+              payerID: data.payerID,
+              orderID: data.orderID,
+              amount: parseFloat(amount),
+              status: 'deposit'
+            })
+          }).then(function(response) {
+            if (response.statusText == 'OK') {
+              alert($('.failed-deposit').text());
+            }
+            location.reload()
+          })
+        })
+      }
+    }).render(paypal_btn);
+  }
+</script>

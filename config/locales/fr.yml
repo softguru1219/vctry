@@ -1,0 +1,35 @@
+---
+fr:
+  active_admin:
+    dashboard: Dashboard
+    dashboard_welcome:
+      call_to_action: Call to action
+      welcome: Welcome
+  date:
+    abbrDayNames: Abbrdaynames
+    abbrMonthNames: Abbrmonthnames
+    dayNames: Daynames
+    monthNames: Monthnames
+  errors:
+    messages:
+      not_saved: Not saved
+  home:
+    big_header: Vctry
+    sub_header: 'The #1 place to buy and sell knuckleboom cranes'
+    welcome_text: Our search feature makes it easier and more efficient for buyers
+      to find the crane best suited for their application. We make it easy to list
+      your knuckleboom crane for sale. Since our website is dedicated to knuckle boom
+      cranes, buyers will find your crane easier resulting in a quicker sale!
+  menu:
+    add_listing: Ajouter une annonce
+    articles: Articles
+    listings: Camions et grues à vendre
+    sold_listings: Sold listings
+  time:
+    formats:
+      default: Default
+  views:
+    pagination:
+      first: First
+      last: Last
+      truncate: Truncate

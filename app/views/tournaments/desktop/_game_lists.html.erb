@@ -1,0 +1,201 @@
+<div class="game-lists full-width">
+  <div class="container mt-3">
+    <span class="title font-18"><%= I18n.t('tournaments.titles.choose_game')%></span>
+    <div class="row mt-3">
+      <div class="col-md-2 col-sm-2 pr-0">
+        <a href="javascript:void(0)">
+          <div class="game-lists-img choose-game-lists" style="background-image: url(<%= asset_path 'tournament/fifa21.jpg' %>)" game="fifa21" mode="desktop" onclick="selectGame(event, 'game-1', 'fifa21', 'desktop')">
+          </div>
+        </a>
+      </div>
+      <div class="col-md-2 col-sm-2 pr-0">
+        <a href="javascript:void(0)" class="inactive-cursor">
+          <div class="game-lists-img game-lists-inactive choose-game-lists" style="background-image: url(<%= asset_path 'tournament/fall_guys.jpg' %>)" game="fall_guys" mode="desktop" onclick="selectGame(event, 'game-2', 'fall_guys', 'desktop')">
+            <div class="comming-img-container font-18"><%= I18n.t('tournaments.titles.coming_soon')%></div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-2 col-sm-2 pr-0">
+        <a href="javascript:void(0)" class="inactive-cursor">
+          <div class="game-lists-img game-lists-inactive choose-game-lists" style="background-image: url(<%= asset_path 'tournament/fortnite.jpg' %>)" game="fortnite" mode="desktop" onclick="selectGame(event, 'game-3', 'fortnite', 'desktop')">
+            <div class="comming-img-container font-18"><%= I18n.t('tournaments.titles.coming_soon')%></div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-2 col-sm-2 pr-0">
+        <a href="javascript:void(0)" class="inactive-cursor">
+          <div class="game-lists-img game-lists-inactive choose-game-lists" style="background-image: url(<%= asset_path 'tournament/valorant.jpg' %>)" game="valorant" mode="desktop" onclick="selectGame(event, 'game-4', 'valorant', 'desktop')">
+            <div class="comming-img-container font-18"><%= I18n.t('tournaments.titles.coming_soon')%></div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-2 col-sm-2 pr-0">
+        <a href="javascript:void(0)" class="inactive-cursor">
+          <div class="game-lists-img game-lists-inactive choose-game-lists" style="background-image: url(<%= asset_path 'tournament/hearthstone.png' %>)" game="hearthstone" mode="desktop" onclick="selectGame(event, 'game-5', 'hearthstone', 'desktop')">
+            <div class="comming-img-container font-18"><%= I18n.t('tournaments.titles.coming_soon')%></div>
+          </div>  
+        </a>
+      </div>
+      <div class="col-md-2 col-sm-2">
+        <a href="javascript:void(0)" class="inactive-cursor">
+          <div class="game-lists-img game-lists-inactive choose-game-lists" style="background-image: url(<%= asset_path 'tournament/rocket-league.jpg' %>)" game="rocket_league" mode="desktop" onclick="selectGame(event, 'game-6', 'rocket league', 'desktop')">
+            <div class="comming-img-container font-18"><%= I18n.t('tournaments.titles.coming_soon')%></div>
+          </div>  
+        </a>
+      </div>
+      <!-- <div class="col-md-2 col-sm-2">
+        <div class="comming-img-container">
+          <div class="comming-img-title text-uppercase"><#%= I18n.t('tournaments.titles.coming_soon')%></div>
+        </div>
+      </div>
+      <div class="col-md-2 col-sm-2">
+        <div class="comming-img-container">
+          <#%= image_tag("tournament/coming_soon@2x.png", :alt => "game_6", :class=>"full-width game-tablinks") %>
+          <div class="comming-img-title text-uppercase"><#%= I18n.t('tournaments.titles.coming_soon')%></div>
+        </div>
+      </div> -->
+    </div>
+    <div class="row mt-3 choose-tournaments">
+      <div class="col-md-6 col-sm-6">
+        <a href="javascript:void(0)" class="round-border pull-left round-border--active freePaidTourLinks desktopfreeTour text-uppercase" onclick="selectFreePaidTour(event, 'desktopfreeTour')"><%= I18n.t('tournaments.titles.free_tournaments')%></a>
+      </div>
+      <div class="col-md-6 col-sm-6">
+        <a href="javascript:void(0)" class="round-border pull-right freePaidTourLinks desktoppaidTour text-uppercase" paid_mode="paid" onclick="selectFreePaidTour(event, 'desktoppaidTour')"><%= I18n.t('tournaments.titles.paid_tournaments')%></a>
+      </div>
+    </div>
+  </div>
+
+  <div id="desktopfreeTour" class="freeTourTabContent" style="display: block;">
+    <%= render partial: 'tournaments/desktop/game_lists_free_tournament' %>
+  </div>
+
+  <div id="desktoppaidTour" class="freeTourTabContent">
+    <%= render partial: 'tournaments/desktop/game_lists_paid_tournament' %>
+  </div>
+</div>
+<script>
+
+  $(document).ready(function() {
+    var is_desktop = "<%= @is_desktop%>"
+    game_type = "<%= params[:game] %>"
+    
+    if (is_desktop == "true") {
+      game_lists = $('.desktop-resolution .game-lists-img')
+    } else {
+      game_lists = $('.home-mobile-resolution .game-lists-img')
+    }
+    if (game_type) {
+      game_lists.each(function() {
+        if ($(this).attr('game') == game_type) {
+          $(this).addClass('game-tablinks--active')
+        }
+      })
+    }
+  })
+
+  function selectFreePaidTour(evt, status) {
+    var active_games = []
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("freeTourTabContent");
+    for (i = 0; i < tabcontent.length; i++) {
+      $('#' + tabcontent[i].id).hide()
+    }
+    tablinks = document.getElementsByClassName("freePaidTourLinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" round-border--active", "");
+    }
+    $("#" + status).show();
+    if (status.includes("desktop")) {
+      status = status.replace('desktop', '') 
+      $('#' + status).show()
+      $('a.' + status).addClass(' round-border--active')
+    } else {
+      status = 'desktop' + status 
+      $('#' + status).show()
+      $('a.' + status).addClass(' round-border--active')
+    }
+    evt.currentTarget.className += " round-border--active";
+    paid_mode = $(evt.target.closest('.tournaments')).find('.round-border--active').attr('paid_mode')
+
+
+    var active_tabs = $('.game-tablinks--active')
+    if (active_tabs.length > 0) {
+      $.each(active_tabs, function (index, active_tab) {
+        active_games.push($(active_tab).attr('game'))
+      }); 
+    }
+    if (active_tabs.length > 0) {
+      url = "<%= filtered_tournaments_path %>";
+      window_mode = $(".game-tablinks--active").attr('mode')
+      // if ($("#" + window_mode + "-paid").children().length < 1){
+      $.ajax({
+        url: url,
+        method: "GET",
+        data: { filter: active_games, window_mode: window_mode, paid_mode: paid_mode}
+      }).done( function(resp) {
+        if (paid_mode == 'paid'){
+          $('#' + window_mode +'-'+paid_mode).children().remove()
+          $('#' + window_mode +'-'+paid_mode).html(resp)
+          tab_status = $(evt.target.closest('.tournaments')).find('.tournaments-status__select a.active').eq(1).attr('status')
+          $('.paid_tabcontent').hide()
+          $('#' + tab_status).show()
+        }else {
+          $('#' + window_mode +'-free').children().remove()
+          $('#' + window_mode +'-free').html(resp)
+          tab_status = $(evt.target.closest('.tournaments')).find('.tournaments-status__select a.active').eq(0).attr('status')
+          $('.tabcontent').hide()
+          $('#' + tab_status).show()
+        }
+      });
+      // }
+    }
+  }
+
+  function selectGame(evt, status, filter, window_mode) {
+    var i, tabcontent, tablinks;
+    var active_games = []
+    // tabcontent = document.getElementsByClassName("tabcontent");
+    // for (i = 0; i < tabcontent.length; i++) {
+    //   tabcontent[i].style.display = "none";
+    // }
+    // tablinks = document.getElementsByClassName("game-tablinks");
+    // for (i = 0; i < tablinks.length; i++) {
+    //   tablinks[i].className = tablinks[i].className.replace("game-tablinks--active", "");
+    // }
+    if($(evt.currentTarget).hasClass("game-tablinks--active")){
+      $(evt.currentTarget).removeClass("game-tablinks--active");
+    } else{
+      $(evt.currentTarget).addClass("game-tablinks--active");
+    }
+    var active_tabs = $('.game-tablinks--active')
+    if (active_tabs.length > 0) {
+      $.each(active_tabs, function (index, active_tab) {
+        active_games.push($(active_tab).attr('game'))
+      }); 
+    }
+    // document.getElementById(status).style.display = "block";
+    // evt.currentTarget.className += " game-tablinks--active";
+    url = "<%= filtered_tournaments_path %>"
+    paid_mode = $(evt.target.closest('.tournaments')).find('.round-border--active').attr('paid_mode')
+    $.ajax({
+      url: url,
+      method: "GET",
+      data: { filter: active_games, window_mode: window_mode, paid_mode: paid_mode }
+    }).done( function(resp) {
+      if (paid_mode == 'paid'){
+        $('#' + window_mode +'-'+paid_mode).children().remove()
+        $('#' + window_mode +'-'+paid_mode).html(resp)
+        tab_status = $(evt.target.closest('.tournaments')).find('.tournaments-status__select a.active').eq(1).attr('status')
+        $('.paid_tabcontent').hide()
+        $('#' + tab_status).show()
+      }else {
+        $('#' + window_mode +'-free').children().remove()
+        $('#' + window_mode +'-free').html(resp)
+        tab_status = $(evt.target.closest('.tournaments')).find('.tournaments-status__select a.active').eq(0).attr('status')
+        $('.tabcontent').hide()
+        $('#' + tab_status).show()
+      }
+      // $('#' + window_mode +'-paid').children().remove()
+    });
+  }
+</script>

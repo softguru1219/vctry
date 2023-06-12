@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="row">
+    <% if @tournament.price > 0 && @tournament.prize.present? %>
+      <div class="col-md-4 col-sm-4 pl-0">
+        <div class="cash-block flex-center">
+          <div class="cash-block__bg full-width" >
+            <%= image_tag("tournament/buy_block.png", srcset: { "tournament/buy_block@2x.png": "2x" }, class: "cash-block__arrow") %>
+          </div>
+          <div class="cash-block__content">
+            <span class="cash-block__title text-uppercase"><%= I18n.t('homepage.titles.cash_buyin') %> (+10% <%= I18n.t('homepage.titles.fee') %>)</span><br>
+            <% if session[:locale] == 'de' %>
+              <span class="cash-block__price blue"><%= number_with_precision((@tournament.price + Tournament.fee(@tournament.price)), precision: 2).gsub(".", ",") %> €</span>
+            <% else %>
+              <span class="cash-block__price blue"><%= number_with_precision((@tournament.price + Tournament.fee(@tournament.price)), precision: 2).gsub(",", ".") %> €</span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-4 px-0">
+        <div class="cash-block flex-center">
+          <div class="cash-block__bg full-width" >
+            <%= image_tag("tournament/cash_prize.png", srcset: { "tournament/cash_prize@2x.png": "2x" }, class: "cash-block__arrow") %>
+          </div>
+          <div class="cash-block__content">
+            <span class="cash-block__title text-uppercase"><%= I18n.t('homepage.titles.prize_pool') %></span><br>
+            <span class="cash-block__price yellow"><%= prize(@tournament) %> €</span>
+          </div>
+        </div>
+      </div>
+    <% elsif @tournament.price > 0 %>
+      <div class="col-md-8 px-0">
+        <div class="cash-block flex-center">
+          <div class="cash-block__bg full-width" >
+            <%= image_tag("tournament/buy_block.png", srcset: { "tournament/buy_block@2x.png": "2x" }, class: "cash-block__arrow") %>
+          </div>
+          <div class="cash-block__content">
+            <span class="cash-block__title text-uppercase"><%= I18n.t('homepage.titles.cash_buyin') %> (+10% <%= I18n.t('homepage.titles.fee') %>)</span><br>
+            <% if session[:locale] == 'de' %>
+              <span class="cash-block__price blue"><%= number_with_precision((@tournament.price + Tournament.fee(@tournament.price)), precision: 2).gsub(".", ",") %> €</span>
+            <% else %>
+              <span class="cash-block__price blue"><%= number_with_precision((@tournament.price + Tournament.fee(@tournament.price)), precision: 2).gsub(",", ".") %> €</span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% elsif @tournament.prize.present? %>
+      <div class="col-md-8 px-0">
+        <div class="cash-block flex-center" >
+          <div class="cash-block__bg full-width">
+            <%= image_tag("tournament/cash_prize.png", srcset: { "tournament/cash_prize@2x.png": "2x" }, class: "cash-block__arrow") %>
+          </div>
+          <div class="cash-block__content">
+            <span class="cash-block__title text-uppercase"><%= I18n.t('homepage.titles.prize_pool') %>: <span class="cash-block__price yellow"><%= prize(@tournament) %> €</span></span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

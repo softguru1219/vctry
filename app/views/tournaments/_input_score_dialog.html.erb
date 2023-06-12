@@ -1,0 +1,132 @@
+<div class="row">
+  <div class="col-12 mb-3">
+    <button type="button" class="accordion-btn flex-center text-uppercase score-button" data-toggle="collapse" data-target="#scoreCollapse" aria-expanded="true" aria-controls="scoreCollapse">
+      <div class="collapse-round-border text-uppercase yellow blue-background full-width">
+        <p class="mb-2"><%= I18n.t('tournaments.titles.enter_final_score') %></p>
+        <div id="scoreCollapse" class="collapse full-width mt-2 collapse-panel score-collapse">
+          <%= form_tag(submit_score_path(@tournament, @match), method: :post, class: "score-submit") do %>
+            <div class="score-collapse__panel py-3 container input-score-panel">
+              <div class="row flex-align-center">
+                <div class="col-3">
+                  <div class="score-player-image" style="background-image: url(<%= image_url User.find(score_players(@match).first).avatar.url %>);"></div>
+                </div>
+                <div class="col-3">
+                  <input type="text" name="<%= score_players(@match).first %>" class="input-score" value="<%= @match.scores.present? ? @match.scores[score_players(@match).first.to_s] : nil %>" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                </div>
+                <div class="col-3">
+                  <input type="text" name="<%= score_players(@match).second %>" class="input-score" value="<%= @match.scores.present? ? @match.scores[score_players(@match).second.to_s] : nil %>" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                </div>
+                <div class="col-3">
+                  <div class="score-player-image" style="background-image: url(<%= image_url User.find(score_players(@match).second).avatar.url %>);"></div>
+                </div>
+              </div>
+              <div class="row mt-2 blue">
+                <div class="col-3 text-center dot-text">
+                  <% if fifa_players(@match).present? && fifa_players(@match).length > 1 %>
+                    <b><%= fifa_players(@match).first %></b>
+                  <% end %>
+                </div>
+                <div class="col-6"></div>
+                <div class="col-3 text-center dot-text">
+                  <% if fifa_players(@match).present? && fifa_players(@match).length > 1 %>
+                    <b><%= fifa_players(@match).second %></b>
+                  <% end %>
+                </div>
+              </div>
+              <% if !@match.submitter.nil? && current_user == @match.submitter %>
+                <div class="confirm-score container mt-2 blue text-normal">
+                  <div><b><%= I18n.t('tournaments.titles.entered_final_score') %></b></div>
+                  <div><%= I18n.t('tournaments.titles.confirming_final_score') %> <span class="yellow"><%= confirm_user(@match) %></div>
+                </div>
+              <% end %>
+            </div>
+            <div class="text-uppercase confirm-submit py-3">
+              <span class="score-confirm-btn"><b><%= I18n.t('tournaments.titles.confirm_final_score') %></b></span>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </button>
+  </div>
+</div>
+
+
+<script>
+  opponent_submitting_score = "<%= I18n.t('alert.titles.opponent_submitting_score') %>"
+
+  exist_submitter = "<%= !@match.submitter.nil? %>";
+  exist_confirmer = "<%= !@match.confirmer.nil? %>";
+  exist_host = "<%= @match.host.present? %>";
+
+  tournament_id = "<%= @tournament.id %>";
+  match_id = "<%= @match.id %>";
+  is_submitter = "<%= current_user == @match.submitter %>";
+  match_status = "<%= match_type(@match).downcase %>"
+  is_host = "<%= current_user == @match.host %>";
+
+  if (exist_submitter == "false" && exist_confirmer == "false") {
+    if (match_status == 'running' && exist_host == "true" && is_host == "false" ) {
+      $('button.score-button').attr('disabled', true)
+      $('button.score-button').css('opacity', '0.7')
+    } else  {
+      $('button.score-button').click(function() {
+        url = "<%= tournament_update_status_path(@tournament, @match) %>"
+        $.ajax({
+          url: url,
+          method: "POST",
+          data: { status: 'completed' }
+        }).done( function(resp) {
+          if (resp.status == 'ok') {
+            console.log(resp.status)
+          } else {
+            alert("Your opponent is currently submitting a score");
+            location.reload();
+          }
+        });
+      });
+    }
+  } else {
+    $('button.score-button').attr('disabled', false)
+  }
+
+  if (exist_submitter == 'true' && is_submitter == 'true') {
+    $('.confirm-submit').hide();
+    $('.game-round .score-collapse').css("background", "#fff");
+    $('.input-score').css({"background": "#343742", "color": "#fff"});
+    $('.input-score').each(function() {
+      if($(this).val().length > 0){
+        $(this).prop('readOnly', true)
+      }
+    })
+  }
+
+  $(document).on('click', 'input', function(e){
+    e.stopPropagation();
+  });
+
+  /* Validation for Draw */
+  $(".confirm-submit").click(function(e) {
+    e.stopPropagation();
+    scores = []
+    status = true
+    $("form .input-score").each(function() {
+      if ($(this).val().length > 0) {
+        if (scores.includes($(this).val())){
+          status = false;
+        } else {
+          scores.push($(this).val())
+        }
+      }
+    })
+    
+    if (scores.length == 0) {
+      status = false
+    } else if(scores.length == 1 && scores[0] == "0") {
+      status = false
+    }
+    if (status == "true") {
+      $(this).closest('.score-submit').submit();
+    }
+  })
+
+</script>

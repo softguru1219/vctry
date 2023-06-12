@@ -1,0 +1,116 @@
+<div class="flex-center mt-4">
+  <div class="picks-title">
+    <span>Our Picks</span>
+  </div>
+  <div class="all-tournaments-btn-bg">
+    <a href="<%= tournaments_path %>" class='round-border text-uppercase'>
+      <%= I18n.t('homepage.titles.view_all') %>
+    </a>
+  </div>
+</div>
+
+<div class="mt-2">
+  <div class="tournaments-main-bg flex-center">
+    <%= image_tag("home/tournaments-main.png", :alt => "premium_btn", :class=>"full-width") %>
+    <div class="tournemants-main-time">
+      <div class="tour-main-time-value">
+        <div class="tour-main-time-stats">STARTS IN</div>
+        <div class="tour-main-time-counter">00:28:29</div>
+      </div>
+    </div>
+  </div>
+  <div class="tournaments-main-detail mt-2">
+    <span class="game-mark">FIFA 20</span>
+    <div class="game-description mt-2"><b>VCTRY Premium </b></div>
+    <div class="game-date mt-2">
+      <span>Sat, Nov 30th - 00 PM EST</span><br>
+      <span><b>Slots: 68 / 128</b></span>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-3">
+  <div class="col-6 left-game">
+    <%= image_tag("home/mobile_game_1@2x.png", :alt => "premium_btn", :class=>"full-width") %>
+    <div class="tournemants-main-time">
+      <div class="tour-date-mark">
+        <span style="color: #FFAB2E"><b>30</b></span><br>
+        <span>Nov</span>
+      </div>
+    </div>
+    <div class="tournaments-main-detail mt-2">
+      <span class="game-mark">FIFA 20</span>
+      <div class="game-description mt-2">
+        <span><b>NIKE $500 FIFA Tournament...</b></span>
+      </div>
+      <div class="game-date mt-2">
+        <span>Sat, Nov 30th - 9:00 PM EST</span><br>
+        <span><b>Slots: 68 / 128</b> +60 waiting</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 right-game">
+    <%= image_tag("home/game-2.png", :alt => "premium_btn", :class=>"full-width") %>
+    <div class="tournemants-main-time">
+      <div class="tour-date-mark">
+        <span style="color: #FFAB2E"><b>1st</b></span><br>
+        <span>Dec</span>
+      </div>
+    </div>
+    <div class="tournaments-main-detail mt-2">
+      <span class="game-mark">HEARTHSTONE</span>
+      <div class="game-description mt-2">
+        <span><b>Here will go the Tournament Title</b></span>
+      </div>
+      <div class="game-date mt-2">
+        <span>Sat, Nov 30th - 9:00 PM EST</span><br>
+        <span><b>Slots: 68 / 128</b></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-3">
+  <div class="col-6 left-game">
+    <%= image_tag("home/game-3.png", :alt => "premium_btn", :class=>"full-width") %>
+    <div class="tournemants-main-time">
+      <div class="tour-date-mark">
+        <span style="color: #FFAB2E"><b>30</b></span><br>
+        <span>Nov</span>
+      </div>
+    </div>
+    <div class="tournaments-main-detail mt-2">
+      <span class="game-mark">FIFA 20</span>
+      <div class="game-description mt-2">
+        <span><b>NIKE $500 FIFA Tournament...</b></span>
+      </div>
+      <div class="game-date mt-2">
+        <span>Sat, Nov 30th - 9:00 PM EST</span><br>
+        <span><b>Slots: 68 / 128</b> +60 waiting</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 right-game">
+    <%= image_tag("home/game-4.png", :alt => "premium_btn", :class=>"full-width") %>
+    <div class="tournemants-main-time">
+      <div class="tour-date-mark">
+        <span style="color: #FFAB2E"><b>1st</b></span><br>
+        <span>Dec</span>
+      </div>
+    </div>
+    <div class="tournaments-main-detail mt-2">
+      <span class="game-mark">HEARTHSTONE</span>
+      <div class="game-description mt-2">
+        <span><b>Here will go the Tournament Title</b></span>
+      </div>
+      <div class="game-date mt-2">
+        <span>Sat, Nov 30th - 9:00 PM EST</span><br>
+        <span><b>Slots: 68 / 128</b></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mt-4 text-center">
+  <%= link_to "<span class='round-border'>ALL TOURNAMENTS</span>".html_safe, tournaments_path %>
+</div>

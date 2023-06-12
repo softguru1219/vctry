@@ -1,0 +1,546 @@
+---
+en:
+  active_admin:
+    dashboard: Dashboard
+    dashboard_welcome:
+      call_to_action: Call to action
+      welcome: Welcome
+  date:
+    abbrDayNames: Abbrdaynames
+    abbrMonthNames: Abbrmonthnames
+    dayNames: Daynames
+    monthNames: Monthnames
+  errors:
+    messages:
+      not_saved: Not saved
+  home:
+    big_header: Vctry
+    sub_header: 'The #1 place to buy and sell knuckleboom cranes'
+    welcome_text: Our search feature makes it easier and more efficient for buyers to find the crane best suited for their application. We make it easy to list your knuckleboom crane for sale. Since our website is dedicated to knuckle boom cranes, buyers will find your crane easier resulting in a quicker sale!
+  menu:
+    add_listing: Ajouter une annonce
+    articles: Articles
+    listings: Camions et grues à vendre
+    sold_listings: Sold listings
+  time:
+    formats:
+      default: Default
+  views:
+    pagination:
+      first: First
+      last: Last
+      truncate: Truncate
+
+  homepage:
+    titles:
+      mobile:
+        signedIn: The best eSports<br>Tournament<br>website
+        signedOut: The best eSports <br>Tournament website
+        picks: Our Picks
+        tournaments: All Tournaments
+      desktop: 
+        title: Make a living<br> with Esports
+        picks: Our Tournament Picks
+        tournaments: Browse all tournaments
+      main_text: Participate in over 120 prize money<br> tournaments every month.
+      view_all: View all
+      checkout_tournaments: Check out our tournaments
+      or: or
+      tell_us_more: Tell Us More
+      cancel: Cancel
+      day: day
+      days: days
+      for: for
+      pay: pay
+      per: per
+      month: month
+      week: week
+      save: save
+      ago: ago
+      slots: slots
+      waiting_list: Waiting List
+      online: online
+      only: only
+      open: open
+      closed: closed
+      next: Next
+      premium: Premium
+      current_balance: Current balance
+      fee: fee
+      missing_balance: Missing balance
+      deposit: deposit
+      prize_money: Prize Money
+      will_balance: Your balance will be
+      buy_in_title: buy-in
+      cash_buyin: buy in
+      cash_prize: cash prize
+      prize_pool: prize pool
+      standing_prize_pool: prize pool
+      prize: prize
+      the: the
+      before: before
+      round: round
+      match: match
+      game: game
+      has: has
+      ready: ready
+      winner: Winner
+      draw: DRAW
+      view: View
+      profile: profile
+      hi: hi
+      there: there
+      thank_join_vctry: Thank you for joining VCTRY.gg
+      by: by
+      germany: germany
+      click: click
+      here: here
+      events: events
+      all: all
+      no_events: No Events
+      take_next_event: Take me to my next event
+      show_all_events: Show me all the events
+      remove: remove
+      confirm: confirm
+      delete: delete
+      clear: clear
+      withdraw: withdraw
+      history: history
+      tournament: tournament
+      raffle: raffle
+      of: of
+      years: years
+      old: old
+      past: past
+      best: best
+      results: results
+      won: won
+      nickname: Nickname
+      calendar: calendar
+      wallet: wallet
+      overlay_premium: <span class="overlay-premium-color">P</span>remium
+      settings: settings
+      page: page
+      subscribe: subscribe
+      full: full
+      my: my
+      complete: complete
+      to: to
+      win: win
+      content_creator_code: Content Creator Code
+      full_history: view full history
+      view_friend_list: View my complete Friend List
+
+    header:
+      titles:
+        search: Search for a user...
+        my_profile: My profile
+        my_tournaments: My Tournaments
+        modify_profile: Modify my profile
+        logout: Logout
+
+    footer:
+      copyright:
+        site: VCTRY Esports UG
+        website: Website by
+        website_name: nekson
+      titles:
+        sitemap: Sitemap
+        home: Home
+        login: Log In
+        signup: Sign Up
+        about_name: About VCTRY
+        about: About
+        team: The Team
+        jobs: Jobs
+        contact: Contact Us
+        faq: FAQ
+        help: Help & Support
+        content_creator:
+          desktop: You are a Content Creator
+          mobile: Content Creators
+        media_kit: Our Media Kit
+        tournaments: All Tournaments 
+        license: The tournaments on this website are not affiliated with or sponsored by Electronic Arts Inc. or its licensors
+        terms_condition: Terms & Conditions
+
+    content_creator:
+      title: Are you a Content Creator
+      content: Let's partner up and organize a tournament for your Community together!
+      main_content: And you would like to organize a tournament for your Community with us. Simply fill this contact form and we will reploy to you shortly!
+      success_content:
+        title: Thank you
+        content: We have happily received your application. <br>Our Partnerships Team will contact you very shortly!
+      user:
+        labels:
+          discord: Discord or Phone Number
+        placefolders: 
+          discord: (040) 1111-1111
+        hints:
+          discord: Enter a valid discord name
+
+    premium:
+      title: 
+        desktop: Want to gain unlimited access to prize money tournaments?
+        mobile: Want to play Tournaments and </br>win nice cash prizes?
+  
+  user:
+    labels:
+      username: User Name
+      email: Email
+      password: Password
+      confirm_password: Confirm Password
+      firstname: First Name
+      lastname: Last Name
+      birthday: Date of Birth
+      address: Full Address
+      country: Country
+      discord: Enter your DISCORD ID
+      psn: Enter your PSN ID
+      xbox: Enter your XBOX LIVE ID
+      steam: Enter your STEAM ID
+      epic: Enter your Epic Game ID
+      battle: Enter your BATTLE TAG
+      language: Spoken Languague
+      stream: Where do you Stream?
+      youtube: YouTube
+      twitch: Twitch
+      facebook: Facebook
+      mixer: Mixer
+      send_message: Send Us a Message
+      new_password: New password
+      confirm_new_password: Confirm new Password
+
+    placefolders:
+      username: Enter your username
+      email: Enter your email address
+      password: Enter your password
+      confirm_password: Repeat your password
+      firstname: Enter your first name
+      lastname: Enter your first name
+      address: Enter your full address
+      paypal: LINK MY PAYPAL
+      discord: Enter your DISCORD ID
+      language: Choose the language(s)
+      youtube: Enter your YouTube username
+      twitch: Enter your Twitch username
+      facebook: Enter your Facebook username
+      mixer: Enter your Mixer name
+      country: Select your country
+    
+    hints:
+      username: Enter a valid username
+      email: Enter a valid email address
+      password: Must contain at least one uppercase and lowercase letter, and at least 6 or more characters
+      confirm_password: Passwords do not match
+      firstname: Enter a valid first name
+      lastname: Enter a valid last name
+      birthday: Enter a valid birthday
+      address: Enter a valid full address
+      country: Enter a valid country
+      discord: Enter a valid discord ID
+      language: Enter a valid language
+    
+    titles:
+      forgot_password:
+        mobile: Forgot your password?
+        desktop: Forgot password?
+      no_have_account: Don't have an account yet?
+      have_account: Already have an account?
+      terms_agree: By signing up, you agree to our
+      terms_condition: Terms and Conditions
+      privacy: Privacy Policy
+      legal_notice: Legal Notice
+
+    edit:
+      titles:
+        complete_profile: Complete your profile
+        step: Step
+        personal: PERSONAL
+        payment: PAYMENT
+        games: YOUR GAMES
+        ids: YOUR IDS
+        paypal_link: Link your PayPal account</b> to receive<br/> your Cash Prizes
+        no_have_paypal: DON'T HAVE PAYPAL? <b>SIGN UP HERE</b>
+        select_game: What Games do you play?
+        select_id: Enter your IDs
+        change_password: Change your password
+        forgot_password: Forgot your password
+        resent_confirmation: Resend confirmation instructions
+        photo_upload: Edit My Cover Picture
+        recommend_size: Recommended size
+        member_since: Member since
+        edit_my_profile: Edit My Profile
+        unfriend: unfriend
+        tournaments: tournaments
+        resend_confirmation: Resend confirmation
+  
+  premium:
+    titles:
+      renew_here: Renew Here
+      is_premium: You are <b><span class="yellow">P</span>remium</b>
+      payment_schedule: Next payment is scheduled for
+      why_premium: Why go <b><span class="yellow">P</span>remium</b>?
+      money_access: <b><span class="yellow">Unlimited access</span> to real <br>money tournaments!</b>
+      daily_raffle: <b><span class="yellow">Receive 5 times more</span> Daily <br>Raffle Tickets</b> compared to a <br>free user
+      online_events: Qualify for <b>events both <span class="yellow">online and offline</span></b>
+      content_creator: Support your <b>favorite <span class="yellow">Content Creator</span></b>
+      premium_total: Get <b>access to exclusive <span class="yellow">P</span>remium Content</b>, Events, and Raffles
+      creator_code: Content Creator <b>Code</b>
+      favorite_content: Support your favorite Content Creator
+      placeholders:
+        enter_code: Enter Code
+        enter_promo_code: Enter a Promo Code
+      creator_name: Thank your for supporting %{current_creator}
+      premium_plan: Pick your <b><span class="yellow">P</span>remium</b> Plan
+      onetime_purchase: <b>One-Time Purchase</b><br>(4 Options)
+      most_popular: Most Popular
+      monthly_renewal: Monthly Renewal
+      cancel_renewal_title: Cancel When you Want
+      voucher_purchase: 
+        desktop: <b>Voucher Purchase</b><br>Gift Premium to a friend, a team mate, or a viewer
+        mobile: <b>Voucher Purchase</b><br>Gift Premium to a friend, a<br> team mate, or a viewer
+      promotion_coupon: <b>Coupon of Promotions</b><br>Any Promo Code Avaliable?
+      tax_sentence: Including 16% value added tax
+      vgo: You do not have a Paypal account or a credit card? Then buy weekly and monthly passes at our partner VGO-Shop and use different payment methods like Paysafecard, Sofortüberweisung, Maestro and many more.
+      vgo_banner_title: Click above to visit VGO
+      
+  tournaments:
+    titles:
+      browse_tournaments: Browse Tournaments
+      choose_game: Choose a Game
+      popular_game: Popular Games
+      coming_soon: coming soon
+      free_tournaments: free tournaments
+      paid_tournaments: paid tournaments
+      mine: mine
+      ongoing: ongoing
+      upcoming: upcoming
+      completed: completed
+      ongoing_tournaments: ongoing tournaments
+      upcoming_tournaments: upcoming tournaments
+      completed_tournaments: completed tournaments
+      more_tournaments: view more tournaments
+      event_start_in: Event starts in
+      event_started: Event started
+      registrations: registrations
+      join_tournament: Join Tournament
+      check_profile: Click here to edit your profile
+      join_tournament_title: Join The <b><span class="yellow">T</span>ournament</b>
+      start_in: starts in
+      started: started
+      overview: overview
+      participants: participants
+      brackets: brackets
+      description: description
+      structure: structure
+      contact: contact
+      prize: prize
+      rules: rules
+      video: video
+      share_tournament: Share the Tournament
+      players: players
+      more_players: view more players
+      login: Login
+      game_id: GAME ID
+      complete_info: Complete Your information
+      buyin_pay: Pay the Buy-in
+      premium_register: To register for that Tournament it is required to be Premium
+      buyin_price: Tournament Buy-in Price
+      leave_tournament: Leave tournament
+      checkin_before: Check-in before
+      checkin_closed: Check-in closed
+      checkin_available: Checkin-in available in
+      checked_in: You are checked-in
+      tournament_start_in: The tournament starts in
+      tournament_started: The tournament started
+      match_progress: Matches are in progress. You will be notified when it’s your time to shine
+      no_match: No more matches are planned for you as you’ve lost already. Bummer.
+      go_current_game: Go to current game
+      go_next_game: Go to my next game
+      have_checkin_time: You have <span class="blue clock"></span> to Check-in with
+      missed_checkin: You missed your check-in with
+      default_lost: and lost by default
+      have_to_checkin: You Have Have to check-in
+      will_start_match: The match will start in
+      confirm_score: We are confirming the score
+      minute_to_confirm: minutes to confirm
+      have_to_confirm_score: You have to confirm the score
+      game_over: The game is over
+      match_lasted: The match lasted
+      game_completed: The game is completed
+      open_chat: Open Chat
+      call_admin: Call an Admin
+      score_submit_available: Score submittal available in
+      contact_discord: We will now open your Discord DMs so that you can contact
+      enter_final_score: Enter the final score
+      confirm_final_score: Confirm the final score
+      entered_final_score: You entered the final score!
+      confirming_final_score: We are confirming it with
+      no_agree_final_score: Don't agree with the final score?
+      click_admin: Simply click on the "Call an Admin" button below and someone will come to assist you in the chat
+      click_final_score: Click here to get to the final score
+      confirm_the_final_score: Do you confirm the final score
+      no_confirm_before: If you don't confirm before
+      auto_approve: the score will be automatically approved
+      complete_next_match: Your match is complete. Please click here to go to your next match.
+      complete_miss_match: Your match is complete. Click here to get back to the tournament overview.
+      view_all_the_winners: View all the winners
+      final_standings: Waiting for final standings
+      tournament_is_ongoing: Tournament is ongoing
+      protection: Enter the tournament password
+      join_confirm_buyin: Do you want to spend
+      from_tournament: from your wallet to join (tournament)?
+      deposit_confirm: Do you want to deposit
+      to_wallet: to your wallet?
+  
+  friends:
+    titles:
+      search_friend: Friends Search
+      waiting_confirmation: Waiting for confirmation
+      add_friend: Add Friend
+      friend_list: Friend List
+      will_receive_request: On this page we will display your friend list and the friend requests you will receive.
+      no_invite_friend: Currently You don't have any<br>invite your friends to join to VCTRY!
+      requests_friend: Friend Requests
+
+  notifications:
+    titles:
+      notification_title: notifications
+      inform_notification: On this page we will inform you about your<br> actions and your friends’ achievements on<br> VCTRY.GG
+      no_notification: You don't have any<br> notification yet
+      all_notifications: View all my notifications
+  
+  wallets:
+    titles:
+      my_wallet: My Wallet
+      before_withdraw: You need to login paypal before withdraw.
+      edit_profile: Click here to edit your profile
+      premium_purchase: Premium purchase
+      buy_in_title: Buy-in
+      first_deposit: Deposit your first amount to be<br> able to pay on the website
+      no_history: You currently have no history
+      
+  raffles:
+    titles:
+      daily_raffle: Daily Raffle
+      no_raffle: There is no Raffle currently
+      winners_of: Winners of
+      past_raffle: Past Raffle
+      ends_in: Ends in
+      need_to_least: You need at least
+      enter_ticket: tickets to enter this raffle.
+      brand_name: Brand Name
+      social_media: our social medias
+      sponsor_banner: Sponsor Banner Here
+      my_raffle_ticket: My Raffle Tickets
+      redeemed_ticket: You have already redeemed your<br>tickets for today!
+      get_my_ticket: Get my tickets
+      yesterday_raffle: Winners of yesterday's Raffle
+      all_past_raffles: View all past raffles
+      congrat_subscribe_raffle: Congratulations!<br>You are subscribed to the Raffle
+      luck_winner: The lucky winner will be announced in
+      subscribe_raffle: Subscribe to the
+      selecting_ticket: By selecting How many tickets you want use
+      generate_winner: Generate winners
+      no_participants: No participants exists in this raffle
+      prizes: prizes
+      view_raffle_page: View raffle page && subscribe
+  
+  event:
+    titles:
+      vctry_pack_race: vctry pack race
+      event_powered_by: event powered by
+
+  notification:
+    titles:
+      message: Your next match is available. Click here to go to the check-in.
+
+  button:
+    login: LOG IN NOW
+    signup: SIGN UP NOW
+    continue: Continue
+    step: GO TO STEP
+    save_complete: SAVE & COMPLETE MY SIGN UP
+    apply_here: Apply Here
+    send_partnership: Send partnership request
+    premium: GET <span class="yellow">P</span>REMIUM NOW
+    premium_active_code: Active Code
+    use_wallet: Use Wallet
+    final_registration: 
+      mobile: Finalize your registration
+      desktop: Finalize your registration
+    checkin_btn: Check in
+    change_my_password: Change my password
+    reset_password: Send me reset password instructions
+    resend_confirmation: Resend confirmation instructions
+    save_my_picture: Save my picture
+
+  errors:
+    titles:
+      warning: Warning!
+      discord: This Discord handle is already in use by another player
+      psn: This PSN ID is already in use by another player
+      xbox: This XBOX LIVE ID is already in use by another player
+      steam: This STEAM ID is already in use by another player
+      battle: This BATTLE TAG is already in use by another player
+      discord_id: DISCORD ID
+      psn_id: PSN ID
+      xbox_id: XBOX Live ID
+      steam_id: STEAM ID
+      epic_id: Epic Game ID
+      cover_dimension: Please select a file equal or bigger than 1440px x 360px
+      cover_size: Tile too Big, please select a file less than 1MB
+      tournament_protection: Enter a valid password
+
+  alert:
+    titles:
+      success_premium: Your purchase was successful
+      failed_premium: Your purchase is failed
+      success_voucher_email: Your codes have been sent by email.
+      cancel_renewal: Your changes have been applied. Your subscription will not auto-renew at the end of this billing cycle
+      confirm_amount: Do you really want to use
+      from_balance: from your balance?
+      non_orderId: Doesn't exist the order ID
+      opponent_submitting_score: Your opponent is currently submitting a score
+      email_alert: Email has already been taken
+      username_alert: Username has already been taken
+      terms_alert: Have to accept the Terms and Conditions & Privacy Policy
+      confirm_email_alert: You have to confirm your email address before continuing.
+      resend_confirm_email: Click here if we should resend the confirmation email
+      failed_deposit: Your deposit is failed, Retry after some time.
+      failed_wallet: Your withdraw is failed, Retry after some time.
+
+  flash:
+    titles:
+      coupon: You have redeemed %{redeem_interval} of premium!
+      premium_alert: Please enter the right promo code
+      discord_stream_alert: You need to set your %{discord_alert} and %{stream_alert} before you can join this tournament.
+      discord_alert: You need to set your %{discord_alert} before you can join this tournament.
+      stream_alert: You need to set your %{stream_alert} before you can join this tournament.
+      leave_tournament: You have left the tournament
+      remove_match: Your match does not exist anymore so you have been redirected to the tournament overview
+      thanks_requesting: Thank you for requesting
+      thanks: Thank you
+      admin_youtube_alert: The Youtube link needs to be a valid embed URL which contains "embed" in the address
+      single_play: You can only play %{tournament_name} without participating to any other active tournaments
+
+  mail:
+    titles:
+      thank_join_vctry: Thank you for joining VCTRY.gg
+      confirm_email: You are one step away from a whole new Esports experience. To complete your registration, please confirm your email address.
+      confirm_email_address: Confirm Email Address
+      button_not_working: This button is not working?
+      past_browser: Try pasting this link in your web browser
+      sent_email: This email was sent to
+      vctry_esports: VCTRY Esports UG
+      street: Hannoversche Straße 41
+      street_number: 29221 Celle
+      reset_pasword_request: A password reset has been requested
+      click_reset_password: Seems like you forgot something. Click below to reset your password.
+      voucher_subject: Your VCTRY vouchers
+      partner_subject: Your VCTRY partners
+      thanks_purchase: Thank you very much for your purchase
+      find_premium_code: You can find your Premium Voucher Code(s) below.
+      enter_code: if you want to enter your code.
+

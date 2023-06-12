@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="wrapper">
+    <div class="flex-left mt-3">
+      <span class="profile_edit_title"><b><%= I18n.t('user.edit.titles.complete_profile') %></b> (<%= I18n.t('user.edit.titles.step') %> <span class="step_index">1</span> / 3)</span>
+    </div>
+    <ul class="steps header_menu mt-3">
+      <li class="is-active header_menu__item"><%= I18n.t('user.edit.titles.personal') %></li>
+      <li class="header_menu__item flex-center mx-auto"><%= I18n.t('user.edit.titles.payment') %></li>
+      <li class="header_menu__item"><%= I18n.t('user.edit.titles.ids') %></li>
+    </ul>
+    <div class="form-wrapper mt-3">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, :class=>'needs-validation', novalidate: true }) do |f| %>
+        <fieldset class="section is-active mt-3 px-3">
+          <%= render partial: "user_edit_step_1", :locals=>{f: f} %>
+        </fieldset>
+        <fieldset class="section mt-3 px-3">
+          <%= render partial: "user_edit_step_2", :locals=>{f: f} %>
+        </fieldset>
+        <fieldset class="section mt-3 px-3">
+          <%= render partial: "user_edit_step_3", :locals=>{f: f} %>
+        </fieldset>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $(window).keydown(function(event){
+      if(event.keyCode == 13) {
+        event.preventDefault();
+        return false;
+      }
+    });
+  })
+</script>

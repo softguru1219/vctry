@@ -1,0 +1,43 @@
+<div class="mt-3 container game-detail-content__status">
+  <div class="wrapper">
+    <div class="game-detail-content__steps mt-3 row">
+      <% if Match.where(tournament_id: @tournament.id).present? %>
+        <div class="col-md-4 col-sm-4 pl-0">
+      <% else %>
+        <div class="col-md-6 col-sm-6 pl-0">
+      <% end %>
+        <a href="javascript:void(0)" class="tablinks desktop-overview is-active text-uppercase" onclick="detailTabSwitcher(event, 'desktop-overview')"><%= I18n.t('tournaments.titles.overview')%></a>
+      </div>
+      <% if Match.where(tournament_id: @tournament.id).present? %>
+        <div class="col-md-4 col-sm-4 px-0">
+      <% else %>
+        <div class="col-md-6 col-sm-6 pr-0">
+      <% end %>
+        <a href="javascript:void(0)" class="tablinks desktop-participants text-uppercase" onclick="detailTabSwitcher(event, 'desktop-participants')"><%= I18n.t('tournaments.titles.participants')%></a>
+      </div>
+      <!-- <li class="header_menu__item tablinks select-options" onclick="tabSwicher(event, 'brackets')">
+        BRACKETS
+        <div class="select-options__list">
+          <div>AAA</div>
+          <div>BBB</div>
+        </div>
+      </li> -->
+      <% if Match.where(tournament_id: @tournament.id).present? %>
+        <div class="col-md-4 col-sm-4 pr-0">
+          <select class="select text-uppercase" name="desktop-brakets" onchange='mySelectHandler("desktop-brakets")'>
+            <option value="brackets-title" disabled selected class="d-none text-uppercase"><%= I18n.t('tournaments.titles.brackets')%></option>
+            <% if @tournament.stages.present? %>
+              <% stages(@tournament).each do |stage|%>
+                <% cache(stage) do %>
+                  <option class="tablinks desktop-<%= stage.name %>"><%= stage.name %></option>
+                <% end %>
+              <% end %>
+            <% end %>
+            <!-- <option class="tablinks desktop-playoffs">PLAYOFFS</option> -->
+            <!-- <option class="tablinks desktop-groups">GROUPS</option> -->
+          </select>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

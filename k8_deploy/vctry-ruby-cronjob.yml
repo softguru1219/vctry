@@ -1,0 +1,28 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: vctry-ruby-cronjob
+spec:
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 2
+  successfulJobsHistoryLimit: 3
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: vctry-ruby-cronjob
+            image: registry.digitalocean.com/vctry-new-registry/vctry-ruby
+            imagePullPolicy: Always
+            envFrom:
+            - secretRef:
+                name: dotenv-secret
+            args:
+            - /bin/bash
+            - -c
+            - rake toornament:setup
+          restartPolicy: OnFailure
+          schedulerName: default-scheduler
+          terminationGracePeriodSeconds: 150
+          securityContext: {}

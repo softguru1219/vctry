@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: vctry-ruby-migration
+spec:
+  activeDeadlineSeconds: 60
+  template:
+    spec:
+      containers:
+      - name: vctry-ruby-migration
+        image: registry.digitalocean.com/vctry-new-registry/vctry-ruby
+        imagePullPolicy: Always
+        envFrom:
+        - secretRef:
+            name: dotenv-secret
+        command:
+          - rake
+        args:
+          - db:migrate
+      restartPolicy: Never

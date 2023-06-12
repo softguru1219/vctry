@@ -1,0 +1,46 @@
+<div class="px-5">
+  <div class="game-detail">
+    <!-- <div class="background-full-image game-detail__background" style="background-image: url(<#%= asset_path 'tournament/tournament_47_bg.png' %>)"> -->
+    <div class="game-detail__background" style="background-image: url(<%= asset_path 'tournament/tournament_47_bg.png'%>)">
+      <div class="game-detail__content"></div>
+      <div class="back-btn">
+        <a href="/tournaments"><i class="fa fa-arrow-left"></i></a>
+      </div>
+      <div class="game-date">
+        <div class="tournemant-date__mark game-date__mark">
+          <span>STARTS IN</span><br>
+          <span class="yellow"><b>00:28:29</b></span>
+        </div>
+      </div>
+      <div class="game_titles contain-padding">
+        <span class="game-mark"><b>FIFA 20</b></span>
+        <div class="game_titles__details mt-2">
+          <span>NIKE $550 FIFA<br> Tournament hosted by<br> VCTRY eSports UG!</span>
+          <span class="round-dot yellow text-center">p</span>
+        </div>
+        <div class="game_titles__date mt-1">
+          <i class="united states flag"></i>
+          <span>Online (Germany Only)</span>
+        </div>
+        <div class="game_titles__date mt-1">
+          <span class="yellow">https://discord.gg/y31zk0514</span>
+        </div>
+      </div>
+      <div class="block-tnmt">
+        <div class="block-tnmt__row">
+          <div class="block-tnmt__item bottom-round--left">
+            Registrations: <span class="pl-1"><strong>Open</strong></span>
+          </div>
+          <div class="block-tnmt__item bottom-round--right d-inline-block">
+            <div>Players: <span class="pl-1"><strong>128 / 128</strong></span></div>
+            <div>Waiting List: <span class="pl-1"><strong>60</strong></span></div>
+          </div>
+        </div>
+        <a href="<%= tournament_join_path %>" class="full-width">
+          <div class="join-tournament-btn">Register on the waiting list</div>
+        </a>
+      </div>
+    </div>
+    <%= render partial: 'game_detail_content' %>
+  </div>
+</div>

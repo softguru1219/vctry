@@ -1,0 +1,40 @@
+<div class="container-fluid">
+  <div class="row home-mobile-resolution">
+    <%= render partial: 'new_password_modal' %>
+  </div>
+</div>
+
+<div class="desktop-resolution">
+  <%= render partial: 'desktop_new_password' %>
+  <div class="tour-background">
+    <div class="container">
+      <% if @tournaments.present? %>
+        <%= render partial: 'home/desktop/toornaments_background' %>
+      <!--<#% else %>
+        <#%= render partial: 'home/desktop/tournament_background' %>-->
+      <% end %>
+    </div>
+  </div>
+  <%= render partial: 'home/desktop/content_creator' %>
+  <%= render partial: 'home/desktop/quotation' %>
+</div>
+
+<!--<#%= render "users/shared/links" %>-->
+
+<script>
+  $(document).ready(function() {
+    if (window.matchMedia('(max-width: 800px)').matches) {
+        $('footer').hide();
+    } else {
+        $('footer').show();
+    }
+
+    $( window ).resize(function() {
+      if ($(window).width() > 800) {
+        $('footer').show();
+      } else {
+        $('footer').hide();
+      }
+    });
+  })
+</script>

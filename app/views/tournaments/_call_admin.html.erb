@@ -1,0 +1,29 @@
+<div class="game-detail game-round">
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <a href="javascript:void(0)" onclick="openChat()">
+          <div class="round-border text-uppercase"><%= I18n.t('tournaments.titles.open_chat') %></div>
+        </a>
+      </div>
+      <div class="col-6">
+        <a href="https://discord.gg/vctry" target="_blank">
+          <div class="round-border text-uppercase"><%= I18n.t('tournaments.titles.call_admin') %></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<span class="partner-discordID d-none"><%= partnerInfo(score_players(@match)) %></span>
+<script>
+  function openChat() {
+    discordID = "<%= current_user.discord_id %>"
+    partner_discordID = $('.partner-discordID').eq(0).text();
+    contact_discord = "<%= I18n.t('tournaments.titles.contact_discord') %>"
+    var txt;
+    var r = confirm(`${contact_discord} ${partner_discordID}`);
+    if (r == true) {
+      window.open(`https://discordapp.com/users/${discordID}`);
+    }
+  }
+</script>

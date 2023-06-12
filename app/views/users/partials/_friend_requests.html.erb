@@ -1,0 +1,26 @@
+<div class="friends_title">
+  <span class><%= I18n.t('friends.titles.requests_friend') %></span>
+</div>
+<div class="mt-3">
+  <% if friends.present? %>
+    <% friends.order("created_at ASC").each do |friend| %>
+      <div class="friend_lists">
+        <%= image_tag(User.find(friend[:user_a_id]).avatar.url, :alt => "logo", :class=>"frend-icon") %>
+        <div class="d-inline-block ml-3 full-width">
+          <span><%= User.find(friend[:user_a_id]).full_name %></span>
+          <% if User.find(friend[:user_a_id]).subscriptions.present? %>
+            <%= image_tag("home/premium_mark.png", :alt => "premium_btn") %>
+          <% end %>
+          <div class="flex-center text-uppercase mt-1">
+            <div class="friend_lists__view_profile">
+              <%= link_to I18n.t('homepage.titles.confirm').capitalize, confirm_friend_users_path(User.find(friend[:user_a_id])), :class=>"friend-round-border" %>
+            </div>
+            <div class="friend_lists__remove_profile">
+              <%= link_to I18n.t('homepage.titles.delete').capitalize, remove_friend_users_path(User.find(friend[:user_a_id])), :class=>"friend-round-border" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
